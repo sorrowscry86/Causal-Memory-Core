@@ -1,0 +1,195 @@
+{
+  "summary": {
+    "total_benchmarks": 35,
+    "test_types": [
+      "query_performance",
+      "concurrent_operations",
+      "memory_scaling",
+      "bulk_events_50",
+      "bulk_events_100",
+      "bulk_events_500",
+      "database_operations",
+      "unknown",
+      "bulk_events_10",
+      "single_event_performance"
+    ],
+    "date_range": {
+      "earliest": "2025-09-09T23:03:15.315199+00:00",
+      "latest": "2025-09-09T23:20:55.864192+00:00"
+    }
+  },
+  "by_test_type": {
+    "bulk_events_100": {
+      "count": 2,
+      "execution_times": {
+        "mean": 1.0327138900756836,
+        "median": 1.0327138900756836,
+        "min": 1.0327138900756836,
+        "max": 1.0327138900756836,
+        "stddev": 0.0
+      },
+      "memory_usage": {
+        "mean": 2.203125,
+        "median": 2.203125,
+        "min": 2.203125,
+        "max": 2.203125,
+        "stddev": 0.0
+      }
+    },
+    "bulk_events_10": {
+      "count": 4,
+      "execution_times": {
+        "mean": 0.21737146377563477,
+        "median": 0.21737146377563477,
+        "min": 0.17980360984802246,
+        "max": 0.25493931770324707,
+        "stddev": 0.04337962115596701
+      },
+      "memory_usage": {
+        "mean": -2.5859375,
+        "median": -2.5859375,
+        "min": -6.24609375,
+        "max": 1.07421875,
+        "stddev": 4.226384392427183
+      }
+    },
+    "bulk_events_500": {
+      "count": 2,
+      "execution_times": {
+        "mean": 4.5147223472595215,
+        "median": 4.5147223472595215,
+        "min": 4.5147223472595215,
+        "max": 4.5147223472595215,
+        "stddev": 0.0
+      },
+      "memory_usage": {
+        "mean": 3.203125,
+        "median": 3.203125,
+        "min": 3.203125,
+        "max": 3.203125,
+        "stddev": 0.0
+      }
+    },
+    "bulk_events_50": {
+      "count": 2,
+      "execution_times": {
+        "mean": 0.5949969291687012,
+        "median": 0.5949969291687012,
+        "min": 0.5949969291687012,
+        "max": 0.5949969291687012,
+        "stddev": 0.0
+      },
+      "memory_usage": {
+        "mean": 7.97265625,
+        "median": 7.97265625,
+        "min": 7.97265625,
+        "max": 7.97265625,
+        "stddev": 0.0
+      }
+    },
+    "concurrent_operations": {
+      "count": 4,
+      "execution_times": {
+        "mean": 0.38779914379119873,
+        "median": 0.38779914379119873,
+        "min": 0.1863996982574463,
+        "max": 0.5891985893249512,
+        "stddev": 0.23255604818710668
+      },
+      "memory_usage": {
+        "mean": 0.556640625,
+        "median": 0.556640625,
+        "min": 0.12890625,
+        "max": 0.984375,
+        "stddev": 0.49390511309581264
+      }
+    },
+    "database_operations": {
+      "count": 4,
+      "execution_times": {
+        "mean": 0.2637364864349365,
+        "median": 0.2637364864349365,
+        "min": 0.18256163597106934,
+        "max": 0.3449113368988037,
+        "stddev": 0.09373264353348268
+      },
+      "memory_usage": {
+        "mean": 0.96875,
+        "median": 0.96875,
+        "min": 0.41015625,
+        "max": 1.52734375,
+        "stddev": 0.6450085038602851
+      }
+    },
+    "memory_scaling": {
+      "count": 4,
+      "execution_times": {
+        "mean": 2.441250801086426,
+        "median": 2.441250801086426,
+        "min": 0.3855454921722412,
+        "max": 4.49695611000061,
+        "stddev": 2.3737240269522943
+      },
+      "memory_usage": {
+        "mean": 2.771484375,
+        "median": 2.771484375,
+        "min": 1.3671875,
+        "max": 4.17578125,
+        "stddev": 1.6215423576068004
+      }
+    },
+    "query_performance": {
+      "count": 4,
+      "execution_times": {
+        "mean": 0.2741384506225586,
+        "median": 0.2741384506225586,
+        "min": 0.1801164150238037,
+        "max": 0.3681604862213135,
+        "stddev": 0.10856729512539541
+      },
+      "memory_usage": {
+        "mean": -2.56640625,
+        "median": -2.56640625,
+        "min": -5.1640625,
+        "max": 0.03125,
+        "stddev": 2.9995150703992275
+      }
+    },
+    "unknown": {
+      "count": 1,
+      "execution_times": {
+        "mean": 0,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "stddev": 0
+      },
+      "memory_usage": {
+        "mean": 0,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "stddev": 0
+      }
+    },
+    "single_event_performance": {
+      "count": 8,
+      "execution_times": {
+        "mean": 0.44431644678115845,
+        "median": 0.43362367153167725,
+        "min": 0.18851590156555176,
+        "max": 0.7215025424957275,
+        "stddev": 0.2730448712848011
+      },
+      "memory_usage": {
+        "mean": 20.64453125,
+        "median": 20.740234375,
+        "min": 18.8359375,
+        "max": 22.26171875,
+        "stddev": 1.6443542861607345
+      }
+    }
+  },
+  "performance_metrics": {},
+  "trends": {}
+}

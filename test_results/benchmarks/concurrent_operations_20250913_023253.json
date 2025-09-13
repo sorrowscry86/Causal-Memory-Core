@@ -1,0 +1,21 @@
+{
+  "test_name": "concurrent_operations",
+  "timestamp": "2025-09-13T07:32:52.513603+00:00",
+  "start_time": 1757748772.3784685,
+  "start_memory_mb": 414.2734375,
+  "start_cpu_percent": 0.0,
+  "total_concurrent_time": 0.6396880149841309,
+  "total_operations": 60,
+  "add_operations": 50,
+  "query_operations": 10,
+  "operations_per_second": 93.79572321905775,
+  "average_add_time": 0.012678818702697754,
+  "average_query_time": 0.0005628108978271484,
+  "successful_queries": 10,
+  "end_time": 1757748773.222592,
+  "execution_time_seconds": 0.8441236019134521,
+  "end_memory_mb": 415.2578125,
+  "memory_delta_mb": 0.984375,
+  "end_cpu_percent": 13.0,
+  "cpu_delta_percent": 13.0
+}

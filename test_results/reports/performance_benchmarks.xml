@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="6" failures="6" skipped="0" tests="6" time="7.129" timestamp="2025-09-09T18:03:09.958868-05:00" hostname="DESKTOP-ORTV2RC"><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_single_event_performance" time="0.680"><failure message="AttributeError: 'list' object has no attribute 'tolist'">tests\e2e\test_performance_benchmarks.py:136: in test_benchmark_single_event_performance
+    memory_core.add_event("User clicked the save button")
+src\causal_memory_core.py:97: in add_event
+    effect_embedding = self.embedder.encode(effect_text).tolist()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'list' object has no attribute 'tolist'</failure></testcase><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_single_event_performance" time="0.000"><error message="failed on teardown with &quot;PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmpeylhnhgo.db'&quot;">tests\e2e\test_performance_benchmarks.py:98: in temp_db_path
+    os.unlink(temp_db_path)
+E   PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmpeylhnhgo.db'</error></testcase><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_bulk_event_performance" time="0.182"><failure message="AttributeError: 'list' object has no attribute 'tolist'">tests\e2e\test_performance_benchmarks.py:181: in test_benchmark_bulk_event_performance
+    memory_core.add_event(event)
+src\causal_memory_core.py:97: in add_event
+    effect_embedding = self.embedder.encode(effect_text).tolist()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'list' object has no attribute 'tolist'</failure></testcase><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_bulk_event_performance" time="0.000"><error message="failed on teardown with &quot;PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmp0xht2zch.db'&quot;">tests\e2e\test_performance_benchmarks.py:98: in temp_db_path
+    os.unlink(temp_db_path)
+E   PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmp0xht2zch.db'</error></testcase><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_memory_scaling" time="0.388"><failure message="AttributeError: 'list' object has no attribute 'tolist'">tests\e2e\test_performance_benchmarks.py:229: in test_benchmark_memory_scaling
+    memory_core.add_event(f"Scaling test event {current_count + i}")
+src\causal_memory_core.py:97: in add_event
+    effect_embedding = self.embedder.encode(effect_text).tolist()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'list' object has no attribute 'tolist'</failure></testcase><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_memory_scaling" time="0.000"><error message="failed on teardown with &quot;PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmpx3yi637e.db'&quot;">tests\e2e\test_performance_benchmarks.py:98: in temp_db_path
+    os.unlink(temp_db_path)
+E   PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmpx3yi637e.db'</error></testcase><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_query_performance" time="0.182"><failure message="AttributeError: 'list' object has no attribute 'tolist'">tests\e2e\test_performance_benchmarks.py:273: in test_benchmark_query_performance
+    memory_core.add_event(event)
+src\causal_memory_core.py:97: in add_event
+    effect_embedding = self.embedder.encode(effect_text).tolist()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'list' object has no attribute 'tolist'</failure></testcase><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_query_performance" time="0.000"><error message="failed on teardown with &quot;PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmpjtycwd9u.db'&quot;">tests\e2e\test_performance_benchmarks.py:98: in temp_db_path
+    os.unlink(temp_db_path)
+E   PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmpjtycwd9u.db'</error></testcase><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_database_operations" time="0.185"><failure message="AttributeError: 'list' object has no attribute 'tolist'">tests\e2e\test_performance_benchmarks.py:322: in test_benchmark_database_operations
+    memory_core.add_event(f"Database performance test event {i}")
+src\causal_memory_core.py:97: in add_event
+    effect_embedding = self.embedder.encode(effect_text).tolist()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'list' object has no attribute 'tolist'</failure></testcase><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_database_operations" time="0.000"><error message="failed on teardown with &quot;PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmpzjv62zih.db'&quot;">tests\e2e\test_performance_benchmarks.py:98: in temp_db_path
+    os.unlink(temp_db_path)
+E   PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmpzjv62zih.db'</error></testcase><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_concurrent_operations" time="0.190"><failure message="AttributeError: 'list' object has no attribute 'tolist'">tests\e2e\test_performance_benchmarks.py:361: in test_benchmark_concurrent_operations
+    memory_core.add_event(f"Concurrent test event {i}")
+src\causal_memory_core.py:97: in add_event
+    effect_embedding = self.embedder.encode(effect_text).tolist()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'list' object has no attribute 'tolist'</failure></testcase><testcase classname="tests.e2e.test_performance_benchmarks.TestPerformanceBenchmarks" name="test_benchmark_concurrent_operations" time="0.000"><error message="failed on teardown with &quot;PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmp3je554w_.db'&quot;">tests\e2e\test_performance_benchmarks.py:98: in temp_db_path
+    os.unlink(temp_db_path)
+E   PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Wykeve\\AppData\\Local\\Temp\\tmp3je554w_.db'</error></testcase></testsuite></testsuites>

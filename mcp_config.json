@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "causal-memory-core": {
+      "command": "python",
+      "args": ["src/mcp_server.py"],
+      "cwd": "e:/Development/Causal Memory Core",
+      "env": {
+        "OPENAI_API_KEY": "your_openai_api_key_here",
+        "DB_PATH": "causal_memory.db",
+        "EMBEDDING_MODEL": "all-MiniLM-L6-v2",
+        "LLM_MODEL": "gpt-3.5-turbo",
+        "LLM_TEMPERATURE": "0.1",
+        "MAX_POTENTIAL_CAUSES": "5",
+        "SIMILARITY_THRESHOLD": "0.7",
+        "TIME_DECAY_HOURS": "24"
+      }
+    }
+  }
+}

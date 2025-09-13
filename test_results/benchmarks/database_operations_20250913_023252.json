@@ -1,0 +1,20 @@
+{
+  "test_name": "database_operations",
+  "timestamp": "2025-09-13T07:32:52.049807+00:00",
+  "start_time": 1757748771.9116735,
+  "start_memory_mb": 413.625,
+  "start_cpu_percent": 0.0,
+  "initialization_time": 0.05860567092895508,
+  "average_write_time": 0.012625801563262939,
+  "average_read_time": 0.0003851413726806641,
+  "close_time": 0.01036524772644043,
+  "total_write_operations": 20,
+  "total_read_operations": 10,
+  "db_file_size_final": 1323008,
+  "end_time": 1757748772.375349,
+  "execution_time_seconds": 0.46367549896240234,
+  "end_memory_mb": 414.2734375,
+  "memory_delta_mb": 0.6484375,
+  "end_cpu_percent": 15.4,
+  "cpu_delta_percent": 15.4
+}

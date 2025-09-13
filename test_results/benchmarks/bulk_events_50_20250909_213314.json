@@ -1,0 +1,23 @@
+{
+  "test_name": "bulk_events_50",
+  "timestamp": "2025-09-10T02:33:14.038368+00:00",
+  "start_time": 1757471593.930156,
+  "start_memory_mb": 404.0859375,
+  "start_cpu_percent": 0.0,
+  "event_count": 50,
+  "bulk_add_duration": 0.6981351375579834,
+  "average_add_time": 0.013847479820251465,
+  "median_add_time": 0.012560009956359863,
+  "stddev_add_time": 0.004835779719200658,
+  "min_add_time": 0.011793375015258789,
+  "max_add_time": 0.04616737365722656,
+  "query_duration": 0.0007233619689941406,
+  "context_length": 51,
+  "events_per_second": 71.61937182376423,
+  "end_time": 1757471594.8148303,
+  "execution_time_seconds": 0.8846743106842041,
+  "end_memory_mb": 409.203125,
+  "memory_delta_mb": 5.1171875,
+  "end_cpu_percent": 11.1,
+  "cpu_delta_percent": 11.1
+}

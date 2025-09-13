@@ -1,0 +1,47 @@
+{
+  "test_name": "memory_scaling",
+  "timestamp": "2025-09-09T23:20:50.643820+00:00",
+  "start_time": 1757460050.5407412,
+  "start_memory_mb": 397.86328125,
+  "start_cpu_percent": 0.0,
+  "memory_scaling_data": [
+    {
+      "event_count": 0,
+      "memory_mb": 404.2109375,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 10,
+      "memory_mb": 407.265625,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 25,
+      "memory_mb": 408.484375,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 50,
+      "memory_mb": 409.078125,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 100,
+      "memory_mb": 410.0546875,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 200,
+      "memory_mb": 412.5234375,
+      "db_file_size": 12288
+    }
+  ],
+  "max_memory_mb": 412.5234375,
+  "memory_growth_rate": 0.0415625,
+  "end_time": 1757460055.0376973,
+  "execution_time_seconds": 4.49695611000061,
+  "end_memory_mb": 402.0390625,
+  "memory_delta_mb": 4.17578125,
+  "end_cpu_percent": 7.9,
+  "cpu_delta_percent": 7.9
+}

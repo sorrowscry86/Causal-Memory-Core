@@ -1,0 +1,48 @@
+{
+  "test_name": "query_performance",
+  "timestamp": "2025-09-13T07:32:51.605892+00:00",
+  "start_time": 1757748771.4639597,
+  "start_memory_mb": 418.38671875,
+  "start_cpu_percent": 0.0,
+  "query_results": [
+    {
+      "query": "application startup",
+      "duration": 0.0010554790496826172,
+      "context_length": 39,
+      "has_context": true
+    },
+    {
+      "query": "file operations",
+      "duration": 0.0004706382751464844,
+      "context_length": 39,
+      "has_context": true
+    },
+    {
+      "query": "document creation",
+      "duration": 0.0003218650817871094,
+      "context_length": 39,
+      "has_context": true
+    },
+    {
+      "query": "user interactions",
+      "duration": 0.0002853870391845703,
+      "context_length": 39,
+      "has_context": true
+    },
+    {
+      "query": "very specific query that might not match anything",
+      "duration": 0.0002903938293457031,
+      "context_length": 39,
+      "has_context": true
+    }
+  ],
+  "average_query_time": 0.0004847526550292969,
+  "successful_queries": 5,
+  "query_success_rate": 1.0,
+  "end_time": 1757748771.9083223,
+  "execution_time_seconds": 0.4443626403808594,
+  "end_memory_mb": 413.62109375,
+  "memory_delta_mb": -4.765625,
+  "end_cpu_percent": 11.7,
+  "cpu_delta_percent": 11.7
+}

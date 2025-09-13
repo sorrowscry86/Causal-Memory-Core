@@ -1,0 +1,13 @@
+{
+  "test_name": "single_event_performance",
+  "timestamp": "2025-09-09T23:03:35.298048+00:00",
+  "start_time": 1757459015.1899564,
+  "start_memory_mb": 367.59375,
+  "start_cpu_percent": 22.2,
+  "end_time": 1757459015.911459,
+  "execution_time_seconds": 0.7215025424957275,
+  "end_memory_mb": 386.4296875,
+  "memory_delta_mb": 18.8359375,
+  "end_cpu_percent": 23.0,
+  "cpu_delta_percent": 0.8000000000000007
+}

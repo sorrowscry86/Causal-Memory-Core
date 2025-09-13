@@ -1,0 +1,13 @@
+{
+  "test_name": "concurrent_operations",
+  "timestamp": "2025-09-09T23:03:17.005860+00:00",
+  "start_time": 1757458996.8870869,
+  "start_memory_mb": 391.47265625,
+  "start_cpu_percent": 23.5,
+  "end_time": 1757458997.0734866,
+  "execution_time_seconds": 0.1863996982574463,
+  "end_memory_mb": 391.6015625,
+  "memory_delta_mb": 0.12890625,
+  "end_cpu_percent": 25.5,
+  "cpu_delta_percent": 2.0
+}

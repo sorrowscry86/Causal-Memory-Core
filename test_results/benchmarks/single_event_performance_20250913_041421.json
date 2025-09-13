@@ -1,0 +1,25 @@
+{
+  "test_name": "single_event_performance",
+  "timestamp": "2025-09-13T09:14:21.568090+00:00",
+  "start_time": 1757754861.4411743,
+  "start_memory_mb": 437.69921875,
+  "start_cpu_percent": 8.9,
+  "operations": [
+    {
+      "operation": "add_event",
+      "duration": 0.011873006820678711
+    },
+    {
+      "operation": "get_context",
+      "duration": 0.00041675567626953125,
+      "context_length": 40
+    }
+  ],
+  "total_operations": 2,
+  "end_time": 1757754861.644445,
+  "execution_time_seconds": 0.20327067375183105,
+  "end_memory_mb": 429.09375,
+  "memory_delta_mb": -8.60546875,
+  "end_cpu_percent": 16.6,
+  "cpu_delta_percent": 7.700000000000001
+}

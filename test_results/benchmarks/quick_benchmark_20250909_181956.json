@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-09-09T23:19:56.062937+00:00",
+  "tests": [
+    {
+      "name": "basic_operations",
+      "init_time": 0.5652129650115967,
+      "add_time": 0.013647079467773438,
+      "query_time": 0.0006756782531738281,
+      "memory_used_mb": 20.66796875,
+      "context_length": 40
+    },
+    {
+      "name": "bulk_operations",
+      "bulk_time": 0.17691397666931152,
+      "avg_add_time": 0.007629132270812989,
+      "events_per_second": 113.04929308883321,
+      "query_time_with_many": 0.0004937648773193359,
+      "total_events": 21
+    },
+    {
+      "name": "cleanup",
+      "close_time": 0.015816688537597656
+    }
+  ]
+}
