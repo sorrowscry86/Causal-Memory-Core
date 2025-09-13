@@ -36,10 +36,10 @@ Scope: Execute the Director’s Mandate in focused phases, one at a time.
 - [x] Migrate CLI E2E tests to call main(argv) directly (drop subprocess) so mocks apply reliably
 - [x] Add CMC_SKIP_DOTENV to skip dotenv loading in tests for deterministic env handling
 - [x] Update CHANGELOG with recent changes
-- [ ] Tag repository post-successful tests: v1.1.0
+- [x] Tag repository post-successful tests: v1.1.0
 
 ## Phase 4 — Wards of Resilience (Robustness)
-- [ ] Verify logging and behavior for broken chains and circular references under load
+- [x] Verify logging and behavior for broken chains and circular references under load
 - [ ] Measure performance on 7-event chain (< 500ms target)
 
 ---
