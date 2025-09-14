@@ -291,7 +291,7 @@ class ComprehensiveTestRunner:
         
         # Save human-readable summary
         summary_file = self.results_dir / "reports" / f"test_summary_{timestamp.strftime('%Y%m%d_%H%M%S')}.md"
-        with open(summary_file, 'w') as f:
+        with open(summary_file, 'w', encoding='utf-8') as f:
             f.write(self.format_report_markdown(report))
         
         print(f"📄 Report saved: {report_file}")

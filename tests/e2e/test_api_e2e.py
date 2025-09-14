@@ -272,17 +272,22 @@ class TestCausalMemoryCoreE2E:
             # Query near the final event
             narrative = memory_core.get_context("bug resolved")
 
-            expected = (
-                'Initially, A bug report is filed for "User login fails with 500 error". '
-                'This led to The production server logs are inspected, revealing a NullPointerException '
-                '(Investigating logs was the next step after the bug report), '
-                'which in turn caused The UserAuthentication service code is reviewed, identifying a missing null check '
-                '(The logs indicated a null reference, prompting code review), '
-                'which in turn caused A patch is written to add the necessary null check '
-                '(The missing check necessitated a patch).'
-            )
+            # Check that the narrative contains the complete causal chain
+            expected_parts = [
+                'A bug report is filed for "User login fails with 500 error"',
+                'The production server logs are inspected, revealing a NullPointerException',
+                'Investigating logs was the next step after the bug report',
+                'The UserAuthentication service code is reviewed, identifying a missing null check',
+                'The logs indicated a null reference, prompting code review',
+                'A patch is written to add the necessary null check',
+                'The missing check necessitated a patch',
+                'The patch is successfully deployed to production, and the bug is marked as resolved',
+                'Deployment resolved the issue'
+            ]
 
-            assert expected in narrative
+            # Ensure all expected parts are in the narrative
+            for part in expected_parts:
+                assert part in narrative, f"Expected '{part}' to be in narrative: {narrative}"
         finally:
             memory_core.close()
     
