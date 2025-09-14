@@ -22,5 +22,22 @@ htmlcov/
 *.sqlite3
 
 # IDE / Editor specific
+
 .vscode/
 .idea/
+.gemini/
+gha-creds-*.json
+
+# Project-specific unnecessary/outdated files
+custom.db
+VoidCatDev (E).lnk
+repomix-output.xml
+.specstory/
+.zencoder/
+Grimoire Page_*
+The Grand Triptych*
+GEMINI.md
+*.pyc
+logs/
+data/
+test_cli.db
