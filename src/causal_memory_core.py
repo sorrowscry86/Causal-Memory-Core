@@ -12,6 +12,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import Config
 import config as config_mod
 
+
 class Event:
     """Represents a single event in the causal memory"""
     def __init__(self, event_id: int, timestamp: datetime, effect_text: str, 
@@ -142,7 +143,7 @@ class CausalMemoryCore:
         effect_embedding = encoded.tolist() if hasattr(encoded, "tolist") else list(encoded)
         
         # Search for semantically similar and recent events
-        potential_causes = self._find_potential_causes(effect_embedding)
+        potential_causes = self._find_potential_causes(effect_embedding, effect_text)
         
         causal_link_found = False
         cause_id = None
@@ -221,7 +222,7 @@ class CausalMemoryCore:
         
         return narrative
         
-    def _find_potential_causes(self, effect_embedding: List[float]) -> List[Event]:
+    def _find_potential_causes(self, effect_embedding: List[float], effect_text: str) -> List[Event]:
         """
         Find semantically similar and recent events that could be potential causes.
         Prioritizes a mix of semantic similarity and recency.
@@ -252,12 +253,22 @@ class CausalMemoryCore:
             if event_embedding.shape != effect_embedding_np.shape:
                 continue
             
+            # Exclude the same event
+            if row[2] == effect_text:
+                continue
+            
+            # Exclude the same event
+            if row[2] == effect_text:
+                continue
+            
             # Calculate cosine similarity (guard zero norms)
             denom = (np.linalg.norm(effect_embedding_np) * np.linalg.norm(event_embedding))
             if denom == 0:
                 continue
             similarity = float(np.dot(effect_embedding_np, event_embedding) / denom)
+
             
+            print(f"Similarity: {similarity}, Threshold: {self.config.SIMILARITY_THRESHOLD}")
             if similarity >= Config.SIMILARITY_THRESHOLD:
                 event = Event(
                     event_id=row[0],
@@ -272,7 +283,7 @@ class CausalMemoryCore:
         # Sort by similarity DESC, then by recency DESC as tiebreaker
         candidates.sort(key=lambda x: (x[0], x[1].timestamp), reverse=True)
         # Respect MAX_POTENTIAL_CAUSES even when patched in tests
-        max_n = getattr(config_mod.Config, 'MAX_POTENTIAL_CAUSES', 5)
+        max_n = getattr(self.config, 'MAX_POTENTIAL_CAUSES', 5)
         try:
             max_n = int(max_n)
         except Exception:
@@ -302,6 +313,8 @@ Your response should be either:
             
             result = response.choices[0].message.content.strip()
             
+            print(f"Prompt: {prompt}")
+            print(f"LLM Response: {result}")
             # Check if LLM confirmed causality
             if result.lower() == "no." or result.lower().startswith("no"):
                 return None
