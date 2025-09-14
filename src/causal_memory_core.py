@@ -263,7 +263,7 @@ class CausalMemoryCore:
                 continue
             similarity = float(np.dot(effect_embedding_np, event_embedding) / denom)
 
-            if similarity >= Config.SIMILARITY_THRESHOLD:
+            if similarity >= config_mod.Config.SIMILARITY_THRESHOLD:
                 event = Event(
                     event_id=row[0],
                     timestamp=row[1],
@@ -394,7 +394,7 @@ Your response should be either:
                     relationship_text=row[5]
                 )
                 
-        return best_event if best_similarity >= Config.SIMILARITY_THRESHOLD else None
+        return best_event if best_similarity >= config_mod.Config.SIMILARITY_THRESHOLD else None
         
     def _format_chain_as_narrative(self, chain: List[Event]) -> str:
         """Format a causal chain into a coherent narrative in chronological order.
