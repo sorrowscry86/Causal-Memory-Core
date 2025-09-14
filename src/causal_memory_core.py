@@ -268,7 +268,6 @@ class CausalMemoryCore:
             similarity = float(np.dot(effect_embedding_np, event_embedding) / denom)
 
             
-            print(f"Similarity: {similarity}, Threshold: {self.config.SIMILARITY_THRESHOLD}")
             if similarity >= Config.SIMILARITY_THRESHOLD:
                 event = Event(
                     event_id=row[0],
