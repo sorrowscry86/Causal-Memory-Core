@@ -12,6 +12,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import Config
 import config as config_mod
 
+
 class Event:
     """Represents a single event in the causal memory"""
     def __init__(self, event_id: int, timestamp: datetime, effect_text: str, 
@@ -130,7 +131,7 @@ class CausalMemoryCore:
         
     def _initialize_embedder(self):
         """Initialize the sentence transformer model for embeddings"""
-        return SentenceTransformer(Config.EMBEDDING_MODEL)
+        return SentenceTransformer(self.config.EMBEDDING_MODEL)
         
     def add_event(self, effect_text: str) -> None:
         """
@@ -142,7 +143,7 @@ class CausalMemoryCore:
         effect_embedding = encoded.tolist() if hasattr(encoded, "tolist") else list(encoded)
         
         # Search for semantically similar and recent events
-        potential_causes = self._find_potential_causes(effect_embedding)
+        potential_causes = self._find_potential_causes(effect_embedding, effect_text)
         
         causal_link_found = False
         cause_id = None
@@ -221,7 +222,7 @@ class CausalMemoryCore:
         
         return narrative
         
-    def _find_potential_causes(self, effect_embedding: List[float]) -> List[Event]:
+    def _find_potential_causes(self, effect_embedding: List[float], effect_text: str) -> List[Event]:
         """
         Find semantically similar and recent events that could be potential causes.
         Prioritizes a mix of semantic similarity and recency.
@@ -252,13 +253,17 @@ class CausalMemoryCore:
             if event_embedding.shape != effect_embedding_np.shape:
                 continue
             
+            # Exclude the same event
+            if row[2] == effect_text:
+                continue
+
             # Calculate cosine similarity (guard zero norms)
             denom = (np.linalg.norm(effect_embedding_np) * np.linalg.norm(event_embedding))
             if denom == 0:
                 continue
             similarity = float(np.dot(effect_embedding_np, event_embedding) / denom)
-            
-            if similarity >= Config.SIMILARITY_THRESHOLD:
+
+            if similarity >= config_mod.Config.SIMILARITY_THRESHOLD:
                 event = Event(
                     event_id=row[0],
                     timestamp=row[1],
@@ -389,7 +394,7 @@ Your response should be either:
                     relationship_text=row[5]
                 )
                 
-        return best_event if best_similarity >= Config.SIMILARITY_THRESHOLD else None
+        return best_event if best_similarity >= config_mod.Config.SIMILARITY_THRESHOLD else None
         
     def _format_chain_as_narrative(self, chain: List[Event]) -> str:
         """Format a causal chain into a coherent narrative in chronological order.
@@ -420,7 +425,7 @@ Your response should be either:
         
         # Single event case
         if len(ordered) == 1:
-            return f"Initially: {ordered[0].effect_text}"
+            return f"Initially, {ordered[0].effect_text}."
         
         # Build initial sentence for the root
         narrative = f"Initially, {ordered[0].effect_text}."

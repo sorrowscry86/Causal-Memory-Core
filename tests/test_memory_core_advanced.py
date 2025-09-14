@@ -107,7 +107,7 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
         """, [old_timestamp, [0.1, 0.2, 0.3, 0.4]])
         
         # Test finding potential causes
-        potential_causes = self.memory_core._find_potential_causes([0.1, 0.2, 0.3, 0.4])
+        potential_causes = self.memory_core._find_potential_causes([0.1, 0.2, 0.3, 0.4], "test query")
         
         # Should return empty list since the event is too old
         self.assertEqual(len(potential_causes), 0)
@@ -128,7 +128,7 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
         """, [recent_timestamp, [1.0, 0.0, 0.0, 0.0]])  # Very different embedding
         
         # Test finding potential causes with different embedding
-        potential_causes = self.memory_core._find_potential_causes([0.0, 1.0, 0.0, 0.0])
+        potential_causes = self.memory_core._find_potential_causes([0.0, 1.0, 0.0, 0.0], "test query")
         
         # Should return empty list due to low similarity (below threshold)
         self.assertEqual(len(potential_causes), 0)
@@ -157,7 +157,7 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
         """, [recent_timestamp, [0.8, 0.8, 0.8, 0.8]])
         
         # Test finding potential causes (all embeddings are similar enough to pass threshold)
-        potential_causes = self.memory_core._find_potential_causes([0.85, 0.85, 0.85, 0.85])
+        potential_causes = self.memory_core._find_potential_causes([0.85, 0.85, 0.85, 0.85], "test query")
         
         # Should return events sorted by similarity (highest first)
         if len(potential_causes) > 1:
@@ -182,7 +182,7 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
             self.memory_core._insert_event(f'Event {i+1}', similar_embedding, None, None)
         
         # Test finding potential causes
-        potential_causes = self.memory_core._find_potential_causes([0.9, 0.9, 0.9, 0.9])
+        potential_causes = self.memory_core._find_potential_causes([0.9, 0.9, 0.9, 0.9], "test query")
         
         # Should return at most MAX_POTENTIAL_CAUSES events
         self.assertLessEqual(len(potential_causes), 2)
@@ -305,7 +305,7 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
         narrative = self.memory_core.get_context("find child")
         
         self.assertIsInstance(narrative, str)
-        self.assertIn("Initially:", narrative)
+        self.assertIn("Initially,", narrative)
         self.assertIn("Child event with missing cause", narrative)
 
     def test_traversal_circular_reference_protection(self):
