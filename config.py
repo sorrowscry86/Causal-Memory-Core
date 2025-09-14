@@ -20,7 +20,7 @@ class Config:
     
     # Search settings
     MAX_POTENTIAL_CAUSES = int(os.getenv('MAX_POTENTIAL_CAUSES', '5'))
-    SIMILARITY_THRESHOLD = float(os.getenv('SIMILARITY_THRESHOLD', '0.5'))
+    SIMILARITY_THRESHOLD = float(os.getenv('SIMILARITY_THRESHOLD', '0.7'))
     TIME_DECAY_HOURS = int(os.getenv('TIME_DECAY_HOURS', '24'))
     
     # MCP Server settings
