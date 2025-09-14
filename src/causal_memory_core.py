@@ -256,20 +256,14 @@ class CausalMemoryCore:
             # Exclude the same event
             if row[2] == effect_text:
                 continue
-            
-            # Exclude the same event
-            if row[2] == effect_text:
-                continue
-            
+
             # Calculate cosine similarity (guard zero norms)
             denom = (np.linalg.norm(effect_embedding_np) * np.linalg.norm(event_embedding))
             if denom == 0:
                 continue
             similarity = float(np.dot(effect_embedding_np, event_embedding) / denom)
 
-            
-            print(f"Similarity: {similarity}, Threshold: {Config.SIMILARITY_THRESHOLD}")
-            if similarity >= Config.SIMILARITY_THRESHOLD:
+            if similarity >= config_mod.Config.SIMILARITY_THRESHOLD:
                 event = Event(
                     event_id=row[0],
                     timestamp=row[1],
@@ -283,7 +277,7 @@ class CausalMemoryCore:
         # Sort by similarity DESC, then by recency DESC as tiebreaker
         candidates.sort(key=lambda x: (x[0], x[1].timestamp), reverse=True)
         # Respect MAX_POTENTIAL_CAUSES even when patched in tests
-        max_n = getattr(self.config, 'MAX_POTENTIAL_CAUSES', 5)
+        max_n = getattr(config_mod.Config, 'MAX_POTENTIAL_CAUSES', 5)
         try:
             max_n = int(max_n)
         except Exception:
@@ -313,8 +307,6 @@ Your response should be either:
             
             result = response.choices[0].message.content.strip()
             
-            print(f"Prompt: {prompt}")
-            print(f"LLM Response: {result}")
             # Check if LLM confirmed causality
             if result.lower() == "no." or result.lower().startswith("no"):
                 return None
@@ -402,7 +394,7 @@ Your response should be either:
                     relationship_text=row[5]
                 )
                 
-        return best_event if best_similarity >= self.config.SIMILARITY_THRESHOLD else None
+        return best_event if best_similarity >= config_mod.Config.SIMILARITY_THRESHOLD else None
         
     def _format_chain_as_narrative(self, chain: List[Event]) -> str:
         """Format a causal chain into a coherent narrative in chronological order.
@@ -433,7 +425,7 @@ Your response should be either:
         
         # Single event case
         if len(ordered) == 1:
-            return f"Initially: {ordered[0].effect_text}"
+            return f"Initially, {ordered[0].effect_text}."
         
         # Build initial sentence for the root
         narrative = f"Initially, {ordered[0].effect_text}."
