@@ -2,8 +2,7 @@ from src.causal_memory_core import CausalMemoryCore
 from test_config import TestConfig
 
 # Initialize the memory core with the test config
-memory = CausalMemoryCore(db_path=TestConfig.DB_PATH)
-memory.config = TestConfig
+memory = CausalMemoryCore(config=TestConfig())
 
 # Add the first event
 memory.add_event("The power went out.")
