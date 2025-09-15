@@ -145,11 +145,6 @@ class TestSemanticSearchValidation(unittest.TestCase):
     def test_similarity_threshold_effectiveness(self):
         """Test that different similarity thresholds produce appropriate results"""
         
-        # Mock LLM that always finds causality (to test threshold filtering)
-        self.mock_llm.chat.completions.create.return_value = Mock(
-            choices=[Mock(message=Mock(content="First event caused second event."))]
-        )
-        
         # Test scenarios with different similarity levels
         test_cases = [
             {
@@ -177,6 +172,15 @@ class TestSemanticSearchValidation(unittest.TestCase):
         
         for case in test_cases:
             with self.subTest(case=case['description']):
+                # Reset mocks for each test case
+                self.mock_llm.reset_mock()
+                self.mock_embedder.reset_mock()
+                
+                # Mock LLM that always finds causality (to test threshold filtering)
+                self.mock_llm.chat.completions.create.return_value = Mock(
+                    choices=[Mock(message=Mock(content="First event caused second event."))]
+                )
+                
                 # Create fresh memory core with specific threshold
                 import config as config_mod
                 with patch.object(config_mod.Config, 'SIMILARITY_THRESHOLD', case['threshold']):

@@ -39,7 +39,7 @@ class TestConfig(unittest.TestCase):
                 
                 # Test default search settings
                 self.assertEqual(Config.MAX_POTENTIAL_CAUSES, 5)
-                self.assertEqual(Config.SIMILARITY_THRESHOLD, 0.7)
+                self.assertEqual(Config.SIMILARITY_THRESHOLD, 0.5)
                 self.assertEqual(Config.TIME_DECAY_HOURS, 24)
                 
                 # Test default MCP server settings

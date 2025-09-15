@@ -155,6 +155,14 @@ def main(argv=None) -> int:
     """
     args = parse_args(argv)
 
+    # Check if any action command was provided
+    needs_memory_core = args.add or args.query or args.interactive
+    
+    # If no action command, just show help
+    if not needs_memory_core:
+        build_parser().print_help()
+        return 0
+
     # Load environment variables (skippable for tests via CMC_SKIP_DOTENV=1)
     if os.getenv('CMC_SKIP_DOTENV') != '1':
         load_dotenv()
@@ -166,7 +174,7 @@ def main(argv=None) -> int:
         _safe_print("See .env.template for an example")
         return _exit_or_return(1)
 
-    # Initialize memory core
+    # Initialize memory core only when needed
     memory_core = None
     try:
         db_path = args.db_path if args.db_path else None
@@ -185,9 +193,6 @@ def main(argv=None) -> int:
             query_command(memory_core, args.query)
         elif args.interactive:
             interactive_mode(memory_core)
-        else:
-            # No command specified, show help
-            build_parser().print_help()
     finally:
         # Clean up
         if memory_core is not None:
