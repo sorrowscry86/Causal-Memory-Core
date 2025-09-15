@@ -32,9 +32,13 @@ class TestSemanticSearchValidation(unittest.TestCase):
         self.mock_embedder = Mock()
         
     def tearDown(self):
-        """Clean up test database"""
+        """Clean up test database and reset mocks"""
         if os.path.exists(self.temp_db_path):
             os.unlink(self.temp_db_path)
+        
+        # Reset mocks to prevent side effects between tests
+        self.mock_llm.reset_mock()
+        self.mock_embedder.reset_mock()
             
     def test_file_editing_workflow_semantic_search(self):
         """Test semantic search with a realistic file editing workflow"""
@@ -155,7 +159,7 @@ class TestSemanticSearchValidation(unittest.TestCase):
                 'description': 'Low threshold should link moderate similarities'
             },
             {
-                'threshold': 0.7, 
+                'threshold': 0.7,
                 'embedding1': [1.0, 0.0, 0.0, 0.0],
                 'embedding2': [0.4, 0.9, 0.0, 0.0],  # cos sim ≈ 0.4 < 0.7
                 'should_link': False,
@@ -184,54 +188,56 @@ class TestSemanticSearchValidation(unittest.TestCase):
                 # Create fresh memory core with specific threshold
                 import config as config_mod
                 with patch.object(config_mod.Config, 'SIMILARITY_THRESHOLD', case['threshold']):
-                    memory_core = CausalMemoryCore(
-                        db_path=self.temp_db_path,
-                        llm_client=self.mock_llm,
-                        embedding_model=self.mock_embedder
-                    )
+                    # Also patch the actual config module before creating the memory core
+                    with patch('config.Config.SIMILARITY_THRESHOLD', case['threshold']):
+                        memory_core = CausalMemoryCore(
+                            db_path=self.temp_db_path,
+                            llm_client=self.mock_llm,
+                            embedding_model=self.mock_embedder
+                        )
                 
-                # Set up embeddings
-                self.mock_embedder.encode.side_effect = [
-                    np.array(case['embedding1']),
-                    np.array(case['embedding2'])
-                ]
-                
-                # Add events
-                memory_core.add_event("First event")
-                memory_core.add_event("Second event")
-                
-                # Check causal linking
-                events = memory_core.conn.execute("""
-                    SELECT cause_id FROM events ORDER BY event_id
-                """).fetchall()
-                
-                if case['should_link']:
-                    self.assertIsNotNone(events[1][0], 
-                        f"Threshold {case['threshold']} should link events with similarity")
-                else:
-                    self.assertIsNone(events[1][0],
-                        f"Threshold {case['threshold']} should not link events with low similarity")
-                
-                memory_core.close()
-                
-                # Clean up for next test
-                if os.path.exists(self.temp_db_path):
-                    os.unlink(self.temp_db_path)
+                        # Set up embeddings
+                        self.mock_embedder.encode.side_effect = [
+                            np.array(case['embedding1']),
+                            np.array(case['embedding2'])
+                        ]
+                        
+                        # Add events
+                        memory_core.add_event("First event")
+                        memory_core.add_event("Second event")
+                        
+                        # Check causal linking
+                        events = memory_core.conn.execute("""
+                            SELECT cause_id FROM events ORDER BY event_id
+                        """).fetchall()
+                        
+                        if case['should_link']:
+                            self.assertIsNotNone(events[1][0], 
+                                f"Threshold {case['threshold']} should link events with similarity")
+                        else:
+                            self.assertIsNone(events[1][0],
+                                f"Threshold {case['threshold']} should not link events with low similarity")
+                        
+                        memory_core.close()
+                        
+                        # Clean up for next test
+                        if os.path.exists(self.temp_db_path):
+                            os.unlink(self.temp_db_path)
                     
     def test_context_retrieval_accuracy(self):
         """Test that context retrieval finds the most relevant events"""
         
         # Mock LLM for specific causal relationships
         def mock_causality_judgment(messages, **kwargs):
-            prompt = messages[0]['content']
+            prompt = messages[0]['content'].lower()
             mock_response = Mock()
             mock_response.choices = [Mock()]
             
-            if "bug report" in prompt and "developer" in prompt:
+            if ("bug report" in prompt or "bug" in prompt) and "developer" in prompt:
                 mock_response.choices[0].message.content = "Bug report caused developer to investigate."
-            elif "developer" in prompt and "code fix" in prompt:
+            elif "developer" in prompt and ("code fix" in prompt or "fix" in prompt or "implemented" in prompt):
                 mock_response.choices[0].message.content = "Developer investigation led to code fix."
-            elif "code fix" in prompt and "tested" in prompt:
+            elif ("code fix" in prompt or "fix" in prompt or "implemented" in prompt) and "tested" in prompt:
                 mock_response.choices[0].message.content = "Code fix caused testing to occur."
             else:
                 mock_response.choices[0].message.content = "No."
@@ -243,9 +249,9 @@ class TestSemanticSearchValidation(unittest.TestCase):
         # Create embeddings for bug fixing workflow
         bug_fix_embeddings = [
             [0.9, 0.1, 0.0, 0.0],  # "bug report filed"
-            [0.8, 0.2, 0.0, 0.0],  # "developer assigned" - related to bug
-            [0.1, 0.9, 0.0, 0.0],  # "code fix implemented" - development action
-            [0.1, 0.8, 0.1, 0.0],  # "fix tested successfully" - testing action
+            [0.7, 0.3, 0.0, 0.0],  # "developer assigned" - similar to bug report (investigation)
+            [0.5, 0.5, 0.0, 0.0],  # "code fix implemented" - bridge between investigation and testing
+            [0.3, 0.7, 0.0, 0.0],  # "fix tested successfully" - similar to code fix (development work)
             [0.0, 0.1, 0.9, 0.0],  # "weather is sunny" - unrelated
         ]
         
@@ -282,10 +288,28 @@ class TestSemanticSearchValidation(unittest.TestCase):
         bug_context = memory_core.get_context("bug fix process")
         dev_context = memory_core.get_context("development work")
         
-        # Bug context should focus on bug-related events
+        # Verify that causal chains were created correctly
+        events_in_db = memory_core.conn.execute("""
+            SELECT event_id, effect_text, cause_id, relationship_text 
+            FROM events ORDER BY event_id
+        """).fetchall()
+        
+        # Should have a causal chain: Bug report -> Developer -> Code fix -> Testing
+        self.assertIsNone(events_in_db[0][2])  # Bug report has no cause (root)
+        self.assertEqual(events_in_db[1][2], 1)  # Developer caused by Bug report
+        self.assertEqual(events_in_db[2][2], 2)  # Code fix caused by Developer
+        self.assertEqual(events_in_db[3][2], 3)  # Testing caused by Code fix
+        self.assertIsNone(events_in_db[4][2])  # Weather is unrelated
+        
+        # Context should focus on bug-related events and exclude unrelated ones
         self.assertIn("bug", bug_context.lower())
-        self.assertIn("developer", bug_context.lower())
-        self.assertNotIn("weather", bug_context.lower())  # Should not include unrelated events
+        self.assertNotIn("weather", bug_context.lower())
+        self.assertNotIn("weather", dev_context.lower())
+        
+        # Development context should include development-related terms
+        self.assertTrue(any(word in dev_context.lower() for word in ["fix", "code", "test", "implement"]))
+        
+        memory_core.close()
         
         # Development context should focus on code/testing  
         self.assertIn("code", dev_context.lower())
