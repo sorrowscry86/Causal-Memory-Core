@@ -33,13 +33,13 @@ async def handle_list_tools() -> list[types.Tool]:
     return [
         types.Tool(
             name="add_event",
-            description="Add a new event to the causal memory system. The system will automatically determine causal relationships with previous events.",
+            description="Add a new event to the causal memory system. The system will automatically determine causal relationships with previous events using semantic similarity and LLM reasoning, creating links that enable narrative chain reconstruction.",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "effect": {
                         "type": "string",
-                        "description": "Description of the event that occurred (the effect). Should be a clear, concise statement from the agent's perspective."
+                        "description": "Description of the event that occurred (the effect). Should be a clear, concise statement from the agent's perspective. The system will analyze this against recent events to detect causal relationships."
                     }
                 },
                 "required": ["effect"]
@@ -47,13 +47,13 @@ async def handle_list_tools() -> list[types.Tool]:
         ),
         types.Tool(
             name="query",
-            description="Query the causal memory system to retrieve relevant context and causal chains related to a topic or event.",
+            description="Queries the memory and returns a full, narrative chain of causally-linked events related to the query. Performs semantic search to find the most relevant event, then traces backward through causal links to reconstruct the complete story from root cause to final effect.",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "query": {
                         "type": "string",
-                        "description": "The query to search for in memory. Can be a question, topic, or description of an event."
+                        "description": "The query to search for in memory. Can be a question, topic, or description of an event. The system will return the complete causal narrative leading to the most relevant event."
                     }
                 },
                 "required": ["query"]
