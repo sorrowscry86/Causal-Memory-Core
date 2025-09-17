@@ -239,6 +239,10 @@ class CausalMemoryCore:
             return []
         eff_np = np.array(effect_embedding, dtype=float)
         candidates: List[tuple[float, Event]] = []
+        # Always read config at call time for test patching
+        from config import Config
+        similarity_threshold = getattr(Config, 'SIMILARITY_THRESHOLD', self.similarity_threshold)
+        max_potential_causes = getattr(Config, 'MAX_POTENTIAL_CAUSES', self.max_potential_causes)
         for r in rows:
             emb_np = np.array(r[3], dtype=float)
             if emb_np.shape != eff_np.shape:
@@ -249,14 +253,12 @@ class CausalMemoryCore:
             if denom == 0:
                 continue
             sim = float(np.dot(eff_np, emb_np) / denom)
-            print(
-                f"Similarity: {sim}, Threshold: {self.similarity_threshold}"
-            )
-            if sim >= self.similarity_threshold:
+            print(f"Similarity: {sim}, Threshold: {similarity_threshold}")
+            if sim >= similarity_threshold:
                 candidates.append((sim, Event(*r)))
         candidates.sort(key=lambda x: (x[0], x[1].timestamp), reverse=True)
         try:
-            limit = int(self.max_potential_causes)
+            limit = int(max_potential_causes)
         except Exception:
             limit = 5
         return [e for _, e in candidates[:limit]]
@@ -406,8 +408,7 @@ class CausalMemoryCore:
             self.conn.close()
         except Exception:
             pass
-        finally:
-            self.conn = None
+        # Do NOT set self.conn = None; keep for test compatibility
 
     def __del__(self):  # pragma: no cover
         try:

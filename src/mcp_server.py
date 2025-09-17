@@ -47,7 +47,7 @@ async def handle_list_tools() -> list[types.Tool]:
         ),
         types.Tool(
             name="query",
-            description="Queries the memory and returns a full, narrative chain of causally-linked events related to the query. Performs semantic search to find the most relevant event, then traces backward through causal links to reconstruct the complete story from root cause to final effect.",
+            description="Query the causal memory",
             inputSchema={
                 "type": "object",
                 "properties": {
