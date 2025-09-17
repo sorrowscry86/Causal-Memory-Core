@@ -22,9 +22,7 @@ class CausalMemoryCore:
 ```
 
 **Responsibilities:**
-- Causal relationship detection
-- Semantic search and context retrieval
-- Database operations
+
 - Causal relationship detection
 - Semantic search and context retrieval
 - Database operations
@@ -40,6 +38,7 @@ async def handle_call_tool(name: str, arguments: dict | None) -> list[types.Text
 ```
 
 **Key Features:**
+
 - Async tool handling
 - Enhanced tool descriptions for v1.1.0
 - Error handling and validation
@@ -55,6 +54,7 @@ def main(argv=None):
 ```
 
 **Capabilities:**
+
 - Interactive and batch modes
 - Enhanced help without initialization overhead
 - Error handling for missing dependencies
@@ -62,29 +62,6 @@ def main(argv=None):
 
 ## 🔄 Data Flow Architecture
 
-```mermaid
-graph TD
-<<<<<<< HEAD
-    A[Event Input] --> B[Event Validator]
-    B --> C[Event Processor]
-    C --> D[Causal Analysis]
-    C --> E[Semantic Embedding]
-    D --> F[Relationship Store]
-    E --> G[Vector Store]
-    F --> H[DuckDB]
-    G --> H
-    I[Query Input] --> J[Query Processor]
-    J --> K[Semantic Search]
-    J --> L[Causal Traversal]
-    K --> M[Context Assembly]
-    L --> M
-    M --> N[Response Generation]
-```
-
-### Event Storage Pipeline
-
-1. **Input Validation**
-   - Schema validation
 ```mermaid
 graph TD
      A[Event Input] --> B[add_event]
@@ -110,17 +87,6 @@ graph TD
 3. **Potential Cause Detection**: Find semantically similar recent events
 4. **Causal Analysis**: LLM judges causal relationships
 5. **Storage**: Store event with causal links in DuckDB
-
-### Query Processing Pipeline (v1.1.0)
-
-1. **Query Analysis**: `get_context(query)`
-2. **Semantic Search**: Find most relevant event via vector similarity
-3. **Causal Traversal**: Follow cause_id links backward to root
-4. **Narrative Assembly**: Format as chronological story
-
-## 🗄️ Data Models
-
-### Event Schema (DuckDB)
 
 ### Query Processing Pipeline (v1.1.0)
 
@@ -264,7 +230,8 @@ def _format_chain_as_narrative(self, chain):
 ```
 
 **Example Output:**
-```
+
+```text
 "Initially, a bug report was filed for 'User login fails with 500 error'. 
 This led to the production server logs being inspected, revealing a NullPointerException, 
 which in turn caused the UserAuthentication service code to be reviewed, identifying a missing null check. 

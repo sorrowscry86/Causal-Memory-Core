@@ -1,10 +1,8 @@
 # 🧠 Causal Memory Core v1.1.0
 
-<div align="center">
-
 ![Causal Memory Core Logo](https://img.shields.io/badge/🧠-Causal%20Memory%20Core-blue?style=for-the-badge&labelColor=1a1a1a)
 
-**Next-generation memory system for AI agents combining semantic recall and causal reasoning**
+Next-generation memory system for AI agents combining semantic recall and causal reasoning
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
@@ -13,9 +11,7 @@
 
 [![Docker](https://img.shields.io/badge/docker-supported-blue?style=flat-square)](Dockerfile)
 
-[🚀 Quick Start](#-quick-start) • [📖 Documentation](#-documentation) • [🧪 Testing](#-testing) • [🔧 Configuration](#-configuration) • [🐳 Docker](#-docker-deployment)
-
-</div>
+[🚀 Quick Start](#-quick-start) • [📖 Documentation](#-documentation) • [🧪 Testing](#testing) • [🔧 Configuration](#-configuration) • [🐳 Docker](#-docker-deployment)
 
 ---
 
@@ -43,17 +39,20 @@ Causal Memory Core transforms flat event lists into interconnected causal narrat
 ### Local Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/sorrowscry86/Causal-Memory-Core.git
    cd Causal-Memory-Core
    ```
 
 2. **Install dependencies**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 3. **Configure environment**
+
    ```bash
    cp .env.template .env
    # Edit .env and add your OPENAI_API_KEY
@@ -62,6 +61,7 @@ Causal Memory Core transforms flat event lists into interconnected causal narrat
 ### 🐳 Docker Deployment
 
 1. **Using Docker Compose (Recommended):**
+
    ```bash
    # Set your OpenAI API key
    export OPENAI_API_KEY=your_key_here
@@ -71,6 +71,7 @@ Causal Memory Core transforms flat event lists into interconnected causal narrat
    ```
 
 2. **Using Docker directly:**
+
    ```bash
    # Build the image
    docker build -t causal-memory-core:1.1.0 .
@@ -84,6 +85,7 @@ Causal Memory Core transforms flat event lists into interconnected causal narrat
 ### Usage Examples
 
 #### 🔥 Basic Usage
+
 ```python
 from src.causal_memory_core import CausalMemoryCore
 
@@ -101,6 +103,7 @@ print(context)
 ```
 
 #### 🖥️ CLI Interface
+
 ```bash
 # Add events via CLI
 python cli.py --add "Project meeting scheduled"
@@ -111,6 +114,7 @@ python cli.py --query "project status"
 ```
 
 #### 🔌 MCP Server Mode (v1.1.0)
+
 ```bash
 # Start MCP server
 python src/mcp_server.py
@@ -124,7 +128,7 @@ python src/mcp_server.py
 
 When you query the system, you get complete causal stories:
 
-```
+```text
 Query: "How was the login bug resolved?"
 
 Response: "Initially, a bug report was filed for 'User login fails with 500 error'. 
@@ -180,7 +184,7 @@ MAX_POTENTIAL_CAUSES = 5
 TIME_DECAY_HOURS = 24
 ```
 
-## 🧪 Testing
+## Testing
 
 Our comprehensive testing suite ensures reliability and performance:
 
@@ -258,7 +262,6 @@ Causal Memory Core seamlessly integrates with:
 
 ## 🤝 Contributing
 
->>>>>>> origin/copilot/fix-0a1dd571-2f06-422c-bc7e-497c3b59b9d8
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### Development Setup
@@ -295,10 +298,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-<div align="center">
-
-**Built with ❤️ for the future of AI memory systems**
+### Built with ❤️ for the future of AI memory systems
 
 [⭐ Star this project](https://github.com/sorrowscry86/Causal-Memory-Core) if you find it useful!
-
-</div>
