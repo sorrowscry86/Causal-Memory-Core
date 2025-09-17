@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  causal-memory-core:
+    build: .
+    image: causal-memory-core:1.1.0
+    container_name: causal-memory-core
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DB_PATH=/app/data/causal_memory.db
+      - LLM_MODEL=${LLM_MODEL:-gpt-3.5-turbo}
+      - SIMILARITY_THRESHOLD=${SIMILARITY_THRESHOLD:-0.5}
+      - MAX_POTENTIAL_CAUSES=${MAX_POTENTIAL_CAUSES:-5}
+    volumes:
+      - causal_memory_data:/app/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+volumes:
+  causal_memory_data:
+    driver: local

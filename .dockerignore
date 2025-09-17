@@ -1,0 +1,74 @@
+# Git and version control
+.git
+.gitignore
+.github
+
+# Python cache and virtual environments
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.pytest_cache
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git
+.mypy_cache
+.DS_Store
+
+# Virtual environments
+venv
+ENV
+env
+.venv
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Database files (will be created in container)
+*.db
+causal_memory.db
+
+# Temporary files
+tmp
+.tmp
+*.tmp
+
+# Documentation and non-essential files
+README.md
+CHANGELOG.md
+*.md
+.specstory
+.zencoder
+*.lnk
+
+# Test files
+tests
+test_*.py
+*_test.py
+
+# Build artifacts
+build
+dist
+*.egg-info
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Repomix output
+repomix-output.xml

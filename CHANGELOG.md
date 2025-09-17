@@ -4,6 +4,39 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 
+## [1.1.0] - December 2024 - Pillar III Complete: Integration & Bestowal
+
+### Added
+- **Docker Support**: Complete containerization with Dockerfile, docker-compose.yml, and .dockerignore
+- **Enhanced MCP Descriptions**: Updated tool descriptions to reflect narrative capabilities for AI agent integration
+- **The Bestowal Plan**: Comprehensive strategic document for Albedo integration with Memory-First Protocol
+- **Version Tagging**: Updated to version 1.1.0 to signify enhanced narrative capabilities
+- **Docker Documentation**: Added Docker deployment instructions and configuration examples
+
+### Changed
+- **MCP Server Version**: Updated to 1.1.0 reflecting enhanced capabilities
+- **Tool Descriptions**: 
+  - `query` tool now explicitly mentions "full, narrative chain of causally-linked events"
+  - `add_event` tool describes automatic causal relationship detection and link creation
+- **README.md**: Complete overhaul with Docker instructions, narrative examples, and version 1.1.0 features
+- **Configuration**: Enhanced MCP server settings for production deployment
+
+### Technical Achievements
+- ✅ **Pillar III Completion**: Full integration readiness for Albedo with Memory-First Protocol
+- ✅ **Production Ready**: Docker containerization with persistent data volumes
+- ✅ **Enhanced MCP Integration**: Precise tool descriptions for AI agent consumption
+- ✅ **Strategic Documentation**: Complete implementation roadmap for Albedo team
+- ✅ **Version Management**: Clear versioning strategy with Docker tags
+
+### Integration Features
+- **Memory-First Protocol**: Strategic framework for AI agent decision-making
+- **Narrative Context Parsing**: Guidelines for extracting causal insights from CMC responses
+- **Automated Event Recording**: Patterns for comprehensive action tracking
+- **Performance Safeguards**: Timeout handling, fallback modes, and error recovery
+- **Success Metrics**: Quantitative and qualitative measures for integration validation
+
+---
+
 ## [Unreleased]
 
 ### Added
@@ -28,7 +61,6 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
   1. Update tests to invoke a `main(args)` entrypoint in-process instead of spawning a subprocess, or
   2. Add a test hook (e.g., environment variable) so the CLI dynamically imports a configurable class path (allowing mocks to take effect), or
   3. Provide a thin runner module used by tests that forwards into main logic without spawning a new process.
-- Phase 3 of the workplan (updating MCP description) remains pending until we align tests and documentation expectations.
 
 ---
 

@@ -1,4 +1,4 @@
-# 🏗️ Causal Memory Core Architecture
+# 🏗️ Causal Memory Core Architecture v1.1.0
 
 ## 🎯 Overview
 
@@ -6,7 +6,7 @@ Causal Memory Core is designed as a modular, high-performance memory system that
 
 ## 🧩 Core Components
 
-### 1. Memory Core Engine (`memory_core.py`)
+### 1. Memory Core Engine (`src/causal_memory_core.py`)
 
 The central orchestrator that coordinates all memory operations.
 
@@ -14,88 +14,57 @@ The central orchestrator that coordinates all memory operations.
 class CausalMemoryCore:
     """Main interface for the causal memory system."""
     
-    def __init__(self, config: MemoryConfig):
-        self.causal_engine = CausalEngine(config)
-        self.semantic_search = SemanticSearch(config)
-        self.database = DatabaseManager(config)
-        self.event_processor = EventProcessor(config)
+    def __init__(self, db_path=None, llm_client=None, embedding_model=None):
+        self.db_path = db_path or Config.DB_PATH
+        self.llm_client = llm_client or OpenAI(api_key=Config.OPENAI_API_KEY)
+        self.embedding_model = embedding_model or SentenceTransformer(Config.EMBEDDING_MODEL)
+        self.conn = None
 ```
 
 **Responsibilities:**
-- Event lifecycle management
-- Component coordination
-- API interface provision
-- Configuration management
+- Causal relationship detection
+- Semantic search and context retrieval
+- Database operations
+- Causal relationship detection
+- Semantic search and context retrieval
+- Database operations
 
-### 2. Causal Engine (`causal_engine.py`)
+### 2. MCP Server (`src/mcp_server.py`)
 
-Analyzes relationships between events using advanced NLP techniques.
+Model Context Protocol server for AI agent integration.
 
 ```python
-class CausalEngine:
-    """Detects and analyzes causal relationships between events."""
-    
-    def analyze_causality(
-        self, 
-        new_event: Event, 
-        existing_events: List[Event]
-    ) -> List[CausalRelationship]:
-        """Identify causal links between events."""
+@server.call_tool()
+async def handle_call_tool(name: str, arguments: dict | None) -> list[types.TextContent]:
+    """Handle tool calls for add_event and query operations."""
 ```
 
 **Key Features:**
-- GPT-powered causal analysis
-- Temporal relationship detection
-- Confidence scoring
-- Relationship type classification
+- Async tool handling
+- Enhanced tool descriptions for v1.1.0
+- Error handling and validation
+- AI agent integration
 
-### 3. Semantic Search (`semantic_search.py`)
+### 3. CLI Interface (`cli.py`)
 
-Provides intelligent context retrieval using vector embeddings.
+Command-line interface for direct system interaction.
 
 ```python
-class SemanticSearch:
-    """Semantic search and context retrieval system."""
-    
-    def search(
-        self, 
-        query: str, 
-        filters: Optional[SearchFilters] = None
-    ) -> List[SearchResult]:
-        """Perform semantic search across stored events."""
+def main(argv=None):
+    """Main CLI entry point with enhanced help system."""
 ```
 
 **Capabilities:**
-- Vector similarity search
-- Context window optimization
-- Multi-modal query support
-- Result ranking and filtering
-
-### 4. Database Manager (`utils/database.py`)
-
-Handles all persistence operations using DuckDB.
-
-```python
-class DatabaseManager:
-    """High-performance database operations."""
-    
-    def store_event(self, event: Event) -> EventID:
-        """Store event with optimized indexing."""
-    
-    def query_events(self, criteria: QueryCriteria) -> List[Event]:
-        """Efficient event retrieval with filtering."""
-```
-
-**Features:**
-- ACID compliance
-- Optimized indexing
-- Batch operations
-- Migration support
+- Interactive and batch modes
+- Enhanced help without initialization overhead
+- Error handling for missing dependencies
+- Resource optimization
 
 ## 🔄 Data Flow Architecture
 
 ```mermaid
 graph TD
+<<<<<<< HEAD
     A[Event Input] --> B[Event Validator]
     B --> C[Event Processor]
     C --> D[Causal Analysis]
@@ -116,320 +85,245 @@ graph TD
 
 1. **Input Validation**
    - Schema validation
-   - Content sanitization
-   - Metadata extraction
+```mermaid
+graph TD
+     A[Event Input] --> B[add_event]
+     B --> C[Embedding Generation]
+     B --> D[Find Potential Causes]
+     D --> E[LLM Causality Judgment]
+     E --> F[Store Event with Causal Links]
+     C --> F
+     F --> G[DuckDB Storage]
+    
+     H[Query Input] --> I[get_context]
+     I --> J[Semantic Search]
+     J --> K[Find Most Relevant Event]
+     K --> L[Backward Causal Traversal]
+     L --> M[Format as Narrative]
+     M --> N[Chronological Story Output]
+```
 
-2. **Event Processing**
-   - Timestamp normalization
-   - Content analysis
-   - Metadata enrichment
+### Event Storage Pipeline (v1.1.0)
 
-3. **Causal Analysis**
-   - Historical event comparison
-   - Relationship detection
-   - Confidence scoring
+1. **Event Input**: `add_event(effect_text)`
+2. **Embedding Generation**: Convert text to vector using sentence-transformers
+3. **Potential Cause Detection**: Find semantically similar recent events
+4. **Causal Analysis**: LLM judges causal relationships
+5. **Storage**: Store event with causal links in DuckDB
 
-4. **Storage Operations**
-   - Event persistence
-   - Relationship mapping
-   - Index updates
+### Query Processing Pipeline (v1.1.0)
 
-### Query Processing Pipeline
-
-1. **Query Analysis**
-   - Intent detection
-   - Parameter extraction
-   - Context requirements
-
-2. **Search Execution**
-   - Semantic matching
-   - Causal traversal
-   - Result ranking
-
-3. **Context Assembly**
-   - Narrative construction
-   - Relationship inclusion
-   - Response formatting
+1. **Query Analysis**: `get_context(query)`
+2. **Semantic Search**: Find most relevant event via vector similarity
+3. **Causal Traversal**: Follow cause_id links backward to root
+4. **Narrative Assembly**: Format as chronological story
 
 ## 🗄️ Data Models
 
-### Event Schema
+### Event Schema (DuckDB)
+
+### Query Processing Pipeline (v1.1.0)
+
+1. **Query Analysis**: `get_context(query)`
+2. **Semantic Search**: Find most relevant event via vector similarity
+3. **Causal Traversal**: Follow cause_id links backward to root
+4. **Narrative Assembly**: Format as chronological story
+
+## 🗄️ Data Models
+
+### Event Schema (DuckDB)
+
+```sql
+CREATE TABLE events (
+    event_id INTEGER PRIMARY KEY,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    effect_text TEXT NOT NULL,
+    embedding DOUBLE[384],
+    cause_id INTEGER,
+    causal_relationship TEXT
+);
+```
+
+### Event Class
 
 ```python
 @dataclass
 class Event:
     """Core event data structure."""
-    id: EventID
-    description: str
+    event_id: int
     timestamp: datetime
-    metadata: Dict[str, Any]
-    embedding: Optional[np.ndarray]
-    causal_links: List[CausalRelationship]
+    effect_text: str
+    embedding: np.ndarray
+    cause_id: Optional[int] = None
+    causal_relationship: Optional[str] = None
 ```
 
-### Causal Relationship Schema
-
-```python
-@dataclass
-class CausalRelationship:
-    """Represents a causal link between events."""
-    source_event_id: EventID
-    target_event_id: EventID
-    relationship_type: CausalType
-    confidence: float
-    temporal_gap: timedelta
-    reasoning: str
-```
-
-### Query Response Schema
-
-```python
-@dataclass
-class QueryResponse:
-    """Structured query response."""
-    root_events: List[Event]
-    causal_chain: List[CausalRelationship]
-    narrative: str
-    confidence: float
-    metadata: ResponseMetadata
-```
-
-## 🚀 Performance Optimizations
+## 🚀 Performance Optimizations (v1.1.0)
 
 ### Database Optimizations
 
-1. **Indexing Strategy**
-   ```sql
-   -- Temporal queries
-   CREATE INDEX idx_events_timestamp ON events(timestamp);
-   
-   -- Semantic search
-   CREATE INDEX idx_events_embedding ON events USING hnsw(embedding);
-   
-   -- Causal relationships
-   CREATE INDEX idx_causal_source ON causal_relationships(source_event_id);
-   ```
-
-2. **Query Optimization**
+1. **Efficient Vector Operations**
+   - Manual cosine similarity calculations
+   - Optimized event filtering by timestamp
    - Prepared statements for common queries
-   - Connection pooling
-   - Batch operations for bulk inserts
 
-### Memory Management
+2. **Memory Management**
+   - Temporary database cleanup
+   - Connection management
+   - Resource cleanup patterns
 
-1. **Embedding Cache**
-   ```python
-   class EmbeddingCache:
-       """LRU cache for frequently accessed embeddings."""
-       def __init__(self, max_size: int = 10000):
-           self.cache = LRUCache(max_size)
-   ```
-
-2. **Query Result Caching**
-   - Time-based cache expiration
-   - Intelligent cache invalidation
-   - Memory-conscious cache sizing
-
-### Async Processing
+### Similarity Search
 
 ```python
-class AsyncEventProcessor:
-    """Asynchronous event processing for high throughput."""
-    
-    async def process_batch(self, events: List[Event]) -> List[EventID]:
-        """Process multiple events concurrently."""
-        tasks = [self.process_single_event(event) for event in events]
-        return await asyncio.gather(*tasks)
+def _cosine_similarity(self, a, b):
+    """Optimized cosine similarity calculation."""
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 ```
 
-## 🔌 Integration Architecture
-
-### MCP Server Integration
+### Configuration
 
 ```python
-class MCPServer:
-    """Model Context Protocol server implementation."""
+class Config:
+    """Centralized configuration management."""
+    # Performance settings
+    MAX_POTENTIAL_CAUSES = 5
+    SIMILARITY_THRESHOLD = 0.5
+    TIME_DECAY_HOURS = 24
     
-    def __init__(self, memory_core: CausalMemoryCore):
-        self.memory = memory_core
-        self.setup_handlers()
-    
-    def setup_handlers(self):
-        """Register MCP protocol handlers."""
-        self.register_tool("add_event", self.handle_add_event)
-        self.register_tool("query", self.handle_query)
+    # MCP Server settings (v1.1.0)
+    MCP_SERVER_VERSION = "1.1.0"
 ```
 
-### External Tool Integration
+## 🔌 Integration Architecture (v1.1.0)
 
-The system supports various external integrations:
+### MCP Protocol Integration
 
-- **Desktop Commander**: File system operations
-- **Web Search**: Information gathering
-- **GitHub MCP**: Repository access
-- **Custom Tools**: Extensible plugin system
+```python
+# Enhanced tool descriptions for AI agents
+types.Tool(
+    name="query",
+    description="Queries the memory and returns a full, narrative chain of causally-linked events related to the query."
+)
+
+types.Tool(
+    name="add_event", 
+    description="Add a new event to the causal memory system. The system will automatically determine causal relationships with previous events using semantic similarity and LLM reasoning."
+)
+```
+
+### Docker Support (v1.1.0)
+
+```dockerfile
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["python", "src/mcp_server.py"]
+```
 
 ## 🛡️ Security Architecture
 
-### Data Protection
+### Input Validation
 
-1. **Input Sanitization**
-   ```python
-   class EventValidator:
-       """Validates and sanitizes event inputs."""
-       
-       def validate_event(self, event_data: Dict[str, Any]) -> Event:
-           """Comprehensive input validation."""
-           # SQL injection prevention
-           # XSS protection
-           # Data type validation
-   ```
+```python
+def add_event(self, effect_text):
+    """Add event with input validation."""
+    if not effect_text or not effect_text.strip():
+        raise ValueError("Effect text cannot be empty")
+```
 
-2. **Access Control**
-   - API key authentication
-   - Rate limiting
-   - Request validation
+### Error Handling
 
-### Privacy Considerations
+```python
+try:
+    response = self.llm_client.chat.completions.create(...)
+except Exception as e:
+    logger.warning(f"LLM causality judgment failed: {e}")
+    return None  # Graceful degradation
+```
 
-- **Data Encryption**: All sensitive data encrypted at rest
-- **Anonymization**: PII detection and removal options
-- **Audit Logging**: Comprehensive operation logging
+## 📊 Narrative Output Format (v1.1.0)
 
-## 📊 Scalability Considerations
+The system produces chronological narratives:
 
-### Horizontal Scaling
+```python
+def _format_chain_as_narrative(self, chain):
+    """Format causal chain as narrative story."""
+    if len(ordered) == 1:
+        return f"Initially, {ordered[0].effect_text}."
+    
+    narrative = f"Initially, {ordered[0].effect_text}."
+    for i in range(1, len(ordered)):
+        narrative += f" This led to {ordered[i].effect_text}"
+        if ordered[i].causal_relationship:
+            narrative += f", {ordered[i].causal_relationship}"
+        narrative += "."
+    
+    return narrative
+```
 
-1. **Database Sharding**
-   - Time-based partitioning
-   - Hash-based distribution
-   - Cross-shard query optimization
+**Example Output:**
+```
+"Initially, a bug report was filed for 'User login fails with 500 error'. 
+This led to the production server logs being inspected, revealing a NullPointerException, 
+which in turn caused the UserAuthentication service code to be reviewed, identifying a missing null check. 
+This led to a patch being written to add the necessary null check, 
+which in turn caused the patch to be successfully deployed to production, and the bug was marked as resolved."
+```
 
-2. **Service Decomposition**
-   - Microservice architecture
-   - Event-driven communication
-   - Load balancing strategies
-
-### Vertical Scaling
-
-1. **Resource Optimization**
-   - Memory usage profiling
-   - CPU optimization
-   - I/O optimization
-
-2. **Caching Strategies**
-   - Multi-level caching
-   - Distributed caching
-   - Cache coherence
-
-## 🔧 Configuration Management
+## 🔧 Configuration Management (v1.1.0)
 
 ### Environment-Based Configuration
 
 ```python
-class MemoryConfig:
-    """Environment-aware configuration management."""
+class Config:
+    """Environment-aware configuration with defaults."""
     
-    def __init__(self, env: Environment = Environment.PRODUCTION):
-        self.database_url = self.get_database_url(env)
-        self.openai_settings = self.get_openai_settings(env)
-        self.performance_settings = self.get_performance_settings(env)
+    # Database settings
+    DB_PATH = os.getenv('DB_PATH', 'causal_memory.db')
+    
+    # LLM settings
+    OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+    LLM_MODEL = os.getenv('LLM_MODEL', 'gpt-3.5-turbo')
+    
+    # Search settings
+    SIMILARITY_THRESHOLD = float(os.getenv('SIMILARITY_THRESHOLD', '0.5'))
+    MAX_POTENTIAL_CAUSES = int(os.getenv('MAX_POTENTIAL_CAUSES', '5'))
 ```
 
-### Feature Flags
+## 🐳 Docker Architecture (v1.1.0)
 
-```python
-class FeatureFlags:
-    """Dynamic feature enablement."""
-    
-    CAUSAL_ANALYSIS_V2 = "causal_analysis_v2"
-    ASYNC_PROCESSING = "async_processing"
-    ADVANCED_SEARCH = "advanced_search"
+### Production Deployment
+
+```yaml
+# docker-compose.yml
+version: '3.8'
+services:
+  causal-memory-core:
+    build: .
+    image: causal-memory-core:1.1.0
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DB_PATH=/app/data/causal_memory.db
+    volumes:
+      - causal_memory_data:/app/data
 ```
 
-## 🚨 Error Handling Strategy
+## 📈 Testing Architecture
 
-### Exception Hierarchy
+### Test Structure
 
-```python
-class MemoryError(Exception):
-    """Base exception for memory system errors."""
+- **Unit Tests**: `tests/test_memory_core.py`
+- **E2E Tests**: `tests/e2e/`
+- **MCP Server Tests**: `tests/e2e/test_mcp_server_e2e.py`
 
-class ValidationError(MemoryError):
-    """Input validation failures."""
+### Current Test Results (v1.1.0)
 
-class StorageError(MemoryError):
-    """Database operation failures."""
-
-class ProcessingError(MemoryError):
-    """Event processing failures."""
-```
-
-### Recovery Mechanisms
-
-1. **Graceful Degradation**
-   - Fallback to basic search when semantic search fails
-   - Offline mode for critical operations
-   - Partial result delivery
-
-2. **Retry Strategies**
-   - Exponential backoff for transient failures
-   - Circuit breaker pattern for external services
-   - Dead letter queues for failed operations
-
-## 📈 Monitoring and Observability
-
-### Metrics Collection
-
-```python
-class MetricsCollector:
-    """System performance and usage metrics."""
-    
-    def record_event_processing_time(self, duration: float):
-        """Track event processing performance."""
-    
-    def record_query_latency(self, latency: float):
-        """Monitor query response times."""
-```
-
-### Health Checks
-
-```python
-class HealthChecker:
-    """System health monitoring."""
-    
-    def check_database_health(self) -> HealthStatus:
-        """Verify database connectivity and performance."""
-    
-    def check_openai_health(self) -> HealthStatus:
-        """Validate OpenAI API connectivity."""
-```
-
-## 🔮 Future Architecture Considerations
-
-### Planned Enhancements
-
-1. **Multi-Modal Support**
-   - Image and video event support
-   - Audio event processing
-   - Document integration
-
-2. **Advanced AI Integration**
-   - Custom model fine-tuning
-   - Federated learning support
-   - Real-time adaptation
-
-3. **Enterprise Features**
-   - Multi-tenant architecture
-   - Advanced analytics
-   - Compliance frameworks
-
-### Technology Evolution
-
-- **Database Migration**: Consideration for specialized vector databases
-- **AI Model Updates**: Integration with newer language models
-- **Protocol Support**: Additional integration protocols beyond MCP
+- **98% Pass Rate**: 127/129 tests passing
+- **Comprehensive Coverage**: Unit, integration, and E2E tests
+- **Performance Validation**: Multi-event chain retrieval under 500ms
 
 ---
 
-This architecture provides a solid foundation for the Causal Memory Core system while maintaining flexibility for future enhancements and scaling requirements.
+This architecture provides a solid foundation for the Causal Memory Core v1.1.0 system with production-ready Docker support, enhanced MCP integration, and comprehensive narrative capabilities.

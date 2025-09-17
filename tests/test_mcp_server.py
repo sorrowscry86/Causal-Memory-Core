@@ -152,9 +152,15 @@ class TestMCPServer(unittest.TestCase):
 
         asyncio.run(run_test())
 
-    def test_handle_call_tool_missing_arguments(self):
+    @patch('mcp_server.CausalMemoryCore')
+    def test_handle_call_tool_missing_arguments(self, mock_memory_core_class):
         """Test tool calls with missing required arguments"""
         async def run_test():
+            # Setup mock to avoid initialization 
+            mock_memory_instance = Mock()
+            mock_memory_core_class.return_value = mock_memory_instance
+            mcp_server.memory_core = None
+            
             # Test add_event without effect
             result = await mcp_server.handle_call_tool(
                 name="add_event",
@@ -177,9 +183,15 @@ class TestMCPServer(unittest.TestCase):
 
         asyncio.run(run_test())
 
-    def test_handle_call_tool_none_arguments(self):
+    @patch('mcp_server.CausalMemoryCore')
+    def test_handle_call_tool_none_arguments(self, mock_memory_core_class):
         """Test tool calls with None arguments"""
         async def run_test():
+            # Setup mock to avoid initialization
+            mock_memory_instance = Mock()
+            mock_memory_core_class.return_value = mock_memory_instance
+            mcp_server.memory_core = None
+            
             # Test with None arguments
             result = await mcp_server.handle_call_tool(
                 name="add_event",
@@ -192,9 +204,15 @@ class TestMCPServer(unittest.TestCase):
 
         asyncio.run(run_test())
 
-    def test_handle_call_tool_unknown_tool(self):
+    @patch('mcp_server.CausalMemoryCore')
+    def test_handle_call_tool_unknown_tool(self, mock_memory_core_class):
         """Test calling an unknown tool"""
         async def run_test():
+            # Setup mock to avoid initialization
+            mock_memory_instance = Mock()
+            mock_memory_core_class.return_value = mock_memory_instance
+            mcp_server.memory_core = None
+            
             result = await mcp_server.handle_call_tool(
                 name="unknown_tool",
                 arguments={"param": "value"}
@@ -286,9 +304,15 @@ class TestMCPServer(unittest.TestCase):
 
         asyncio.run(run_test())
 
-    def test_add_event_with_empty_effect(self):
+    @patch('mcp_server.CausalMemoryCore')
+    def test_add_event_with_empty_effect(self, mock_memory_core_class):
         """Test add_event tool with empty effect string"""
         async def run_test():
+            # Setup mock to avoid initialization
+            mock_memory_instance = Mock()
+            mock_memory_core_class.return_value = mock_memory_instance
+            mcp_server.memory_core = None
+            
             result = await mcp_server.handle_call_tool(
                 name="add_event",
                 arguments={"effect": ""}
@@ -300,9 +324,15 @@ class TestMCPServer(unittest.TestCase):
 
         asyncio.run(run_test())
 
-    def test_query_with_empty_query(self):
+    @patch('mcp_server.CausalMemoryCore')
+    def test_query_with_empty_query(self, mock_memory_core_class):
         """Test query tool with empty query string"""
         async def run_test():
+            # Setup mock to avoid initialization
+            mock_memory_instance = Mock()
+            mock_memory_core_class.return_value = mock_memory_instance
+            mcp_server.memory_core = None
+            
             result = await mcp_server.handle_call_tool(
                 name="query",
                 arguments={"query": ""}

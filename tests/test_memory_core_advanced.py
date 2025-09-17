@@ -164,28 +164,28 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
             # First event should have higher similarity
             self.assertEqual(potential_causes[0].effect_text, 'High similarity event')
 
-    @patch('config.Config.MAX_POTENTIAL_CAUSES', 2)
     def test_find_potential_causes_respects_max_limit(self):
         """Test that _find_potential_causes respects MAX_POTENTIAL_CAUSES limit"""
-        self.memory_core = CausalMemoryCore(
-            db_path=self.temp_db_path,
-            llm_client=self.mock_llm,
-            embedding_model=self.mock_embedder
-        )
-        
-        # Add more events than the limit
-        recent_timestamp = datetime.now() - timedelta(minutes=10)
-        similar_embedding = [0.9, 0.9, 0.9, 0.9]
-        
-        # Insert using _insert_event to avoid manual event_id collisions
-        for i in range(5):
-            self.memory_core._insert_event(f'Event {i+1}', similar_embedding, None, None)
-        
-        # Test finding potential causes
-        potential_causes = self.memory_core._find_potential_causes([0.9, 0.9, 0.9, 0.9], "test query")
-        
-        # Should return at most MAX_POTENTIAL_CAUSES events
-        self.assertLessEqual(len(potential_causes), 2)
+        with patch('config.Config.MAX_POTENTIAL_CAUSES', 2):
+            self.memory_core = CausalMemoryCore(
+                db_path=self.temp_db_path,
+                llm_client=self.mock_llm,
+                embedding_model=self.mock_embedder
+            )
+            
+            # Add more events than the limit
+            recent_timestamp = datetime.now() - timedelta(minutes=10)
+            similar_embedding = [0.9, 0.9, 0.9, 0.9]
+            
+            # Insert using _insert_event to avoid manual event_id collisions
+            for i in range(5):
+                self.memory_core._insert_event(f'Event {i+1}', similar_embedding, None, None)
+            
+            # Test finding potential causes
+            potential_causes = self.memory_core._find_potential_causes([0.9, 0.9, 0.9, 0.9], "test query")
+            
+            # Should return at most MAX_POTENTIAL_CAUSES events
+            self.assertLessEqual(len(potential_causes), 2)
 
     def test_judge_causality_with_llm_error(self):
         """Test _judge_causality when LLM call fails"""
