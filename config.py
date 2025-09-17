@@ -25,4 +25,4 @@ class Config:
     
     # MCP Server settings
     MCP_SERVER_NAME = os.getenv('MCP_SERVER_NAME', 'causal-memory-core')
-    MCP_SERVER_VERSION = os.getenv('MCP_SERVER_VERSION', '1.1.0')
+    MCP_SERVER_VERSION = os.getenv('MCP_SERVER_VERSION', '1.1.1')

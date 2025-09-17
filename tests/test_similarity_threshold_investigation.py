@@ -40,7 +40,14 @@ class TestSimilarityThresholdInvestigation(unittest.TestCase):
     def tearDown(self):
         """Clean up test database"""
         if os.path.exists(self.temp_db_path):
-            os.unlink(self.temp_db_path)
+            # Retry unlink on Windows to avoid lingering file handle locks
+            for _ in range(5):
+                try:
+                    os.unlink(self.temp_db_path)
+                    break
+                except PermissionError:
+                    import time
+                    time.sleep(0.05)
             
     def create_memory_core_with_threshold(self, threshold):
         """Create memory core with specific similarity threshold"""

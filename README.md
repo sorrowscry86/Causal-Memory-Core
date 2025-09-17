@@ -1,4 +1,4 @@
-# 🧠 Causal Memory Core v1.1.0
+# 🧠 Causal Memory Core v1.1.1
 
 ![Causal Memory Core Logo](https://img.shields.io/badge/🧠-Causal%20Memory%20Core-blue?style=for-the-badge&labelColor=1a1a1a)
 
@@ -242,9 +242,10 @@ Causal Memory Core seamlessly integrates with:
 - **💬 Chat Systems**: Conversation context and continuity
 - **🔧 Development Tools**: IDE integration and debugging assistance
 
-## Docker Tags (v1.1.0)
+## Docker Tags (v1.1.1)
 
-- `latest`: Current stable release (1.1.0)
+- `latest`: Current stable release (1.1.1)
+- `1.1.1`: Docs & CI refinements, tests green
 - `1.1.0`: Enhanced narrative capabilities with MCP server
 - `1.0.0`: Initial release
 

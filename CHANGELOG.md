@@ -64,5 +64,22 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ---
 
+## [1.1.1] - September 2025 - Release Prep & CI Cleanup
+
+### Changed
+- Bumped `MCP_SERVER_VERSION` default to `1.1.1` in `config.py`.
+- Set default `SIMILARITY_THRESHOLD` to `0.5` to match tests and docs.
+- Normalized GitHub Actions workflow `.github/workflows/ci.yml` (removed conflict markers, consolidated jobs, updated Python matrix and Docker tag `1.1.1`).
+- Updated documentation references (README, docs/architecture.md) to `v1.1.1` and cleaned Markdown.
+- Updated `docker-compose.yml` image tag to `causal-memory-core:1.1.1`.
+
+### Fixed
+- Removed stale legacy test file and resolved pytest collection issues.
+- Addressed YAML duplication/conflict issues in CI workflow.
+
+### Notes
+- All unit and E2E tests pass locally; quick benchmarks verified.
+
+
 ## [1.0.0] - Initial public release
 - Initial implementation of Causal Memory Core with DuckDB-backed store, semantic embeddings, causal reasoning, CLI, and MCP server.

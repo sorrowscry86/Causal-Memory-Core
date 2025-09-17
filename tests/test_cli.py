@@ -69,9 +69,8 @@ class TestCLI(unittest.TestCase):
 
     def test_query_command_success(self):
         """Test successful query through CLI command"""
-        # Configure mock to return test context
-        test_context = ("Initially: User clicked a button → "
-                       "This led to: File opened")
+        # Configure mock to return single-line narrative context
+        test_context = "Initially, User clicked a button. This led to File opened."
         self.mock_memory_core.get_context.return_value = test_context
         
         # Redirect stdout to capture output

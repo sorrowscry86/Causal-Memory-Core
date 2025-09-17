@@ -138,10 +138,10 @@ class TestSemanticSearchValidation(unittest.TestCase):
                 self.assertGreater(len(found_keywords), 0, 
                     f"Query '{query}' should find context containing {expected_keywords}, got: {context}")
                 
-                # Should have proper narrative format
+                # Should have proper narrative format (single-line narrative only)
                 self.assertTrue(
-                    context.startswith("Initially,") or "Initially:" in context,
-                    f"Context should start with proper narrative format: {context}"
+                    context.startswith("Initially, "),
+                    f"Context should start with 'Initially, ': {context}"
                 )
                 
         memory_core.close()

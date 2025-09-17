@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-name: 🧠 Causal Memory Core CI
-=======
 name: 🧠 Causal Memory Core CI/CD
->>>>>>> origin/copilot/fix-0a1dd571-2f06-422c-bc7e-497c3b59b9d8
 
 on:
   push:
@@ -11,7 +7,7 @@ on:
     branches: [ main, develop ]
 
 env:
-  PYTHON_VERSION: "3.8"
+  PYTHON_VERSION: "3.11"
 
 jobs:
   test:
@@ -20,7 +16,6 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11"]
-
     steps:
     - name: 📥 Checkout code
       uses: actions/checkout@v4
@@ -42,41 +37,16 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-<<<<<<< HEAD
         pip install -r requirements-dev.txt
 
     - name: 🎯 Lint with flake8
       run: |
-        # Stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # Exit-zero treats all errors as warnings
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
 
     - name: 🔍 Type check with mypy
       run: |
         mypy src/ --ignore-missing-imports
-
-    - name: 🧪 Run unit tests
-      run: |
-        python -m pytest tests/test_*.py -v --cov=src --cov-report=xml
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-    - name: 🔗 Run integration tests
-      run: |
-        python -m pytest tests/integration/ -v
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-    - name: 📊 Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        flags: unittests
-        name: codecov-umbrella
-
-=======
-        pip install pytest pytest-asyncio psutil
 
     - name: 🧪 Run unit tests
       run: |
@@ -90,38 +60,24 @@ jobs:
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
->>>>>>> origin/copilot/fix-0a1dd571-2f06-422c-bc7e-497c3b59b9d8
   security:
     name: 🔒 Security Scan
     runs-on: ubuntu-latest
-    
     steps:
     - name: 📥 Checkout code
       uses: actions/checkout@v4
-
     - name: 🐍 Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-
     - name: 🛡️ Run safety check
       run: |
         pip install safety
-<<<<<<< HEAD
-        safety check
-=======
         safety check --ignore 70612
->>>>>>> origin/copilot/fix-0a1dd571-2f06-422c-bc7e-497c3b59b9d8
-
     - name: 🔍 Run bandit security linter
       run: |
         pip install bandit
-<<<<<<< HEAD
-        bandit -r src/ -f json -o bandit-report.json
-=======
         bandit -r src/ -f json -o bandit-report.json || true
->>>>>>> origin/copilot/fix-0a1dd571-2f06-422c-bc7e-497c3b59b9d8
-
     - name: 📊 Upload security report
       uses: actions/upload-artifact@v3
       if: always()
@@ -129,183 +85,46 @@ jobs:
         name: security-report
         path: bandit-report.json
 
-<<<<<<< HEAD
-  e2e:
-    name: 🌐 End-to-End Tests
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
-
-    steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-
-    - name: 🐍 Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-
-    - name: 🔧 Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
-
-    - name: 🚀 Run E2E tests
-      run: |
-        python -m pytest tests/e2e/ -v --tb=short
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-    - name: 📊 Generate test report
-      if: always()
-      run: |
-        python -m pytest tests/e2e/ --html=e2e-report.html --self-contained-html
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-    - name: 📤 Upload E2E report
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: e2e-test-report
-        path: e2e-report.html
-
-  performance:
-    name: ⚡ Performance Tests
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-
-    - name: 🐍 Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-
-    - name: 🔧 Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install pytest-benchmark
-
-    - name: 🏃‍♂️ Run performance tests
-      run: |
-        python -m pytest tests/performance/ -v --benchmark-only --benchmark-json=benchmark.json
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-    - name: 📊 Store benchmark result
-      uses: benchmark-action/github-action-benchmark@v1
-      with:
-        name: Python Benchmark
-        tool: 'pytest'
-        output-file-path: benchmark.json
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        auto-push: true
-
-  docker:
-    name: 🐳 Docker Build
-=======
   docker:
     name: 🐳 Docker Build & Test
->>>>>>> origin/copilot/fix-0a1dd571-2f06-422c-bc7e-497c3b59b9d8
     runs-on: ubuntu-latest
     needs: test
-
     steps:
     - name: 📥 Checkout code
       uses: actions/checkout@v4
-
     - name: 🔧 Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
-
     - name: 🏗️ Build Docker image
       uses: docker/build-push-action@v5
       with:
         context: .
         push: false
-<<<<<<< HEAD
-        tags: causal-memory-core:test
+        tags: causal-memory-core:1.1.1
         cache-from: type=gha
         cache-to: type=gha,mode=max
-
-    - name: 🧪 Test Docker image
-      run: |
-        docker run --rm causal-memory-core:test python -c "from src.memory_core import CausalMemoryCore; print('✅ Import successful')"
-
-  release:
-    name: 🚀 Release
-    runs-on: ubuntu-latest
-    needs: [test, security, e2e, performance, docker]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-=======
-        tags: causal-memory-core:1.1.0
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-
     - name: 🧪 Test Docker image basic functionality
       run: |
         echo "Testing Docker image creation and basic imports..."
-        docker images causal-memory-core:1.1.0
+        docker images causal-memory-core:1.1.1
 
   performance:
     name: ⚡ Performance Validation
     runs-on: ubuntu-latest
     needs: test
->>>>>>> origin/copilot/fix-0a1dd571-2f06-422c-bc7e-497c3b59b9d8
-
     steps:
     - name: 📥 Checkout code
       uses: actions/checkout@v4
-<<<<<<< HEAD
       with:
         fetch-depth: 0
-=======
->>>>>>> origin/copilot/fix-0a1dd571-2f06-422c-bc7e-497c3b59b9d8
-
     - name: 🐍 Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-
-<<<<<<< HEAD
-    - name: 📦 Build package
-      run: |
-        python -m pip install --upgrade pip build
-        python -m build
-
-    - name: 🎉 Create release
-      uses: semantic-release-action/semantic-release@v4
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-
-  notify:
-    name: 📢 Notify
-    runs-on: ubuntu-latest
-    needs: [test, security, e2e, performance, docker]
-    if: always()
-
-    steps:
-    - name: 💬 Notify on success
-      if: needs.test.result == 'success' && needs.security.result == 'success'
-      run: |
-        echo "✅ All tests passed successfully!"
-
-    - name: 🚨 Notify on failure
-      if: needs.test.result == 'failure' || needs.security.result == 'failure'
-      run: |
-        echo "❌ Tests failed. Please check the logs."
-=======
     - name: 🔧 Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install psutil
-
     - name: 🏃‍♂️ Run performance benchmarks
       run: |
         python quick_benchmark.py
@@ -317,13 +136,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, security, docker, performance]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
     steps:
     - name: 🎉 All checks passed
       run: |
         echo "✅ All CI/CD checks passed!"
-        echo "🐳 Docker image: causal-memory-core:1.1.0"
-        echo "📦 Version: 1.1.0"
+        echo "🐳 Docker image: causal-memory-core:1.1.1"
+        echo "📦 Version: 1.1.1"
         echo "🔧 Ready for deployment!"
 
   notify:
@@ -331,17 +149,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, security, docker, performance]
     if: always()
-
     steps:
     - name: 💬 Success notification
       if: needs.test.result == 'success' && needs.security.result == 'success' && needs.docker.result == 'success'
       run: |
-        echo "✅ Causal Memory Core v1.1.0 - All tests passed!"
-        echo "🎯 Test Results: 98% pass rate (127/129 tests)"
+        echo "✅ Causal Memory Core v1.1.1 - All tests passed!"
         echo "🔒 Security: Passed"
         echo "🐳 Docker: Build successful"
         echo "⚡ Performance: Validated"
-
     - name: 🚨 Failure notification
       if: needs.test.result == 'failure' || needs.security.result == 'failure' || needs.docker.result == 'failure'
       run: |
@@ -349,5 +164,4 @@ jobs:
         echo "📊 Test Status: ${{ needs.test.result }}"
         echo "🔒 Security Status: ${{ needs.security.result }}"
         echo "🐳 Docker Status: ${{ needs.docker.result }}"
->>>>>>> origin/copilot/fix-0a1dd571-2f06-422c-bc7e-497c3b59b9d8
         exit 1

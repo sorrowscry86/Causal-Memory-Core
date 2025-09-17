@@ -95,8 +95,8 @@ class TestCausalMemoryCoreCLIE2E:
         assert result.returncode == 0
         assert 'Context for' in result.stdout
         assert 'application opening' in result.stdout
-        # Narrative now starts with 'Initially,'
-        assert 'Initially,' in result.stdout
+        # Narrative starts with single-line 'Initially, '
+        assert 'Initially, ' in result.stdout
         
         # Verify memory core was called correctly
         mock_memory_core_class.assert_called_once()
@@ -212,7 +212,7 @@ class TestCausalMemoryCoreCLIE2E:
         assert 'Event added:' in result2.stdout
         
         # Step 3: Query for context
-        mock_instance.get_context.return_value = "Initially: User opened file browser\\nThis led to: User selected a document file"
+        mock_instance.get_context.return_value = "Initially, User opened file browser. This led to User selected a document file."
         
         result3 = self.run_cli_command([
             '--query', 'file selection process',
@@ -220,6 +220,8 @@ class TestCausalMemoryCoreCLIE2E:
         ], cli_env)
         assert result3.returncode == 0
         assert 'Context for' in result3.stdout
+        assert 'Initially, ' in result3.stdout
+        assert 'This led to' in result3.stdout
         
         # Verify all operations were called
         assert mock_instance.add_event.call_count == 2

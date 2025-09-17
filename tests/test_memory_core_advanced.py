@@ -305,7 +305,7 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
         narrative = self.memory_core.get_context("find child")
         
         self.assertIsInstance(narrative, str)
-        self.assertIn("Initially,", narrative)
+        self.assertTrue(narrative.startswith("Initially, "))
         self.assertIn("Child event with missing cause", narrative)
 
     def test_traversal_circular_reference_protection(self):
@@ -336,7 +336,7 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
         narrative = self.memory_core.get_context("cycle query")
         
         self.assertIsInstance(narrative, str)
-        self.assertIn("Initially:", narrative)
+        self.assertTrue(narrative.startswith("Initially, "))
         # Should include both events and not loop infinitely
         self.assertIn("Cycle event A", narrative)
         self.assertIn("Cycle event B", narrative)
@@ -498,8 +498,8 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
         # Get context for the final effect
         result = self.memory_core.get_context("final effect")
         
-        # Should trace back to root and build complete narrative
-        self.assertIn("Initially: Root cause event", result)
+        # Should trace back to root and build complete narrative (single-line)
+        self.assertTrue(result.startswith("Initially, Root cause event"))
         self.assertIn("Root caused first effect", result)
         self.assertIn("First effect caused second effect", result)
         self.assertIn("Second effect caused final effect", result)

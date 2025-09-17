@@ -1,4 +1,4 @@
-# 🏗️ Causal Memory Core Architecture v1.1.0
+# 🏗️ Causal Memory Core Architecture v1.1.1
 
 ## 🎯 Overview
 

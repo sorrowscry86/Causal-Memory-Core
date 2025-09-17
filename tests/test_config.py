@@ -44,7 +44,7 @@ class TestConfig(unittest.TestCase):
                 
                 # Test default MCP server settings
                 self.assertEqual(Config.MCP_SERVER_NAME, 'causal-memory-core')
-                self.assertEqual(Config.MCP_SERVER_VERSION, '1.0.0')
+                self.assertEqual(Config.MCP_SERVER_VERSION, '1.1.1')
 
     def test_environment_variable_loading(self):
         """Test that Config correctly loads values from environment vars"""

@@ -114,7 +114,7 @@ class TestCausalMemoryCoreMCPServerE2E:
             assert isinstance(result, list)
             assert len(result) == 1
             assert isinstance(result[0], types.TextContent)
-            assert "Initially," in result[0].text
+            assert result[0].text.startswith("Initially, ")
             
             # Verify memory core was called
             mock_memory_core.get_context.assert_called_once_with("application startup sequence")
@@ -138,13 +138,13 @@ class TestCausalMemoryCoreMCPServerE2E:
             assert "Successfully added event" in result2[0].text
             
             # Step 3: Query for context about the workflow
-            mock_memory_core.get_context.return_value = "Initially: User opened file browser\\nThis led to: User selected a document file"
+            mock_memory_core.get_context.return_value = "Initially, User opened file browser. This led to User selected a document file."
             
             result3 = await handle_call_tool("query", {
                 "query": "file selection workflow"
             })
-            assert "Initially:" in result3[0].text
-            assert "This led to:" in result3[0].text
+            assert result3[0].text.startswith("Initially, ")
+            assert "This led to" in result3[0].text
             
             # Verify all calls were made
             assert mock_memory_core.add_event.call_count == 2
