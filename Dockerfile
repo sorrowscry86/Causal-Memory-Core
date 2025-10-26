@@ -23,9 +23,12 @@ RUN mkdir -p /app/data
 # Set environment variables
 ENV DB_PATH=/app/data/causal_memory.db
 ENV PYTHONPATH=/app
+ENV PORT=8000
+ENV HOST=0.0.0.0
 
-# Expose port for MCP server (if needed for future HTTP mode)
+# Expose port for HTTP API
 EXPOSE 8000
 
-# Default command runs the MCP server
-CMD ["python", "src/mcp_server.py"]
+# Default command runs the HTTP API server
+# To run MCP server instead, override with: docker run ... python src/mcp_server.py
+CMD ["python", "src/api_server.py"]

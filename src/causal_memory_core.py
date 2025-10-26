@@ -12,6 +12,7 @@ Provides semantic recall with causal chain narration. Implements:
 """
 
 import atexit
+import logging
 import os
 import sys
 from dataclasses import dataclass
@@ -22,6 +23,13 @@ import duckdb
 import numpy as np
 import openai
 from sentence_transformers import SentenceTransformer
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # Ensure config import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -178,15 +186,15 @@ class CausalMemoryCore:
         while curr.cause_id is not None:
             cause = self._get_event_by_id(curr.cause_id)
             if not cause:
-                print(
-                    "WARNING: Broken causal chain at cause_id="
-                    f"{curr.cause_id}. Truncating ancestry."
+                logger.warning(
+                    f"Broken causal chain at cause_id={curr.cause_id}. "
+                    "Truncating ancestry."
                 )
                 break
             if cause.event_id in seen:
-                print(
-                    "CRITICAL: Circular reference at event_id="
-                    f"{cause.event_id}. Abort ascent."
+                logger.error(
+                    f"Circular reference at event_id={cause.event_id}. "
+                    "Abort ascent."
                 )
                 break
             ancestry.append(cause)
@@ -253,7 +261,7 @@ class CausalMemoryCore:
             if denom == 0:
                 continue
             sim = float(np.dot(eff_np, emb_np) / denom)
-            print(f"Similarity: {sim}, Threshold: {similarity_threshold}")
+            logger.debug(f"Similarity: {sim:.3f}, Threshold: {similarity_threshold}")
             if sim >= similarity_threshold:
                 candidates.append((sim, Event(*r)))
         candidates.sort(key=lambda x: (x[0], x[1].timestamp), reverse=True)
@@ -281,11 +289,13 @@ class CausalMemoryCore:
                 max_tokens=100,
             )
             result = str(response.choices[0].message.content).strip()
-            print(f"Prompt: {prompt}\nLLM Response: {result}")
+            logger.debug(f"Causality check - Prompt: {prompt[:100]}...")
+            logger.debug(f"LLM Response: {result}")
             if result.lower() == "no." or result.lower().startswith("no"):
                 return None
             return result
-        except Exception:
+        except Exception as e:
+            logger.error(f"Error judging causality: {e}")
             return None
 
     def _insert_event(self, effect_text: str, embedding: List[float],

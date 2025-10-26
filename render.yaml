@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: causal-memory-core
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: DB_PATH
+        value: /app/data/causal_memory.db
+      - key: LLM_MODEL
+        value: gpt-3.5-turbo
+      - key: SIMILARITY_THRESHOLD
+        value: 0.7
+      - key: MAX_POTENTIAL_CAUSES
+        value: 5
+      - key: PORT
+        value: 8000
+    disk:
+      name: causal-memory-data
+      mountPath: /app/data
+      sizeGB: 1
+    healthCheckPath: /health
