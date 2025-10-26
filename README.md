@@ -11,7 +11,7 @@ Next-generation memory system for AI agents combining semantic recall and causal
 
 [![Docker](https://img.shields.io/badge/docker-supported-blue?style=flat-square)](Dockerfile)
 
-[🚀 Quick Start](#-quick-start) • [📖 Documentation](#-documentation) • [🧪 Testing](#testing) • [🔧 Configuration](#-configuration) • [🐳 Docker](#-docker-deployment)
+[🚀 Quick Start](#-quick-start) • [☁️ Cloud Deployment](#-cloud-deployment) • [📖 Documentation](#-documentation) • [🧪 Testing](#testing) • [🔧 Configuration](#-configuration) • [🐳 Docker](#-docker-deployment)
 
 ---
 
@@ -25,9 +25,12 @@ Causal Memory Core transforms flat event lists into interconnected causal narrat
 - **🧠 Semantic Search with Causal Context**: Find events and receive complete causal stories, not just isolated facts
 - **⚡ Real-time Causal Detection**: LLM-powered analysis determines relationships between events as they occur
 - **🔌 MCP Integration**: Ready for integration with AI agents through Model Context Protocol (v1.1.0)
+- **🌐 HTTP/REST API**: Web and mobile access with FastAPI-powered endpoints
+- **☁️ Cloud-Ready**: Deploy to Railway, Render, Fly.io with one command
 - **📊 DuckDB Backend**: High-performance, embedded database for fast queries
 - **🤖 OpenAI Integration**: Leverages GPT models for intelligent event analysis
 - **🐳 Docker Support**: Production-ready containerization with docker-compose
+- **🔒 Optional Authentication**: Secure your API with optional API key authentication
 
 ## 🚀 Quick Start
 
@@ -57,6 +60,48 @@ Causal Memory Core transforms flat event lists into interconnected causal narrat
    cp .env.template .env
    # Edit .env and add your OPENAI_API_KEY
    ```
+
+4. **Start the API server**
+
+   ```bash
+   python src/api_server.py
+   ```
+
+   The server will start on `http://localhost:8000`. Visit `http://localhost:8000/docs` for interactive API documentation.
+
+## ☁️ Cloud Deployment
+
+Deploy your memory system to the cloud so your LLMs can access the same memories from desktop, web, and mobile!
+
+### Quick Deploy Options
+
+**Railway** (Recommended - Best Free Tier)
+```bash
+# 1. Push your code to GitHub
+# 2. Visit railway.app and create new project from GitHub repo
+# 3. Add environment variable: OPENAI_API_KEY=your-key
+# 4. Add persistent volume at /app/data
+# Deploy happens automatically!
+```
+
+**Render**
+```bash
+# render.yaml is included - just connect your GitHub repo!
+# 1. Visit render.com
+# 2. New Web Service → Connect repository
+# 3. Render auto-detects configuration
+# 4. Set OPENAI_API_KEY environment variable
+```
+
+**Fly.io**
+```bash
+flyctl launch  # Detects fly.toml automatically
+flyctl volumes create causal_memory_data --size 1
+flyctl secrets set OPENAI_API_KEY=your-key
+flyctl deploy
+```
+
+**📖 Full deployment guide:** See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions, cost estimates, and platform comparisons.
 
 ### 🐳 Docker Deployment
 
