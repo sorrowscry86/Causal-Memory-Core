@@ -15,8 +15,8 @@ This document tracks all findings, recommendations, and action items from the co
 
 | ID | Description | Severity | Status | Assigned To | Notes |
 |----|-------------|----------|--------|-------------|-------|
-| BUG-001 | `sentence-transformers` has a potential Arbitrary Code Execution vulnerability due to insecure `torch.load()` usage. | Critical | Not Started | TBD | The `_initialize_embedder` method in `src/causal_memory_core.py` might be affected. Investigate and mitigate. See [Snyk DB](https://security.snyk.io/package/pip/sentence-transformers/3.0.0) |
-| BUG-002 | `numpy` has a potential vulnerability (CVE-2019-6446) related to `numpy.load` and unsafe unpickling. | Medium | Not Started | TBD | The project does not appear to use `numpy.load` directly, but a dependency might. It's worth investigating the usage of numpy arrays and ensuring no untrusted data is loaded. |
+| BUG-001 | `sentence-transformers` has a potential Arbitrary Code Execution vulnerability due to insecure `torch.load()` usage. | Critical | Completed | Jules | The `_initialize_embedder` method in `src/causal_memory_core.py` might be affected. Investigate and mitigate. See [Snyk DB](https://security.snyk.io/package/pip/sentence-transformers/3.0.0) |
+| BUG-002 | `numpy` has a potential vulnerability (CVE-2019-6446) related to `numpy.load` and unsafe unpickling. | Medium | Completed | Jules | The project does not appear to use `numpy.load` directly, but a dependency might. It's worth investigating the usage of numpy arrays and ensuring no untrusted data is loaded. |
 
 ---
 
