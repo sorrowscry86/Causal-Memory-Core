@@ -61,3 +61,4 @@ This document tracks all findings, recommendations, and action items from the co
 | DOC-003 | The `CONTRIBUTING.md` file is missing. | Medium | Not Started | TBD | Create a `CONTRIBUTING.md` file to provide guidelines for contributors. |
 | DOC-004 | The Docker tags in `README.md` are outdated. | Low | Not Started | TBD | Update the Docker tags to reflect the latest version of the project. |
 | DOC-005 | The performance metrics in `README.md` are not well-documented. | Medium | Not Started | TBD | Provide more information about how the performance metrics were measured to make them more meaningful. |
+| DOC-006 | Added `.voidcat` file. | Suggestion | Completed | Jules | Created a `.voidcat` file for team-wide, platform-agnostic instructions. |
