@@ -15,6 +15,7 @@ import atexit
 import logging
 import os
 import sys
+from collections import OrderedDict
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from typing import Any, List, Optional
@@ -52,7 +53,9 @@ class CausalMemoryCore:
                  embedding_model: Any = None, embedding_model_name: Optional[str] = None,
                  similarity_threshold: Optional[float] = None,
                  max_potential_causes: Optional[int] = None,
-                 time_decay_hours: Optional[int] = None):
+                 time_decay_hours: Optional[int] = None,
+                 max_consequence_depth: Optional[int] = None,
+                 embedding_cache_size: int = 1000):
         self.db_path = db_path or Config.DB_PATH
         self.config = Config()
         self.embedding_model_name = embedding_model_name or Config.EMBEDDING_MODEL
@@ -68,8 +71,16 @@ class CausalMemoryCore:
             time_decay_hours if time_decay_hours is not None
             else Config.TIME_DECAY_HOURS
         )
+        self.max_consequence_depth = (
+            max_consequence_depth if max_consequence_depth is not None
+            else Config.MAX_CONSEQUENCE_DEPTH
+        )
         self.llm_model = Config.LLM_MODEL
         self.llm_temperature = Config.LLM_TEMPERATURE
+
+        # LRU cache for query embeddings (performance optimization)
+        self._embedding_cache: OrderedDict[str, List[float]] = OrderedDict()
+        self._embedding_cache_size = embedding_cache_size
 
         self.conn: Optional[duckdb.DuckDBPyConnection] = duckdb.connect(
             self.db_path
@@ -149,6 +160,39 @@ class CausalMemoryCore:
             self.embedding_model_name, use_safetensors=True
         )
 
+    def _get_cached_embedding(self, text: str) -> List[float]:
+        """Get embedding with LRU caching for performance.
+
+        Args:
+            text: Text to encode
+
+        Returns:
+            Embedding vector as list of floats
+        """
+        # Check cache first
+        if text in self._embedding_cache:
+            # Move to end (most recently used)
+            self._embedding_cache.move_to_end(text)
+            logger.debug(f"Embedding cache HIT for: {text[:50]}...")
+            return self._embedding_cache[text]
+
+        # Cache miss - compute embedding
+        logger.debug(f"Embedding cache MISS for: {text[:50]}...")
+        encoded = self.embedder.encode(text)
+        if hasattr(encoded, "tolist"):
+            embedding = [float(x) for x in encoded.tolist()]
+        else:
+            embedding = [float(x) for x in list(encoded)]
+
+        # Add to cache with LRU eviction
+        self._embedding_cache[text] = embedding
+        if len(self._embedding_cache) > self._embedding_cache_size:
+            # Remove oldest (first) item
+            self._embedding_cache.popitem(last=False)
+            logger.debug(f"Evicted oldest embedding from cache (size: {self._embedding_cache_size})")
+
+        return embedding
+
     # ---------------- Public API ----------------
     def add_event(self, effect_text: str) -> None:
         # Input validation
@@ -181,15 +225,83 @@ class CausalMemoryCore:
             effect_text, effect_embedding, cause_id, relationship_text
         )
 
+    def add_events_batch(self, effect_texts: List[str]) -> dict:
+        """Add multiple events in batch for improved performance.
+
+        This method processes events sequentially but avoids overhead
+        of individual add_event calls. More efficient for bulk ingestion.
+
+        Args:
+            effect_texts: List of event descriptions to add
+
+        Returns:
+            Dictionary with statistics: {
+                'total': total events processed,
+                'successful': events successfully added,
+                'failed': events that failed,
+                'errors': list of error messages
+            }
+        """
+        stats = {
+            'total': len(effect_texts),
+            'successful': 0,
+            'failed': 0,
+            'errors': []
+        }
+
+        logger.info(f"Starting batch insertion of {len(effect_texts)} events...")
+
+        for idx, effect_text in enumerate(effect_texts):
+            try:
+                # Input validation
+                if not isinstance(effect_text, str):
+                    raise TypeError(f"Item {idx}: must be string, got {type(effect_text).__name__}")
+                if not effect_text or not effect_text.strip():
+                    raise ValueError(f"Item {idx}: cannot be empty or whitespace-only")
+
+                # Process event (same logic as add_event)
+                encoded = self.embedder.encode(effect_text)
+                if hasattr(encoded, "tolist"):
+                    effect_embedding = [float(x) for x in encoded.tolist()]
+                else:
+                    effect_embedding = [float(x) for x in list(encoded)]
+
+                potential_causes = self._find_potential_causes(effect_embedding, effect_text)
+                cause_id: Optional[int] = None
+                relationship_text: Optional[str] = None
+
+                for cause in potential_causes:
+                    relationship = self._judge_causality(cause, effect_text)
+                    if relationship:
+                        cause_id = cause.event_id
+                        relationship_text = relationship
+                        break
+
+                self._insert_event(effect_text, effect_embedding, cause_id, relationship_text)
+                stats['successful'] += 1
+
+                # Log progress every 100 events
+                if (idx + 1) % 100 == 0:
+                    logger.info(f"Batch progress: {idx + 1}/{len(effect_texts)} events processed")
+
+            except Exception as e:
+                stats['failed'] += 1
+                error_msg = f"Item {idx} ('{effect_text[:50]}...'): {str(e)}"
+                stats['errors'].append(error_msg)
+                logger.warning(f"Batch insertion error: {error_msg}")
+
+        logger.info(
+            f"Batch insertion complete: {stats['successful']} successful, "
+            f"{stats['failed']} failed out of {stats['total']} total"
+        )
+        return stats
+
     def get_context(self, query: str) -> str:
         return self.query(query)
 
     def query(self, query: str) -> str:
-        q_vec = self.embedder.encode(query)
-        if hasattr(q_vec, "tolist"):
-            q_emb = [float(x) for x in q_vec.tolist()]
-        else:
-            q_emb = [float(x) for x in list(q_vec)]
+        # Use cached embedding for performance
+        q_emb = self._get_cached_embedding(query)
         target = self._find_most_relevant_event(q_emb)
         if not target:
             return "No relevant context found in memory."
@@ -215,10 +327,10 @@ class CausalMemoryCore:
             seen.add(cause.event_id)
             curr = cause
         path = list(reversed(ancestry))
-        # Limited consequences (up to 2)
+        # Limited consequences (configurable depth)
         consequences: List[Event] = []
         frontier = target
-        for _ in range(2):
+        for _ in range(self.max_consequence_depth):
             if self.conn is None:
                 break
             row = self.conn.execute(
