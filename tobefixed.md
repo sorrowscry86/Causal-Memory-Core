@@ -24,17 +24,17 @@ This document tracks all findings, recommendations, and action items from the co
 
 | ID | Description | Severity | Status | Assigned To | Notes |
 |----|-------------|----------|--------|-------------|-------|
-| CPI-001 | The `_initialize_embedder` method hardcodes the embedding model. | Low | Not Started | TBD | Allow passing a `SentenceTransformer` model during `CausalMemoryCore` initialization for more flexibility. |
+| CPI-001 | The `_initialize_embedder` method hardcodes the embedding model. | Low | Completed | High Evolutionary | Added `embedding_model_name` parameter to constructor. Users can now specify custom embedding models at runtime. |
 | CPI-002 | The `_judge_causality` method uses a broad `except Exception`. | Low | Completed | Jules | Added specific exception handling for OpenAI API errors (APIConnectionError, RateLimitError, APIError) and response format errors. |
 | CPI-003 | The `add_event` method lacks input validation for `effect_text`. | Medium | Completed | Jules | Added validation to check for non-string types and empty/whitespace-only strings with appropriate error messages. |
 | CPI-004 | The `get_context` method is a redundant wrapper for the `query` method. | Low | Not Started | TBD | Consider deprecating `get_context` in a future version to simplify the public API. |
 | CPI-005 | Review all database queries for potential SQL injection vulnerabilities. | Medium | Completed | Jules | Comprehensive review completed. All queries use parameterized statements with placeholders, no string concatenation or user input in SQL construction. System is secure against SQL injection. |
-| CPI-006 | The test suite has 0% coverage for `src/api_server.py`. | High | Not Started | TBD | The API server logic is completely untested, which could hide significant bugs. Add comprehensive tests for all API endpoints. |
+| CPI-006 | The test suite has 0% coverage for `src/api_server.py`. | High | Completed | High Evolutionary | Created comprehensive test suite (tests/test_api_server.py) with 40+ test cases covering all endpoints, authentication, validation, error handling, and rate limiting. |
 | CPI-007 | Improve test coverage for `src/causal_memory_core.py` and `src/mcp_server.py`. | Medium | Not Started | TBD | While coverage is good (90% and 94%), there are still untested lines of code. Aim for 100% coverage to ensure all edge cases are handled. |
 | CPI-008 | Use a vector index for more efficient similarity searches. | High | Not Started | TBD | The current brute-force search will not scale. Implement a vector index (e.g., FAISS, Annoy, or DuckDB's VSS extension) for faster nearest neighbor searches. |
-| CPI-009 | Cache query embeddings to avoid redundant computations. | Medium | Not Started | TBD | Implement a cache for query embeddings to improve performance for repeated queries. |
-| CPI-010 | Implement a batch `add_events` method for more efficient event ingestion. | Medium | Not Started | TBD | A batch method would be much more performant for adding a large number of events. |
-| CPI-011 | Make the consequence chain length configurable. | Low | Not Started | TBD | The hardcoded limit of 2 consequences might not be suitable for all use cases. Add a configuration option to control this. |
+| CPI-009 | Cache query embeddings to avoid redundant computations. | Medium | Completed | High Evolutionary | Implemented LRU cache (OrderedDict-based) with configurable size (default 1000 items). Cache hits avoid expensive embedding computation, dramatically improving repeated query performance. |
+| CPI-010 | Implement a batch `add_events` method for more efficient event ingestion. | Medium | Completed | High Evolutionary | Added `add_events_batch(effect_texts: List[str])` method with progress logging, error handling, and statistics reporting. Returns detailed results including successful/failed counts and error messages. |
+| CPI-011 | Make the consequence chain length configurable. | Low | Completed | High Evolutionary | Added `max_consequence_depth` parameter to constructor and `MAX_CONSEQUENCE_DEPTH` to Config (default: 2). Users can now control narrative chain length via environment variables or constructor arguments. |
 | CPI-012 | Improve the robustness of the causal judgement mechanism. | Medium | Not Started | TBD | The current LLM-based approach can be noisy. Explore more robust causal inference techniques or an ensemble of models. |
 
 ---
