@@ -149,6 +149,16 @@ class CausalMemoryCore:
 
     # ---------------- Public API ----------------
     def add_event(self, effect_text: str) -> None:
+        # Input validation
+        if not isinstance(effect_text, str):
+            raise TypeError(
+                f"effect_text must be a string, got {type(effect_text).__name__}"
+            )
+        if not effect_text or not effect_text.strip():
+            raise ValueError(
+                "effect_text cannot be empty or contain only whitespace"
+            )
+
         encoded = self.embedder.encode(effect_text)
         if hasattr(encoded, "tolist"):
             effect_embedding = [float(x) for x in encoded.tolist()]
@@ -296,8 +306,23 @@ class CausalMemoryCore:
             if result.lower() == "no." or result.lower().startswith("no"):
                 return None
             return result
+        except openai.APIConnectionError as e:
+            logger.error(f"OpenAI API connection error in causality judgment: {e}")
+            return None
+        except openai.RateLimitError as e:
+            logger.error(f"OpenAI rate limit exceeded in causality judgment: {e}")
+            return None
+        except openai.APIError as e:
+            logger.error(f"OpenAI API error in causality judgment: {e}")
+            return None
+        except (AttributeError, KeyError, IndexError) as e:
+            logger.error(f"Unexpected response format from LLM: {e}")
+            return None
         except Exception as e:
-            logger.error(f"Error judging causality: {e}")
+            logger.error(
+                f"Unexpected error judging causality: {type(e).__name__}: {e}",
+                exc_info=True
+            )
             return None
 
     def _insert_event(self, effect_text: str, embedding: List[float],

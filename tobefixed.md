@@ -25,10 +25,10 @@ This document tracks all findings, recommendations, and action items from the co
 | ID | Description | Severity | Status | Assigned To | Notes |
 |----|-------------|----------|--------|-------------|-------|
 | CPI-001 | The `_initialize_embedder` method hardcodes the embedding model. | Low | Not Started | TBD | Allow passing a `SentenceTransformer` model during `CausalMemoryCore` initialization for more flexibility. |
-| CPI-002 | The `_judge_causality` method uses a broad `except Exception`. | Low | Not Started | TBD | Catch more specific exceptions to avoid masking unrelated errors and improve debugging. |
-| CPI-003 | The `add_event` method lacks input validation for `effect_text`. | Medium | Not Started | TBD | Add validation to handle empty strings or other invalid inputs to prevent storing meaningless events. |
+| CPI-002 | The `_judge_causality` method uses a broad `except Exception`. | Low | Completed | Jules | Added specific exception handling for OpenAI API errors (APIConnectionError, RateLimitError, APIError) and response format errors. |
+| CPI-003 | The `add_event` method lacks input validation for `effect_text`. | Medium | Completed | Jules | Added validation to check for non-string types and empty/whitespace-only strings with appropriate error messages. |
 | CPI-004 | The `get_context` method is a redundant wrapper for the `query` method. | Low | Not Started | TBD | Consider deprecating `get_context` in a future version to simplify the public API. |
-| CPI-005 | Review all database queries for potential SQL injection vulnerabilities. | Medium | Not Started | TBD | While the current queries seem safe, a thorough review is a good security practice. |
+| CPI-005 | Review all database queries for potential SQL injection vulnerabilities. | Medium | Completed | Jules | Comprehensive review completed. All queries use parameterized statements with placeholders, no string concatenation or user input in SQL construction. System is secure against SQL injection. |
 | CPI-006 | The test suite has 0% coverage for `src/api_server.py`. | High | Not Started | TBD | The API server logic is completely untested, which could hide significant bugs. Add comprehensive tests for all API endpoints. |
 | CPI-007 | Improve test coverage for `src/causal_memory_core.py` and `src/mcp_server.py`. | Medium | Not Started | TBD | While coverage is good (90% and 94%), there are still untested lines of code. Aim for 100% coverage to ensure all edge cases are handled. |
 | CPI-008 | Use a vector index for more efficient similarity searches. | High | Not Started | TBD | The current brute-force search will not scale. Implement a vector index (e.g., FAISS, Annoy, or DuckDB's VSS extension) for faster nearest neighbor searches. |
@@ -56,9 +56,9 @@ This document tracks all findings, recommendations, and action items from the co
 
 | ID | Description | Severity | Status | Assigned To | Notes |
 |----|-------------|----------|--------|-------------|-------|
-| DOC-001 | The "Recent Test Results" section in `README.md` is outdated. | Low | Not Started | TBD | Update the test results to reflect the current 100% pass rate. |
-| DOC-002 | The documentation links in `README.md` are broken. | High | Not Started | TBD | Fix the broken links to the documentation files in the `docs/` directory. |
+| DOC-001 | The "Recent Test Results" section in `README.md` is outdated. | Low | Completed | Jules | Updated test results section to show 100% pass rate with cleaner formatting. |
+| DOC-002 | The documentation links in `README.md` are broken. | High | Completed | Jules | Fixed broken documentation links by removing references to non-existent files and correcting deployment guide link. |
 | DOC-003 | The `CONTRIBUTING.md` file is missing. | Medium | Not Started | TBD | Create a `CONTRIBUTING.md` file to provide guidelines for contributors. |
-| DOC-004 | The Docker tags in `README.md` are outdated. | Low | Not Started | TBD | Update the Docker tags to reflect the latest version of the project. |
+| DOC-004 | The Docker tags in `README.md` are outdated. | Low | Completed | Jules | Verified Docker tags are current - already showing v1.1.1 as latest release. |
 | DOC-005 | The performance metrics in `README.md` are not well-documented. | Medium | Not Started | TBD | Provide more information about how the performance metrics were measured to make them more meaningful. |
 | DOC-006 | Added `.voidcat` file. | Suggestion | Completed | Jules | Created a `.voidcat` file for team-wide, platform-agnostic instructions. |
