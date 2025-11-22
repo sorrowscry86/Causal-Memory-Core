@@ -49,11 +49,13 @@ class Event:
 
 class CausalMemoryCore:
     def __init__(self, db_path: Optional[str] = None, llm_client: Any = None,
-                 embedding_model: Any = None, similarity_threshold: Optional[float] = None,
+                 embedding_model: Any = None, embedding_model_name: Optional[str] = None,
+                 similarity_threshold: Optional[float] = None,
                  max_potential_causes: Optional[int] = None,
                  time_decay_hours: Optional[int] = None):
         self.db_path = db_path or Config.DB_PATH
         self.config = Config()
+        self.embedding_model_name = embedding_model_name or Config.EMBEDDING_MODEL
         self.similarity_threshold = (
             similarity_threshold if similarity_threshold is not None
             else Config.SIMILARITY_THRESHOLD
@@ -144,7 +146,7 @@ class CausalMemoryCore:
 
     def _initialize_embedder(self):
         return SentenceTransformer(
-            self.config.EMBEDDING_MODEL, use_safetensors=True
+            self.embedding_model_name, use_safetensors=True
         )
 
     # ---------------- Public API ----------------
