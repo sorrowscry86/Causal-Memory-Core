@@ -143,7 +143,9 @@ class CausalMemoryCore:
         return openai
 
     def _initialize_embedder(self):
-        return SentenceTransformer(self.config.EMBEDDING_MODEL)
+        return SentenceTransformer(
+            self.config.EMBEDDING_MODEL, use_safetensors=True
+        )
 
     # ---------------- Public API ----------------
     def add_event(self, effect_text: str) -> None:

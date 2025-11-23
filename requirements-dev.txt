@@ -45,3 +45,7 @@ faker>=18.0.0
 # Coverage
 coverage[toml]>=7.0.0
 codecov>=2.1.0
+
+mcp
+psutil
+pytest-asyncio
