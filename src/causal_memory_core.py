@@ -1,4 +1,3 @@
-from __future__ import annotations
 
 """Causal Memory Core - unified, cleaned implementation.
 
@@ -157,7 +156,7 @@ class CausalMemoryCore:
 
     def _initialize_embedder(self):
         return SentenceTransformer(
-            self.embedding_model_name, use_safetensors=True
+            self.embedding_model_name,
         )
 
     def _get_cached_embedding(self, text: str) -> List[float]:
