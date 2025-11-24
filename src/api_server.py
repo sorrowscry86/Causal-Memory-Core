@@ -8,7 +8,6 @@ Provides web and mobile access to the memory system with:
 - Authentication support (optional)
 """
 
-from __future__ import annotations
 
 import logging
 import os
