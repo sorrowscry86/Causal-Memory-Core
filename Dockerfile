@@ -42,4 +42,4 @@ ENV HOST=0.0.0.0
 EXPOSE 8000
 
 # Run server
-CMD ["python", "-m", "src.api_server"]
+CMD ["python", "src/api_server.py"]
