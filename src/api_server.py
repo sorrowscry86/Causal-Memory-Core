@@ -16,9 +16,12 @@ import uvicorn
 from contextlib import asynccontextmanager
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, Header
+from fastapi import FastAPI, HTTPException, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 from .causal_memory_core import CausalMemoryCore
 
@@ -32,11 +35,19 @@ logger = logging.getLogger(__name__)
 # Global memory instance
 memory_core: Optional[CausalMemoryCore] = None
 
+# Rate limiting configuration
+limiter = Limiter(key_func=get_remote_address)
+
 
 # Request/Response Models
 class AddEventRequest(BaseModel):
     """Request model for adding a new event."""
-    effect_text: str = Field(..., min_length=1, description="Description of the event")
+    effect_text: str = Field(
+        ...,
+        min_length=1,
+        max_length=10000,
+        description="Description of the event (max 10,000 characters)"
+    )
 
     class Config:
         json_schema_extra = {
@@ -54,7 +65,12 @@ class AddEventResponse(BaseModel):
 
 class QueryRequest(BaseModel):
     """Request model for querying memory."""
-    query: str = Field(..., min_length=1, description="Search query")
+    query: str = Field(
+        ...,
+        min_length=1,
+        max_length=1000,
+        description="Search query (max 1,000 characters)"
+    )
 
     class Config:
         json_schema_extra = {
@@ -114,6 +130,10 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+# Attach rate limiter to app
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 # Configure CORS for web and mobile access
 app.add_middleware(
     CORSMiddleware,
@@ -162,11 +182,15 @@ async def health_check():
 
 
 @app.post("/events", response_model=AddEventResponse)
+@limiter.limit("60/minute")  # 60 events per minute per IP
 async def add_event(
+    request_obj: Request,
     request: AddEventRequest,
     authenticated: Optional[str] = Header(None, include_in_schema=False, alias="x-api-key")
 ):
     """Add a new event to memory.
+
+    Rate limit: 60 requests per minute per IP address.
 
     The system will automatically:
     1. Generate semantic embeddings
@@ -195,11 +219,15 @@ async def add_event(
 
 
 @app.post("/query", response_model=QueryResponse)
+@limiter.limit("120/minute")  # 120 queries per minute per IP
 async def query_memory(
+    request_obj: Request,
     request: QueryRequest,
     authenticated: Optional[str] = Header(None, include_in_schema=False, alias="x-api-key")
 ):
     """Query memory and retrieve causal narrative.
+
+    Rate limit: 120 requests per minute per IP address.
 
     The system will:
     1. Find the most relevant event to your query

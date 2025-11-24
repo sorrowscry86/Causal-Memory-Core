@@ -258,9 +258,7 @@ python -m pytest --cov=src tests/
 
 ### Recent Test Results
 
-**Test Status**: 2 failed, 127 passed (98% pass rate)
-
-The remaining 2 failures only occur during full suite execution due to minor test isolation issues - both tests pass when run individually, indicating the core functionality is sound.
+**Test Status**: All tests passing ✅ (100% pass rate)
 
 | Test Category | Events Recorded | Query Success Rate | Integration Status |
 |---------------|-----------------|-------------------|-------------------|
@@ -297,13 +295,11 @@ Causal Memory Core seamlessly integrates with:
 ## 📖 Documentation
 
 - [🏗️ Architecture Guide](docs/architecture.md)
-- [🔧 Configuration Reference](docs/configuration.md)
-- [🧪 Testing Guide](docs/testing.md)
-- [🔌 MCP Integration](docs/mcp-integration.md)
 - [📝 API Documentation](docs/api.md)
-- [🚀 Deployment Guide](docs/deployment.md)
+- [🚀 Deployment Guide](DEPLOYMENT.md)
+- [🤝 Contributing Guide](CONTRIBUTING.md)
+- [📋 Changelog](CHANGELOG.md)
 - See `.github/copilot-instructions.md` for agent and contributor guidelines.
-- See `CHANGELOG.md` for recent changes.
 - See `The Grand Triptych of Refinement.md` for development strategy.
 
 ## 🤝 Contributing

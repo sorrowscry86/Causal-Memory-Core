@@ -1,0 +1,90 @@
+# Causal Memory Core: Team Onboarding
+
+## 1. Project Mission
+
+The Causal Memory Core is a Python-based memory system for AI agents. Its goal is to provide agents with a deeper understanding of event sequences by combining semantic search with causal reasoning. This allows an agent to ask "why" something happened and receive a narrative answer.
+
+Our architecture is built around a portable DuckDB database, `sentence-transformers` for embeddings, and an LLM (like OpenAI's GPT series) for causal analysis.
+
+The core logic is in `src/causal_memory_core.py`.
+
+## 2. Getting Started (Platform Agnostic)
+
+### Prerequisites
+- Git
+- Python 3.8+ OR Docker
+- An OpenAI API key
+
+### Setup
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/sorrowscry86/Causal-Memory-Core.git
+    cd Causal-Memory-Core
+    ```
+
+2.  **Configure your environment:**
+    Copy the `.env.template` file to `.env` and add your `OPENAI_API_KEY`.
+    ```bash
+    cp .env.template .env
+    # Now, edit the .env file with your key.
+    ```
+    This file is git-ignored, so your key will remain private.
+
+## 3. How to Run
+
+### Using Docker (Recommended for consistency)
+The most straightforward way to run the application is with Docker.
+
+```bash
+# This builds the image and starts the API server.
+docker-compose up --build
+```
+The API will be available at `http://localhost:8000`.
+
+### Local Python Environment
+If you prefer a local setup:
+
+1.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+2.  **Run the application:**
+    -   **As a library:** Import `CausalMemoryCore` into your own Python scripts. See `example_usage.py`.
+    -   **Via CLI:** Use `cli.py` for quick interactions.
+        ```bash
+        # Add an event
+        python cli.py --add "A new user registered."
+        # Get context
+        python cli.py --query "What was the last user action?"
+        ```
+    -   **As a server:** Run the API or MCP server.
+        ```bash
+        # For a REST API
+        python src/api_server.py
+
+        # For the Model Context Protocol (MCP) server
+        python src/mcp_server.py
+        ```
+
+## 4. Development & Contribution Guidelines
+
+### Testing is Mandatory
+We use `pytest`. Before submitting any changes, ensure all tests pass.
+
+```bash
+# Run the primary test suite
+python -m pytest tests/test_memory_core.py
+
+# Run the complete test suite
+python -m pytest tests/
+```
+
+### Key Files & Folders
+-   `src/`: Main application source code.
+-   `tests/`: All tests. Please add tests for new features.
+-   `config.py`: Central configuration. Use this for settings, not hardcoded values.
+-   `requirements.txt`: Project dependencies.
+-   `Dockerfile`: Defines our standard container environment.
+
+Your contributions are welcome! Please see `CONTRIBUTING.md` for more details on our workflow.
