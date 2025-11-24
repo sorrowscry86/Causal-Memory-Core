@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import logging
 import os
+import uvicorn
 from contextlib import asynccontextmanager
 from typing import Optional
 
@@ -22,7 +23,7 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
-from causal_memory_core import CausalMemoryCore
+from .causal_memory_core import CausalMemoryCore
 
 # Configure logging
 logging.basicConfig(
@@ -118,6 +119,7 @@ async def lifespan(app: FastAPI):
             logger.info("Memory core closed successfully")
         except Exception as e:
             logger.error(f"Error closing memory core: {e}")
+            raise
 
 
 # Create FastAPI application
@@ -143,12 +145,11 @@ app.add_middleware(
 
 
 # Optional API key authentication
-def verify_api_key(x_api_key: Optional[str] = Header(None)) -> bool:
+def verify_api_key(x_api_key: Optional[str]):
     """Verify API key if authentication is enabled."""
     required_key = os.getenv("API_KEY")
     if required_key and x_api_key != required_key:
         raise HTTPException(status_code=401, detail="Invalid or missing API key")
-    return True
 
 
 # API Endpoints
@@ -185,7 +186,7 @@ async def health_check():
 async def add_event(
     request_obj: Request,
     request: AddEventRequest,
-    authenticated: bool = Header(None, include_in_schema=False, alias="x-api-key")
+    authenticated: Optional[str] = Header(None, include_in_schema=False, alias="x-api-key")
 ):
     """Add a new event to memory.
 
@@ -222,7 +223,7 @@ async def add_event(
 async def query_memory(
     request_obj: Request,
     request: QueryRequest,
-    authenticated: bool = Header(None, include_in_schema=False, alias="x-api-key")
+    authenticated: Optional[str] = Header(None, include_in_schema=False, alias="x-api-key")
 ):
     """Query memory and retrieve causal narrative.
 
@@ -280,8 +281,6 @@ async def get_stats():
 
 
 if __name__ == "__main__":
-    import uvicorn
-
     port = int(os.getenv("PORT", 8000))
     host = os.getenv("HOST", "0.0.0.0")
 
