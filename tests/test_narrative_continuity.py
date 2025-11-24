@@ -26,7 +26,8 @@ class TestNarrativeContinuity(unittest.TestCase):
         self.temp_db = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
         self.temp_db_path = self.temp_db.name
         self.temp_db.close()
-        os.unlink(self.temp_db_path)  # Let DuckDB create the file
+        # Delete the temp file so DuckDB can create it properly
+        os.unlink(self.temp_db_path)
     
     def tearDown(self):
         """Clean up test resources"""
@@ -101,6 +102,11 @@ class TestNarrativeContinuity(unittest.TestCase):
         def mock_encode(text):
             text_lower = text.lower()
             
+            # Use fixed seed for deterministic test behavior
+            # Hash the text to get a consistent seed per unique input
+            seed = hash(text) % (2**32)
+            np.random.seed(seed)
+            
             # Refactoring cluster
             if any(word in text_lower for word in ["refactor", "extract", "rename", "test"]):
                 base = np.array([0.9, 0.8, 0.1, 0.1])
@@ -116,7 +122,7 @@ class TestNarrativeContinuity(unittest.TestCase):
             else:
                 base = np.array([0.5, 0.5, 0.5, 0.5])
             
-            # Add small random variation
+            # Add small random variation (deterministic based on text)
             variation = np.random.uniform(-0.05, 0.05, 4)
             result = base + variation
             # Normalize to [0, 1]

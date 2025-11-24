@@ -22,6 +22,7 @@ Causal Memory Core transforms flat event lists into interconnected causal narrat
 ### ✨ Key Features
 
 - **🔗 Narrative Chain Reconstruction**: Automatically traces causal relationships from any event back to root causes
+- **📖 Narrative Continuity Detection** _(New!)_: Recognizes sequential workflows without explicit causal language - perfect for dry system logs, code refactoring steps, incident response actions, and deployment sequences
 - **🧠 Semantic Search with Causal Context**: Find events and receive complete causal stories, not just isolated facts
 - **⚡ Real-time Causal Detection**: LLM-powered analysis determines relationships between events as they occur
 - **🔌 MCP Integration**: Ready for integration with AI agents through Model Context Protocol (v1.1.0)
@@ -183,6 +184,30 @@ This led to a patch being written to add the necessary null check,
 which in turn caused the patch to be successfully deployed to production, and the bug was marked as resolved."
 ```
 
+### Narrative Continuity Example (v1.1.2+)
+
+The system now recognizes sequential workflows without explicit causal language:
+
+```text
+# Dry system log entries (no "because", "caused", etc.)
+memory.add_event("Fixed bug #1234: NPE in user authentication")
+memory.add_event("Added regression tests for authentication flow")
+memory.add_event("Deployed hotfix v1.2.3 to production")
+
+Query: "What happened with the bug fix?"
+
+Response: "Initially, Fixed bug #1234: NPE in user authentication. 
+This led to Added regression tests for authentication flow 
+(These events represent sequential steps in the same development workflow.), 
+which in turn caused Deployed hotfix v1.2.3 to production 
+(These events represent sequential steps in the same development workflow.)."
+```
+
+The system automatically links events based on:
+- **Temporal proximity**: Events happening close together in time
+- **Semantic relevance**: Events with similar meanings/topics
+- **Workflow patterns**: Recognizes common sequences (code → test → deploy, alert → check → fix, etc.)
+
 ## 🏗️ Architecture
 
 ```mermaid
@@ -199,6 +224,7 @@ graph TB
 - **Event recording:** `add_event()` stores events and detects causal links automatically.
 - **Narrative retrieval:** `get_context()` reconstructs complete causal chains as chronological narratives.
 - **Causal chain traversal:** System follows cause_id links backward to root events, then formats as story.
+- **Narrative continuity:** The system recognizes sequential workflows based on temporal proximity + semantic relevance, not just explicit causal language. This enables linking of dry system logs, code refactoring steps, incident response actions, and deployment sequences.
 - **Config:** All settings in `config.py` (thresholds, model names, etc).
 
 ## MCP Integration (v1.1.0)

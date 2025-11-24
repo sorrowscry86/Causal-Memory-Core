@@ -4,6 +4,40 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 
+## [1.1.2] - November 2024 - Narrative Continuity Enhancement
+
+### Added
+- **Narrative Continuity Detection**: System now recognizes sequential workflows without explicit causal language
+  - Links events based on temporal proximity + semantic relevance = narrative continuity
+  - Supports dry system logs (code refactoring, incident resolution, database migrations, deployments)
+  - No longer requires explicit "because", "led to", "caused" language in event descriptions
+- **Comprehensive Test Suite**: Added `test_narrative_continuity.py` with 5 test cases validating:
+  - Code refactoring workflows
+  - Incident resolution sequences
+  - Database migration workflows
+  - Deployment sequences
+  - Proper rejection of unrelated events (no false positives)
+
+### Changed
+- **LLM Prompt Enhancement**: Modified `_judge_causality()` prompt to be more flexible:
+  - Changed from rigid "did it directly lead to" to "are these events part of the same workflow or narrative sequence?"
+  - Now explicitly accepts: direct causal relationships, sequential process steps, and related workflow actions
+  - Maintains accuracy while reducing false negatives for legitimate sequential workflows
+
+### Technical Details
+- All 64 existing tests continue to pass (backward compatibility maintained)
+- New tests use realistic mock patterns for LLM and embedder behavior
+- Documentation updated in README.md with narrative continuity examples and use cases
+
+### Use Cases Now Supported
+- ✅ Code refactoring steps (extract → rename → test)
+- ✅ Incident response (alert → check → fix)
+- ✅ Database operations (backup → migrate → verify)
+- ✅ Deployment workflows (build → deploy → monitor)
+- ✅ Any temporally proximate + semantically related event sequences
+
+---
+
 ## [1.1.0] - December 2024 - Pillar III Complete: Integration & Bestowal
 
 ### Added
