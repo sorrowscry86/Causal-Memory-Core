@@ -1,3 +1,8 @@
+---
+description: AI rules derived by SpecStory from the project AI interaction history
+globs: *
+---
+
 # Causal Memory Core - AI Agent Instructions
 
 ## Project Overview
@@ -147,6 +152,9 @@ mock_llm.chat.completions.create.side_effect = mock_completion
 ### MCP Protocol
 Two tools exposed: `add_event(effect: str)` and `query(query: str) -> str`
 Server handles initialization, error formatting, and cleanup automatically.
+The MCP server can run in two modes:
+* **Local Mode:** Runs `stdio` as before.
+* **Railway Mode:** Uses `starlette` and `uvicorn` to expose `/sse` and `/messages` endpoints, complying with the Model Context Protocol over HTTP. This mode is activated when a `PORT` environment variable is detected.
 
 ### CLI Architecture
 - Argument parsing supports batch (`--add`, `--query`) and interactive modes
@@ -166,6 +174,7 @@ Server handles initialization, error formatting, and cleanup automatically.
 - **Always preserve causal chain integrity**: Any changes to `_format_chain_as_narrative()` must maintain chronological order
 - **Maintain test isolation**: Each test must use its own temporary database and cleanup properly
 - **Respect the factory pattern**: CLI mocking depends on `cli.CausalMemoryCore` being patchable
+- **Avoid explaining internal functions**: The agent should not attempt to explain the workings of its internal functions if asked directly.
 
 ### Common Development Tasks
 
@@ -221,4 +230,29 @@ except Exception:
 - **Test gates**: All tests must pass before merging
 - **Documentation**: Update CHANGELOG.md for user-facing changes
 
+### Agent Self-Description
+- I’m a coding assistant that helps you work inside this repo.
+- Describe what you need (fix bugs, add features, explain things), and I follow the repo’s guidelines to read or edit files, run checks, and summarize the results.
+- When you ask for something, I figure out the relevant files, use the right tools to inspect or modify code, and then give you concise answers plus next steps (tests, verification, etc.).
+
 When modifying this codebase, prioritize maintaining the causal chain integrity and test coverage for both happy path and edge cases (broken chains, circular references).
+
+### Workflow & Release Rules
+- Before syncing with the remote repository, always check the git status to ensure no local changes are unintentionally overwritten.
+- When the corresponding remote branch is gone, the AI should fetch the remote main branch and merge or rebase that into the local branch, while carefully preserving any local changes that haven’t been committed yet. Watch out for merge conflicts and handle untracked or modified files during the process. Stash local modifications before merging to avoid overwriting, and reset the working tree after a stash pop conflict to keep it clean while preserving the stash entry.
+- The updated `.env.template` is now the detailed, user-facing config template and should be treated as a template (never commit secrets). Resolve any conflicts in `.env.template` and `causal_memory_core.py` by carefully merging changes.
+- During syncing, if a partial stash apply aborts due to conflicts, reset the working tree hard to HEAD (losing current modifications but safe because stash still holds them), then apply the stash again.
+- When syncing the repo and instructed to target "one master branch," the AI should stash all current changes (including untracked), fetch and merge updates from origin/main, then pop the stash to preserve local progress, and finally consider switching to or cleaning up branches to have a single master branch aligned with remote main.
+- When merging into a single branch (typically `main`): Stash all current changes (staged, unstaged, and untracked); switch to the `main` branch; fetch and merge the latest from `origin/main`; apply the stashed changes; resolve any merge conflicts, prioritizing changes in `main` if the context is unclear; and clean up any temporary branches.
+
+## TECH STACK
+
+- DuckDB >=0.9.0
+- sentence-transformers >=2.2.0
+- openai >=1.0.0
+- numpy >=1.24.0
+- python-dotenv >=1.0.0
+- pydantic >=2.5.0,<2.6.0
+- mcp >=1.0.0
+- starlette >=0.37.0
+- uvicorn >=0.29.0

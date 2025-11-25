@@ -147,12 +147,35 @@ class CausalMemoryCore:
 
     def _initialize_llm(self):
         api_key = os.getenv("OPENAI_API_KEY")
+        base_url = os.getenv("OPENAI_BASE_URL")
+        # Prefer OpenAI v1 client when base_url is provided (LM Studio / self-hosted)
+        if base_url:
+            try:
+                from openai import OpenAI  # v1 client
+                # LM Studio often ignores the API key; provide placeholder if missing
+                return OpenAI(base_url=base_url, api_key=api_key or "not-needed")
+            except Exception:
+                # Fall back to legacy module even if base_url is set
+                pass
         if not api_key:
             raise ValueError(
                 "OPENAI_API_KEY must be set in environment variables"
             )
-        openai.api_key = api_key
-        return openai
+        # Legacy style module client (compatible with existing tests/mocks)
+        try:
+            import openai as _openai
+            _openai.api_key = api_key
+            # If base_url exists and module supports it, set it
+            if base_url and hasattr(_openai, "base_url"):
+                try:
+                    _openai.base_url = base_url
+                except Exception:
+                    pass
+            return _openai
+        except Exception:
+            # As a last resort, try the v1 client without base_url
+            from openai import OpenAI  # type: ignore
+            return OpenAI(api_key=api_key)
 
     def _initialize_embedder(self):
         return SentenceTransformer(
@@ -221,50 +244,45 @@ class CausalMemoryCore:
                 relationship_text = relationship
                 break
         self._insert_event(
-            effect_text, effect_embedding, cause_id, relationship_text
-        )
+        
+                    # New, more lenient prompt that accepts narrative continuity
+                    prompt = (
+                        "Consider these two sequential events:\n"
+                        "1. \"{c}\"\n"
+                        "2. \"{e}\"\n\n"
+                        "Are these events part of the same workflow or narrative sequence? "
+                        "This includes:\n"
+                        "- Direct causal relationships (A caused B)\n"
+                        "- Sequential steps in a process (A then B)\n"
+                        "- Related actions in a workflow\n\n"
+                        "If they ARE related, briefly describe their relationship in one sentence. "
+                        "If they are NOT related or are completely independent, respond with \"No.\""
+                    ).format(c=cause_text, e=effect_norm)
 
-    def add_events_batch(self, effect_texts: List[str]) -> dict:
-        """Add multiple events in batch for improved performance.
+                    log_path = os.path.join(os.path.dirname(self.db_path), "causality_diagnostic.log")
+                    with open(log_path, "a", encoding="utf-8") as log_file:
+                        log_file.write("=" * 80 + "\n")
+                        log_file.write(f"[TIMESTAMP] {datetime.now().isoformat()}\n")
+                        log_file.write(f"[CAUSALITY JUDGMENT] Event ID {cause_event.event_id} → New Event\n")
+                        log_file.write(f"[CAUSE EVENT] (ID {cause_event.event_id}): {cause_event.effect_text}\n")
+                        log_file.write(f"[EFFECT EVENT]: {effect_text}\n")
+                        log_file.write(f"[CAUSE TIMESTAMP]: {cause_event.timestamp}\n")
+                        log_file.write(f"[PROMPT TO LLM]:\n{prompt}\n\n")
 
-        This method processes events sequentially but avoids overhead
-        of individual add_event calls. More efficient for bulk ingestion.
+                    def _record_judgment(result_text: str, verdict: str, relationship: Optional[str] = None) -> None:
+                        with open(log_path, "a", encoding="utf-8") as log_file:
+                            log_file.write(f"[LLM FULL RESPONSE]: {result_text}\n")
+                            log_file.write(f"[JUDGMENT]: {verdict}\n")
+                            if relationship:
+                                log_file.write(f"[RELATIONSHIP]: {relationship}\n")
+                            log_file.write("=" * 80 + "\n\n")
 
-        Args:
-            effect_texts: List of event descriptions to add
+                    def _record_error(exc: Exception) -> None:
+                        with open(log_path, "a", encoding="utf-8") as log_file:
+                            log_file.write(f"[ERROR]: {type(exc).__name__}: {exc}\n")
+                            log_file.write("=" * 80 + "\n\n")
 
-        Returns:
-            Dictionary with statistics: {
-                'total': total events processed,
-                'successful': events successfully added,
-                'failed': events that failed,
-                'errors': list of error messages
-            }
-        """
-        stats = {
-            'total': len(effect_texts),
-            'successful': 0,
-            'failed': 0,
-            'errors': []
-        }
-
-        logger.info(f"Starting batch insertion of {len(effect_texts)} events...")
-
-        for idx, effect_text in enumerate(effect_texts):
-            try:
-                # Input validation
-                if not isinstance(effect_text, str):
-                    raise TypeError(f"Item {idx}: must be string, got {type(effect_text).__name__}")
-                if not effect_text or not effect_text.strip():
-                    raise ValueError(f"Item {idx}: cannot be empty or whitespace-only")
-
-                # Process event (same logic as add_event)
-                encoded = self.embedder.encode(effect_text)
-                if hasattr(encoded, "tolist"):
-                    effect_embedding = [float(x) for x in encoded.tolist()]
-                else:
-                    effect_embedding = [float(x) for x in list(encoded)]
-
+                    try:
                 potential_causes = self._find_potential_causes(effect_embedding, effect_text)
                 cause_id: Optional[int] = None
                 relationship_text: Optional[str] = None
@@ -274,39 +292,27 @@ class CausalMemoryCore:
                     if relationship:
                         cause_id = cause.event_id
                         relationship_text = relationship
-                        break
+                        if result.lower() == "no." or result.lower().startswith("no"):
+                            _record_judgment(result, "REJECTED - No causal relationship detected")
+                            return None
 
-                self._insert_event(effect_text, effect_embedding, cause_id, relationship_text)
-                stats['successful'] += 1
-
-                # Log progress every 100 events
-                if (idx + 1) % 100 == 0:
-                    logger.info(f"Batch progress: {idx + 1}/{len(effect_texts)} events processed")
-
-            except Exception as e:
-                stats['failed'] += 1
-                error_msg = f"Item {idx} ('{effect_text[:50]}...'): {str(e)}"
-                stats['errors'].append(error_msg)
-                logger.warning(f"Batch insertion error: {error_msg}")
-
-        logger.info(
-            f"Batch insertion complete: {stats['successful']} successful, "
-            f"{stats['failed']} failed out of {stats['total']} total"
-        )
-        return stats
-
-    def get_context(self, query: str) -> str:
-        return self.query(query)
-
-    def query(self, query: str) -> str:
-        # Use cached embedding for performance
-        q_emb = self._get_cached_embedding(query)
-        target = self._find_most_relevant_event(q_emb)
-        if not target:
-            return "No relevant context found in memory."
-        # Ascend ancestry
-        ancestry: List[Event] = [target]
-        seen = {target.event_id}
+                        _record_judgment(result, "ACCEPTED - Causal link established", result)
+                        return result
+                    except (openai.APIConnectionError, openai.RateLimitError, openai.APIError,
+                            AttributeError, KeyError, IndexError) as exc:
+                        logger.error(
+                            f"Error during causality judgment: {type(exc).__name__}: {exc}",
+                            exc_info=True,
+                        )
+                        _record_error(exc)
+                        return None
+                    except Exception as exc:  # pragma: no cover - defensive fallback
+                        logger.error(
+                            f"Unexpected error judging causality: {type(exc).__name__}: {exc}",
+                            exc_info=True,
+                        )
+                        _record_error(exc)
+                        return None
         curr = target
         while curr.cause_id is not None:
             cause = self._get_event_by_id(curr.cause_id)
@@ -400,8 +406,7 @@ class CausalMemoryCore:
                          effect_text: str) -> Optional[str]:
         cause_text = (cause_event.effect_text or "").lower()
         effect_norm = (effect_text or "").lower()
-        
-        # New, more lenient prompt that accepts narrative continuity
+
         prompt = (
             "Consider these two sequential events:\n"
             "1. \"{c}\"\n"
@@ -414,7 +419,30 @@ class CausalMemoryCore:
             "If they ARE related, briefly describe their relationship in one sentence. "
             "If they are NOT related or are completely independent, respond with \"No.\""
         ).format(c=cause_text, e=effect_norm)
-        
+
+        log_path = os.path.join(os.path.dirname(self.db_path), "causality_diagnostic.log")
+        with open(log_path, "a", encoding="utf-8") as log_file:
+            log_file.write("=" * 80 + "\n")
+            log_file.write(f"[TIMESTAMP] {datetime.now().isoformat()}\n")
+            log_file.write(f"[CAUSALITY JUDGMENT] Event ID {cause_event.event_id} → New Event\n")
+            log_file.write(f"[CAUSE EVENT] (ID {cause_event.event_id}): {cause_event.effect_text}\n")
+            log_file.write(f"[EFFECT EVENT]: {effect_text}\n")
+            log_file.write(f"[CAUSE TIMESTAMP]: {cause_event.timestamp}\n")
+            log_file.write(f"[PROMPT TO LLM]:\n{prompt}\n\n")
+
+        def _record_judgment(result_text: str, verdict: str, relationship: Optional[str] = None) -> None:
+            with open(log_path, "a", encoding="utf-8") as log_file:
+                log_file.write(f"[LLM FULL RESPONSE]: {result_text}\n")
+                log_file.write(f"[JUDGMENT]: {verdict}\n")
+                if relationship:
+                    log_file.write(f"[RELATIONSHIP]: {relationship}\n")
+                log_file.write("=" * 80 + "\n\n")
+
+        def _record_error(exc: Exception) -> None:
+            with open(log_path, "a", encoding="utf-8") as log_file:
+                log_file.write(f"[ERROR]: {type(exc).__name__}: {exc}\n")
+                log_file.write("=" * 80 + "\n\n")
+
         try:
             response = self.llm.chat.completions.create(
                 model=self.config.LLM_MODEL,
@@ -425,29 +453,27 @@ class CausalMemoryCore:
             result = str(response.choices[0].message.content).strip()
             logger.debug(f"Causality check - Prompt: {prompt[:100]}...")
             logger.debug(f"LLM Response: {result}")
-            
-            # Check for explicit rejection
+
             if result.lower() == "no." or result.lower().startswith("no"):
+                _record_judgment(result, "REJECTED - No causal relationship detected")
                 return None
-            
+
+            _record_judgment(result, "ACCEPTED - Causal link established", result)
             return result
-        except openai.APIConnectionError as e:
-            logger.error(f"OpenAI API connection error in causality judgment: {e}")
-            return None
-        except openai.RateLimitError as e:
-            logger.error(f"OpenAI rate limit exceeded in causality judgment: {e}")
-            return None
-        except openai.APIError as e:
-            logger.error(f"OpenAI API error in causality judgment: {e}")
-            return None
-        except (AttributeError, KeyError, IndexError) as e:
-            logger.error(f"Unexpected response format from LLM: {e}")
-            return None
-        except Exception as e:
+        except (openai.APIConnectionError, openai.RateLimitError, openai.APIError,
+                AttributeError, KeyError, IndexError) as exc:
             logger.error(
-                f"Unexpected error judging causality: {type(e).__name__}: {e}",
-                exc_info=True
+                f"Error during causality judgment: {type(exc).__name__}: {exc}",
+                exc_info=True,
             )
+            _record_error(exc)
+            return None
+        except Exception as exc:  # pragma: no cover - defensive fallback
+            logger.error(
+                f"Unexpected error judging causality: {type(exc).__name__}: {exc}",
+                exc_info=True,
+            )
+            _record_error(exc)
             return None
 
     def _insert_event(self, effect_text: str, embedding: List[float],

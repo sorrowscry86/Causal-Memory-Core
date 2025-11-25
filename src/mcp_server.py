@@ -2,17 +2,32 @@
 """
 MCP Server for the Causal Memory Core
 Exposes memory.add_event and memory.query tools via the Model Context Protocol
+Supports dual transports: stdio for local usage and Starlette/uvicorn SSE for cloud deployments (Railway, etc.).
 """
 
 import asyncio
 import logging
-from typing import Any, Sequence
+import os
 
 # MCP SDK imports
 from mcp.server.models import InitializationOptions
 import mcp.types as types
 from mcp.server import NotificationOptions, Server
 from mcp.server.stdio import stdio_server
+
+try:
+    from mcp.server.sse import SseServerTransport
+    from starlette.applications import Starlette
+    from starlette.responses import Response
+    from starlette.requests import Request
+    import uvicorn
+except ImportError:  # pragma: no cover - optional SSE deps
+    SseServerTransport = None
+    Starlette = None
+    Response = None
+    Request = None
+    Route = None
+    uvicorn = None
 
 from causal_memory_core import CausalMemoryCore
 from config import Config
@@ -125,22 +140,70 @@ async def handle_call_tool(name: str, arguments: dict | None) -> list[types.Text
             text=f"Error executing {name}: {str(e)}"
         )]
 
-async def main():
-    """Main entry point for the MCP server"""
-    # Run the server using stdio transport
+def _build_initialization_options() -> InitializationOptions:
+    return InitializationOptions(
+        server_name=Config.MCP_SERVER_NAME,
+        server_version=Config.MCP_SERVER_VERSION,
+        capabilities=server.get_capabilities(
+            notification_options=NotificationOptions(),
+            experimental_capabilities={},
+        ),
+    )
+
+
+async def _run_stdio_server() -> None:
     async with stdio_server() as (read_stream, write_stream):
         await server.run(
             read_stream,
             write_stream,
-            InitializationOptions(
-                server_name=Config.MCP_SERVER_NAME,
-                server_version=Config.MCP_SERVER_VERSION,
-                capabilities=server.get_capabilities(
-                    notification_options=NotificationOptions(),
-                    experimental_capabilities={},
-                ),
-            ),
+            _build_initialization_options(),
         )
+
+
+async def _run_sse_server(port: str) -> None:
+    if Starlette is None or SseServerTransport is None or uvicorn is None or Response is None or Request is None:
+        raise RuntimeError("SSE deployment requires starlette+uvicorn+mcp.server.sse dependencies")
+
+    app = Starlette(debug=False)
+    sse = SseServerTransport("/messages")
+
+    async def handle_sse(request: Request):
+        async with sse.connect_sse(request.scope, request.receive, request._send) as streams:
+            await server.run(
+                streams[0],
+                streams[1],
+                _build_initialization_options(),
+            )
+
+    async def handle_messages(request: Request):
+        await sse.handle_post_message(request.scope, request.receive, request._send)
+
+    async def handle_health(request: Request) -> Response:
+        return Response("Causal Memory Core MCP Active 🧠", media_type="text/plain")
+
+    app.add_route("/sse", handle_sse, methods=["GET"])
+    app.add_route("/messages", handle_messages, methods=["POST"])
+    app.add_route("/", handle_health, methods=["GET"])
+
+    config = uvicorn.Config(app, host="0.0.0.0", port=int(port), log_level="info")
+    server_instance = uvicorn.Server(config)
+    await server_instance.serve()
+
+
+async def main():
+    """Main entry point for the MCP server"""
+    http_port = os.getenv("PORT")
+    if http_port:
+        if Starlette is None or uvicorn is None or SseServerTransport is None:
+            logger.error(
+                "PORT is set but SSE dependencies (starlette, uvicorn, mcp.server.sse) are missing."
+            )
+            raise RuntimeError("Missing SSE dependencies for cloud deployment")
+        logger.info("Detected PORT=%s, starting SSE server", http_port)
+        await _run_sse_server(http_port)
+    else:
+        logger.info("Starting stdio server (no PORT detected)")
+        await _run_stdio_server()
 
 if __name__ == "__main__":
     asyncio.run(main())

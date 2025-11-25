@@ -15,7 +15,8 @@ class Config:
     
     # LLM settings
     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-    LLM_MODEL = os.getenv('LLM_MODEL', 'gpt-3.5-turbo')
+    OPENAI_BASE_URL = os.getenv('OPENAI_BASE_URL')
+    LLM_MODEL = os.getenv('LLM_MODEL', 'gpt-4')
     LLM_TEMPERATURE = float(os.getenv('LLM_TEMPERATURE', '0.1'))
     
     # Search settings
