@@ -400,12 +400,21 @@ class CausalMemoryCore:
                          effect_text: str) -> Optional[str]:
         cause_text = (cause_event.effect_text or "").lower()
         effect_norm = (effect_text or "").lower()
+        
+        # New, more lenient prompt that accepts narrative continuity
         prompt = (
-            "Based on the preceding event: \"{c}\", did it directly "
-            "lead to the following event: \"{e}\"?\n\nIf yes, briefly "
-            "explain the causal relationship in one sentence. If no, "
-            "respond with \"No.\""
+            "Consider these two sequential events:\n"
+            "1. \"{c}\"\n"
+            "2. \"{e}\"\n\n"
+            "Are these events part of the same workflow or narrative sequence? "
+            "This includes:\n"
+            "- Direct causal relationships (A caused B)\n"
+            "- Sequential steps in a process (A then B)\n"
+            "- Related actions in a workflow\n\n"
+            "If they ARE related, briefly describe their relationship in one sentence. "
+            "If they are NOT related or are completely independent, respond with \"No.\""
         ).format(c=cause_text, e=effect_norm)
+        
         try:
             response = self.llm.chat.completions.create(
                 model=self.config.LLM_MODEL,
@@ -416,8 +425,11 @@ class CausalMemoryCore:
             result = str(response.choices[0].message.content).strip()
             logger.debug(f"Causality check - Prompt: {prompt[:100]}...")
             logger.debug(f"LLM Response: {result}")
+            
+            # Check for explicit rejection
             if result.lower() == "no." or result.lower().startswith("no"):
                 return None
+            
             return result
         except openai.APIConnectionError as e:
             logger.error(f"OpenAI API connection error in causality judgment: {e}")
