@@ -259,15 +259,15 @@ class CausalMemoryCore:
                         "If they are NOT related or are completely independent, respond with \"No.\""
                     ).format(c=cause_text, e=effect_norm)
 
-                    log_path = os.path.join(os.path.dirname(self.db_path), "causality_diagnostic.log")
-                with open(log_path, "a", encoding="utf-8") as log_file:
-                    log_file.write("=" * 80 + "\n")
-                    log_file.write(f"[TIMESTAMP] {datetime.now().isoformat()}\n")
-                    log_file.write(f"[CAUSALITY JUDGMENT] Event ID {cause_event.event_id} → New Event\n")
-                    log_file.write(f"[CAUSE EVENT] (ID {cause_event.event_id}): {cause_event.effect_text}\n")
-                        log_file.write(f"[EFFECT EVENT]: {effect_text}\n")
-                        log_file.write(f"[CAUSE TIMESTAMP]: {cause_event.timestamp}\n")
-                        log_file.write(f"[PROMPT TO LLM]:\n{prompt}\n\n")
+                log_path = os.path.join(os.path.dirname(self.db_path), "causality_diagnostic.log")
+        with open(log_path, "a", encoding="utf-8") as log_file:
+            log_file.write("=" * 80 + "\n")
+            log_file.write(f"[TIMESTAMP] {datetime.now().isoformat()}\n")
+            log_file.write(f"[CAUSALITY JUDGMENT] Event ID {cause_event.event_id} -> New Event\n")
+            log_file.write(f"[CAUSE EVENT] (ID {cause_event.event_id}): {cause_event.effect_text}\n")
+            log_file.write(f"[EFFECT EVENT]: {effect_text}\n")
+            log_file.write(f"[CAUSE TIMESTAMP]: {cause_event.timestamp}\n")
+            log_file.write(f"[PROMPT TO LLM]:\n{prompt}\n\n")
 
                     def _record_judgment(result_text: str, verdict: str, relationship: Optional[str] = None) -> None:
                         with open(log_path, "a", encoding="utf-8") as log_file:
