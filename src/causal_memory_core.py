@@ -245,10 +245,10 @@ class CausalMemoryCore:
                 break
         self._insert_event(effect_text, effect_embedding, cause_id, relationship_text)
         
-                    # New, more lenient prompt that accepts narrative continuity
-                    prompt = (
-                        "Consider these two sequential events:\n"
-                        "1. \"{c}\"\n"
+        # New, more lenient prompt that accepts narrative continuity
+        prompt = (
+            "Consider these two sequential events:\n"
+            "1. \"{c}\"\n"
                         "2. \"{e}\"\n\n"
                         "Are these events part of the same workflow or narrative sequence? "
                         "This includes:\n"
