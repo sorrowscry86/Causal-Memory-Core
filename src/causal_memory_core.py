@@ -243,7 +243,7 @@ class CausalMemoryCore:
                 cause_id = cause.event_id
                 relationship_text = relationship
                 break
-        self._insert_event(
+        self._insert_event(effect_text, effect_embedding, cause_id, relationship_text)
         
                     # New, more lenient prompt that accepts narrative continuity
                     prompt = (
