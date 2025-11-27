@@ -28,6 +28,9 @@ myst-parser>=0.18.0
 ipython>=8.0.0
 jupyter>=1.0.0
 notebook>=6.4.0
+jupyterlab>=4.4.8
+
+authlib>=1.6.5
 
 # Performance profiling
 memory-profiler>=0.60.0
