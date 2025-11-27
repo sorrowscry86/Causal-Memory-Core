@@ -8,6 +8,7 @@ Supports dual transports: stdio for local usage and Starlette/uvicorn SSE for cl
 import asyncio
 import logging
 import os
+from typing import Optional
 
 # MCP SDK imports
 from mcp.server.models import InitializationOptions
@@ -77,7 +78,7 @@ async def handle_list_tools() -> list[types.Tool]:
     ]
 
 @server.call_tool()
-async def handle_call_tool(name: str, arguments: dict | None) -> list[types.TextContent]:
+async def handle_call_tool(name: str, arguments: Optional[dict]) -> list[types.TextContent]:
     """Handle tool calls"""
     global memory_core
     
