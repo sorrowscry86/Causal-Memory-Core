@@ -520,7 +520,7 @@ class CausalMemoryCore:
         if not query_text or not query_text.strip():
             return "No relevant context found in memory."
 
-        # Get embedding for the query using cached embedding for performance
+        # Get embedding for the query using LRU cache for performance
         query_embedding = self._get_cached_embedding(query_text)
 
         # Find the most semantically similar event
