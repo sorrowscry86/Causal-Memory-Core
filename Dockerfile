@@ -41,5 +41,9 @@ ENV HOST=0.0.0.0
 # Expose port
 EXPOSE 8000
 
-# Run server
-CMD ["python", "src/api_server.py"]
+# Copy startup script
+COPY start_server.sh /app/start_server.sh
+RUN chmod +x /app/start_server.sh
+
+# Run server (will choose REST API or MCP based on SERVICE_TYPE env var)
+CMD ["/app/start_server.sh"]
