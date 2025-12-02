@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "causal-memory-local": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["d:/Development/Causal Memory Core/src/mcp_server.py"],
+      "env": {
+        "OPENAI_API_KEY": "${env:OPENAI_API_KEY}",
+        "DB_PATH": "d:\\Development\\Causal Memory Core\\causal_memory.db",
+        "EMBEDDING_MODEL": "all-MiniLM-L6-v2",
+        "LLM_MODEL": "gpt-4",
+        "LLM_TEMPERATURE": "0.1",
+        "MAX_POTENTIAL_CAUSES": "7",
+        "SIMILARITY_THRESHOLD": "0.6",
+        "TIME_DECAY_HOURS": "168"
+      }
+    },
+    "causal-memory-railway": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["d:/Development/Causal Memory Core/src/mcp_railway_client.py"],
+      "env": {
+        "RAILWAY_BASE_URL": "https://causal-memory-core-production.up.railway.app",
+        "API_KEY": "${env:CMC_API_KEY}"
+      }
+    }
+  }
+}
