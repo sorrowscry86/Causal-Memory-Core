@@ -473,6 +473,81 @@ class CausalMemoryCore:
             narrative += " " + ", ".join(clauses) + "."
         return narrative
 
+    def _build_causal_chain(self, event: Event) -> List[Event]:
+        """Build causal chain by ascending from event to root cause.
+
+        Args:
+            event: The starting event to trace back from
+
+        Returns:
+            List of events from root cause to the given event (chronological order)
+        """
+        chain: List[Event] = [event]
+        visited: set[int] = {event.event_id}
+
+        current = event
+        while current.cause_id is not None:
+            if current.cause_id in visited:
+                # Circular reference detected, break to avoid infinite loop
+                break
+            cause = self._get_event_by_id(current.cause_id)
+            if cause is None:
+                # Broken chain, cause event not found
+                break
+            visited.add(cause.event_id)
+            chain.append(cause)
+            current = cause
+
+        # Reverse to get chronological order (root cause first)
+        chain.reverse()
+        return chain
+
+    # ---------------- Public Query API ----------------
+    def query(self, query_text: str) -> str:
+        """Query memory and return a causal narrative.
+
+        Orchestrates semantic search to locate the most relevant event,
+        then ascends the causal chain to the root cause and formats
+        the result as a narrative.
+
+        Args:
+            query_text: Natural language query to search for
+
+        Returns:
+            Narrative string describing the causal chain, or a message
+            if no relevant context is found
+        """
+        if not query_text or not query_text.strip():
+            return "No relevant context found in memory."
+
+        # Get embedding for the query using cached embedding for performance
+        query_embedding = self._get_cached_embedding(query_text)
+
+        # Find the most semantically similar event
+        relevant_event = self._find_most_relevant_event(query_embedding)
+        if relevant_event is None:
+            return "No relevant context found in memory."
+
+        # Build causal chain from root cause to this event
+        chain = self._build_causal_chain(relevant_event)
+
+        # Format as narrative
+        return self._format_chain_as_narrative(chain)
+
+    def get_context(self, query_text: str) -> str:
+        """Get context for a query (backward compatibility wrapper).
+
+        This method wraps query() for backward compatibility with
+        existing code that expects get_context().
+
+        Args:
+            query_text: Natural language query to search for
+
+        Returns:
+            Narrative string describing the causal chain
+        """
+        return self.query(query_text)
+
     # ---------------- Lifecycle ----------------
     def close(self):
         if self.conn is None:
