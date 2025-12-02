@@ -7,10 +7,10 @@ from unittest.mock import Mock, patch
 import pytest
 from fastapi.testclient import TestClient
 
-# Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+# Add root to path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from api_server import app, memory_core
+from src.api_server import app, memory_core
 
 
 @pytest.fixture
@@ -22,7 +22,7 @@ def client():
 @pytest.fixture
 def mock_memory_core():
     """Mock the global memory_core instance."""
-    with patch('api_server.memory_core') as mock_core:
+    with patch('src.api_server.memory_core') as mock_core:
         mock_core.conn = Mock()
         mock_core.add_event = Mock()
         mock_core.query = Mock(return_value="Test narrative response")
@@ -43,7 +43,7 @@ class TestHealthEndpoint:
 
     def test_health_check_unhealthy(self, client):
         """Test health check when database is not connected."""
-        with patch('api_server.memory_core', None):
+        with patch('src.api_server.memory_core', None):
             response = client.get("/health")
             assert response.status_code == 200
             data = response.json()
@@ -123,7 +123,7 @@ class TestAddEventEndpoint:
 
     def test_add_event_memory_core_not_initialized(self, client):
         """Test adding event when memory core is not initialized."""
-        with patch('api_server.memory_core', None):
+        with patch('src.api_server.memory_core', None):
             response = client.post(
                 "/events",
                 json={"effect_text": "Test event"}
@@ -200,7 +200,7 @@ class TestQueryEndpoint:
 
     def test_query_memory_core_not_initialized(self, client):
         """Test querying when memory core is not initialized."""
-        with patch('api_server.memory_core', None):
+        with patch('src.api_server.memory_core', None):
             response = client.post(
                 "/query",
                 json={"query": "Test query"}
@@ -235,7 +235,7 @@ class TestStatsEndpoint:
 
     def test_stats_memory_core_not_initialized(self, client):
         """Test stats when memory core is not initialized."""
-        with patch('api_server.memory_core', None):
+        with patch('src.api_server.memory_core', None):
             response = client.get("/stats")
             assert response.status_code == 503
 

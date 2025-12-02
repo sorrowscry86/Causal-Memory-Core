@@ -92,47 +92,42 @@ if event:
 ```
 ### Context Retrieval
 
-#### get_context()
+#### query()
 
-Retrieves causal context based on a query.
+Query memory and retrieve causal narrative.
 
 ```python
-def get_context(
-    self,
-    query: str,
-    max_events: int = 10,
-    time_window: Optional[timedelta] = None,
-    filters: Optional[Dict[str, Any]] = None
-) -> ContextResponse
+def query(self, query_text: str) -> str
 ```
 
 **Parameters:**
-- `query` (str): Search query for relevant events
-- `max_events` (int): Maximum number of events to return
-- `time_window` (Optional[timedelta]): Limit search to specific time range
-- `filters` (Optional[Dict[str, Any]]): Additional filtering criteria
+- `query_text` (str): Natural language query about context
 
 **Returns:**
-- `ContextResponse`: Structured response with events and causal relationships
+- `str`: Narrative string explaining the causal chain leading to the most relevant event.
 
 **Example:**
 ```python
-from datetime import timedelta
-
 # Basic context query
-context = memory.get_context("user authentication issues")
+narrative = memory.query("user authentication issues")
 
-# Advanced query with filters
-context = memory.get_context(
-    "database performance",
-    max_events=20,
-    time_window=timedelta(days=7),
-    filters={"severity": "high"}
-)
-
-print(f"Found {len(context.events)} relevant events")
-print(f"Causal narrative: {context.narrative}")
+print(narrative)
+# Output: "Initially, User login failed. This led to Account locked."
 ```
+
+#### get_context()
+
+Backward compatibility wrapper for query().
+
+```python
+def get_context(self, query_text: str) -> str
+```
+
+**Parameters:**
+- `query_text` (str): Natural language query about context
+
+**Returns:**
+- `str`: Narrative explaining causal chain (same as query())
 
 #### search_events()
 
@@ -304,44 +299,22 @@ Retrieve a specific event.
 }
 ```
 
-#### POST /context
+#### POST /query
 
 Retrieve causal context for a query.
 
 **Request:**
 ```json
 {
-  "query": "registration process issues",
-  "max_events": 15,
-  "time_window_hours": 168,
-  "filters": {
-    "source": "web_app"
-  }
+  "query": "registration process issues"
 }
 ```
 
 **Response:**
 ```json
 {
-  "events": [
-    {
-      "event_id": "evt_789",
-      "description": "User completed registration",
-      "timestamp": "2025-09-15T10:30:00Z",
-      "relevance_score": 0.92
-    }
-  ],
-  "causal_relationships": [
-    {
-      "source_event_id": "evt_788",
-      "target_event_id": "evt_789",
-      "relationship_type": "causal_successor",
-      "confidence": 0.85
-    }
-  ],
-  "narrative": "The registration process shows a clear causal sequence...",
-  "total_events": 1,
-  "query_time_ms": 245
+  "narrative": "Initially, User completed registration...",
+  "success": true
 }
 ```
 

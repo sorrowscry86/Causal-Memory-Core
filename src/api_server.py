@@ -182,8 +182,8 @@ async def health_check():
 @app.post("/events", response_model=AddEventResponse)
 @limiter.limit("60/minute")  # 60 events per minute per IP
 async def add_event(
-    request_obj: Request,
-    request: AddEventRequest,
+    request: Request,
+    request_data: AddEventRequest,
     authenticated: Optional[str] = Header(None, include_in_schema=False, alias="x-api-key")
 ):
     """Add a new event to memory.
@@ -203,14 +203,17 @@ async def add_event(
         raise HTTPException(status_code=503, detail="Memory core not initialized")
 
     try:
-        logger.info(f"Adding event: {request.effect_text[:100]}...")
-        memory_core.add_event(request.effect_text)
+        logger.info(f"Adding event: {request_data.effect_text[:100]}...")
+        memory_core.add_event(request_data.effect_text)
         logger.info("Event added successfully")
 
         return AddEventResponse(
             success=True,
             message="Event added successfully"
         )
+    except ValueError as e:
+        logger.warning(f"Validation error adding event: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         logger.error(f"Error adding event: {e}")
         raise HTTPException(status_code=500, detail=f"Error adding event: {str(e)}")
@@ -219,8 +222,8 @@ async def add_event(
 @app.post("/query", response_model=QueryResponse)
 @limiter.limit("120/minute")  # 120 queries per minute per IP
 async def query_memory(
-    request_obj: Request,
-    request: QueryRequest,
+    request: Request,
+    request_data: QueryRequest,
     authenticated: Optional[str] = Header(None, include_in_schema=False, alias="x-api-key")
 ):
     """Query memory and retrieve causal narrative.
@@ -240,14 +243,17 @@ async def query_memory(
         raise HTTPException(status_code=503, detail="Memory core not initialized")
 
     try:
-        logger.info(f"Processing query: {request.query[:100]}...")
-        narrative = memory_core.query(request.query)
+        logger.info(f"Processing query: {request_data.query[:100]}...")
+        narrative = memory_core.query(request_data.query)
         logger.info("Query processed successfully")
 
         return QueryResponse(
             narrative=narrative,
             success=True
         )
+    except ValueError as e:
+        logger.warning(f"Validation error processing query: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         logger.error(f"Error processing query: {e}")
         raise HTTPException(status_code=500, detail=f"Error processing query: {str(e)}")

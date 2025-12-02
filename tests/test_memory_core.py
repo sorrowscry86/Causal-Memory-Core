@@ -203,5 +203,105 @@ class TestCausalMemoryCore(unittest.TestCase):
         self.assertIsNone(events[0][0])  # First event
         self.assertIsNone(events[1][0])  # Second event (no cause due to low similarity)
 
+    # Additional tests for query() method
+    def test_query_valid_single_event(self):
+        """Query with single event returns that event."""
+        # Setup similar to test_get_context_single_event
+        self.memory_core.add_event("Test event")
+        # Mock finding the event
+        self.mock_embedder.encode.return_value = np.array([0.1, 0.2, 0.3, 0.4])
+
+        result = self.memory_core.query("test")
+        assert isinstance(result, str)
+        assert "Test event" in result
+
+    def test_query_empty_string_raises_error(self):
+        """Query with empty string raises ValueError."""
+        with self.assertRaises(ValueError):
+            self.memory_core.query("")
+
+    def test_query_whitespace_only_raises_error(self):
+        """Query with whitespace-only string raises ValueError."""
+        with self.assertRaises(ValueError):
+            self.memory_core.query("   ")
+
+    def test_query_with_causal_chain_returns_full_narrative(self):
+        """Query with related events returns complete chain."""
+        # Reset mock
+        self.mock_embedder.encode.reset_mock()
+
+        # Setup causal chain
+        self.mock_embedder.encode.return_value = np.array([0.1, 0.2, 0.3, 0.4])
+        self.memory_core.add_event("Root cause occurred")
+
+        # Mock causal relationship
+        mock_response = Mock()
+        mock_response.choices = [Mock()]
+        mock_response.choices[0].message.content = "Root cause led to secondary effect"
+        self.mock_llm.chat.completions.create.return_value = mock_response
+
+        self.mock_embedder.encode.return_value = np.array([0.11, 0.21, 0.31, 0.41])
+        self.memory_core.add_event("This triggered secondary effect")
+
+        # Mock query embedding finding the second event
+        self.mock_embedder.encode.return_value = np.array([0.11, 0.21, 0.31, 0.41])
+
+        result = self.memory_core.query("root cause")
+        assert "Root cause occurred" in result
+        assert "This triggered secondary effect" in result
+
+    def test_query_no_relevant_context_returns_default_message(self):
+        """Query with no matching events returns default message."""
+        # Add unrelated event
+        self.memory_core.add_event("Unrelated event")
+
+        # Patch _find_most_relevant_event for this test to be sure
+        with patch.object(self.memory_core, '_find_most_relevant_event', return_value=None):
+            result = self.memory_core.query("completely unrelated query xyz123")
+            assert "No relevant context" in result
+
+    def test_query_uses_embedding_cache(self):
+        """Query uses embedding cache (verify cache hit)."""
+        self.memory_core.add_event("Test event")
+
+        # Mock embedding
+        self.mock_embedder.encode.return_value = np.array([0.1, 0.2, 0.3, 0.4])
+
+        # First query
+        result1 = self.memory_core.query("test")
+
+        # Check cache is populated
+        assert len(self.memory_core._embedding_cache) > 0
+        assert "test" in self.memory_core._embedding_cache
+
+        # Count calls to embedder.encode
+        initial_call_count = self.mock_embedder.encode.call_count
+
+        # Second identical query should hit cache
+        result2 = self.memory_core.query("test")
+
+        # Results should be identical
+        assert result1 == result2
+
+        # Should not increase call count if cached
+        assert self.mock_embedder.encode.call_count == initial_call_count
+
+    # Test get_context() method explicit delegation
+    def test_get_context_delegates_to_query(self):
+        """get_context() returns same result as query()."""
+        self.memory_core.add_event("Test event")
+
+        # Mock embedding
+        self.mock_embedder.encode.return_value = np.array([0.1, 0.2, 0.3, 0.4])
+
+        query_result = self.memory_core.query("test")
+        context_result = self.memory_core.get_context("test")
+        assert query_result == context_result
+
+    def test_get_context_empty_string_raises_error(self):
+        """get_context() with empty string raises ValueError."""
+        with self.assertRaises(ValueError):
+            self.memory_core.get_context("")
+
 if __name__ == '__main__':
     unittest.main()
