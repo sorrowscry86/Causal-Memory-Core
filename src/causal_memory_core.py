@@ -244,7 +244,80 @@ class CausalMemoryCore:
                 relationship_text = relationship
                 break
         self._insert_event(effect_text, effect_embedding, cause_id, relationship_text)
-     
+
+    def query(self, query_text: str) -> str:
+        """Query memory and retrieve causal narrative.
+
+        Performs semantic search to find the most relevant event in memory,
+        then traces backward through causal chains to root causes, and
+        formats the complete chain as a narrative.
+
+        Args:
+            query_text: Natural language query about context
+                (e.g., "What happened with the deployment?")
+
+        Returns:
+            str: Narrative string explaining the causal chain leading to
+                 the most relevant event. If no relevant context found,
+                 returns "No relevant context found in memory."
+
+        Raises:
+            ValueError: If query_text is empty or contains only whitespace
+
+        Example:
+            >>> cmc = CausalMemoryCore()
+            >>> cmc.add_event("Deployment started")
+            >>> cmc.add_event("Deployment completed successfully")
+            >>> narrative = cmc.query("What happened with deployment?")
+            >>> print(narrative)
+            "Initially, Deployment started. This led to Deployment completed successfully."
+        """
+        # Input validation
+        if not query_text or not query_text.strip():
+            raise ValueError("query_text cannot be empty or contain only whitespace")
+
+        # Encode query to embedding using cache
+        query_embedding = self._get_cached_embedding(query_text)
+
+        # Find most semantically similar event in memory
+        anchor_event = self._find_most_relevant_event(query_embedding)
+        if not anchor_event:
+            return "No relevant context found in memory."
+
+        # Build causal chain backward from anchor event to root
+        chain = [anchor_event]
+        current = anchor_event
+        visited = {anchor_event.event_id}
+
+        while current.cause_id is not None:
+            parent = self._get_event_by_id(current.cause_id)
+            if parent is None or parent.event_id in visited:
+                break
+            # Insert at beginning to maintain chronological order
+            chain.insert(0, parent)
+            visited.add(parent.event_id)
+            current = parent
+
+        # Format entire chain as readable narrative
+        return self._format_chain_as_narrative(chain)
+
+    def get_context(self, query_text: str) -> str:
+        """Backward compatibility wrapper for query().
+
+        Delegates to query() method. Maintained for legacy code that may
+        reference get_context() instead of query().
+
+        Args:
+            query_text: Natural language query about context
+
+        Returns:
+            str: Narrative explaining causal chain (see query() for details)
+
+        Raises:
+            ValueError: If query_text is empty or whitespace-only
+        """
+        return self.query(query_text)
+
     # ---------------- Internal Helpers ----------------
     def _find_potential_causes(self, effect_embedding: List[float],
                                effect_text: str) -> List[Event]:
