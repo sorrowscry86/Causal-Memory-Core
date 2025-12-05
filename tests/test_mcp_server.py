@@ -113,7 +113,8 @@ class TestMCPServer(unittest.TestCase):
             self.assertEqual(len(result), 1)
             self.assertIsInstance(result[0], types.TextContent)
             self.assertEqual(result[0].type, "text")
-            self.assertIn("Successfully added event", result[0].text)
+            # New format includes memory protocol reminder
+            self.assertIn("Event logged to Causal Memory", result[0].text)
             self.assertIn("The user clicked on a file", result[0].text)
 
         asyncio.run(run_test())
@@ -148,7 +149,9 @@ class TestMCPServer(unittest.TestCase):
             self.assertEqual(len(result), 1)
             self.assertIsInstance(result[0], types.TextContent)
             self.assertEqual(result[0].type, "text")
-            self.assertEqual(result[0].text, "Test context result")
+            # New format includes memory mandate injection
+            self.assertIn("Test context result", result[0].text)
+            self.assertIn("INVOLUNTARY MEMORY PROTOCOL", result[0].text)
 
         asyncio.run(run_test())
 
@@ -368,7 +371,7 @@ class TestMCPServer(unittest.TestCase):
             
             # Verify success response
             self.assertEqual(len(result), 1)
-            self.assertIn("Successfully added event", result[0].text)
+            self.assertIn("Event logged to Causal Memory", result[0].text)
             self.assertIn(special_text, result[0].text)
 
         asyncio.run(run_test())

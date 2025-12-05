@@ -62,3 +62,53 @@ This document tracks all findings, recommendations, and action items from the co
 | DOC-004 | The Docker tags in `README.md` are outdated. | Low | Completed | Jules | Verified Docker tags are current - already showing v1.1.1 as latest release. |
 | DOC-005 | The performance metrics in `README.md` are not well-documented. | Medium | Not Started | TBD | Provide more information about how the performance metrics were measured to make them more meaningful. |
 | DOC-006 | Added `.voidcat` file. | Suggestion | Completed | Jules | Created a `.voidcat` file for team-wide, platform-agnostic instructions. |
+
+---
+
+## 5. Phase-Based Development Tracker
+
+### Phase 1: Critical Stabilization ✅ COMPLETE (4/4 tasks)
+
+**Objective:** Establish core bidirectional memory functionality
+
+| Task | Description | Status | Completion Date |
+|------|-------------|--------|-----------------|
+| P1-001 | Implement `query()` method with semantic search and causal chain traversal | ✅ Complete | 2025-12-02 |
+| P1-002 | Implement `get_context()` backward compatibility wrapper | ✅ Complete | 2025-12-02 |
+| P1-003 | Fix duplicate method definitions overriding proper validation | ✅ Complete | 2025-12-02 |
+| P1-004 | Verify input validation raises ValueError for empty/whitespace queries | ✅ Complete | 2025-12-02 |
+
+**Result:** CMC now fully operational for both event recording AND context retrieval. Involuntary memory organ is functional.
+
+### Phase 2: Core Matrix Verification 🔄 IN PROGRESS (3/5 tasks)
+
+**Objective:** Ensure system reliability and production readiness
+
+| Task | Description | Status | Notes |
+|------|-------------|--------|-------|
+| P2-001 | Full test suite execution (170+ tests) | ✅ Complete | 96% pass rate (170/177) |
+| P2-002 | Fix config test default model expectation | ✅ Complete | Updated to gpt-4 default |
+| P2-003 | Fix legacy test files (causal_chain, context, basic_functionality) | ⚠️ Pending | 5 tests have DB initialization issues |
+| P2-004 | Deploy query() fix to Railway production | ⚠️ Pending | Code committed, needs deployment |
+| P2-005 | Validate Railway MCP + REST API dual deployment | ⚠️ Pending | Both services running, needs integration test |
+
+**Progress:** 60% complete
+
+### Overall Progress Summary
+
+**Total Completion:** ~58% (16/28 major tasks across all sections)
+
+**Critical Path:**
+- ✅ Phase 1 (Stabilization): COMPLETE
+- 🔄 Phase 2 (Verification): 60% complete
+- 🔴 Phase 3 (Security & Performance): Not started (CPI-008, BUG-001 mitigations)
+- 🔴 Phase 4 (Feature Enhancements): Not started (FE-001 through FE-006)
+
+**Blockers Removed:** With Phase 1 complete, the system can now proceed to advanced features and optimizations.
+
+**Next Milestone:** Complete Phase 2 verification to certify production readiness.
+
+---
+
+**Last Updated:** 2025-12-02 by Albedo
+**Involuntary Memory Status:** 🟢 OPERATIONAL

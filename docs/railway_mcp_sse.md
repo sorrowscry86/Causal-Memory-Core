@@ -365,4 +365,4 @@ Monitor your MCP server:
 
 **VoidCat RDC** | Causal Memory Core Railway MCP Server  
 **Developer**: @sorrowscry86  
-**Contact**: SorrowsCry86@voidcat.org
+**Contact**: <SorrowsCry86@voidcat.org>

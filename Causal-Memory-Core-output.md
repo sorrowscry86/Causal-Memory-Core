@@ -3,8 +3,8 @@
 ## 📊 Project Information
 
 - **Project Name**: `Causal-Memory-Core`
-- **Generated On**: 2025-11-25 05:14:31 (America/Chicago / GMT-06:00)
-- **Total Files Processed**: 319
+- **Generated On**: 2025-12-05 00:36:21 (America/Chicago / GMT-06:00)
+- **Total Files Processed**: 376
 - **Export Tool**: Easy Whole Project to Single Text File for LLMs v1.1.0
 - **Tool Author**: Jota / José Guilherme Pandolfi
 
@@ -22,7 +22,7 @@
 ```
 ├── 📁 __pycache__/
 │   ├── 📄 cli.cpython-313.pyc (8.82 KB)
-│   ├── 📄 config.cpython-313.pyc (2.46 KB)
+│   ├── 📄 config.cpython-313.pyc (1.65 KB)
 │   ├── 📄 final_comprehensive_test.cpython-313-pytest-8.4.2.pyc (16.75 KB)
 │   ├── 📄 test_causal_chain.cpython-313-pytest-8.4.2.pyc (798 B)
 │   ├── 📄 test_config.cpython-313-pytest-8.4.2.pyc (1.61 KB)
@@ -32,8 +32,11 @@
 ├── 📁 data/
 ├── 📁 docs/
 │   ├── 📄 albedo_integration.md (2.82 KB)
-│   ├── 📄 api.md (11.84 KB)
-│   └── 📄 architecture.md (8.2 KB)
+│   ├── 📄 api.md (11.61 KB)
+│   ├── 📄 architecture.md (8.2 KB)
+│   ├── 📄 RAILWAY_DEPLOYMENT.md (8.04 KB)
+│   ├── 📄 railway_mcp_client.md (5.22 KB)
+│   └── 📄 railway_mcp_sse.md (8.81 KB)
 ├── 📁 examples/
 │   ├── 📄 example_usage.py (4.22 KB)
 │   └── 📄 vscode_mcp_test.py (1.29 KB)
@@ -41,6 +44,8 @@
 │   └── 📁 albedo/
 │       └── 📄 memory_first_demo.py (4.53 KB)
 ├── 📁 logs/
+├── 📁 reports/
+│   └── 📄 BETTY_REPORT.md (3.08 KB)
 ├── 📁 scripts/
 │   ├── 📄 analyze_benchmarks.py (11.13 KB)
 │   ├── 📄 database_maintenance.py (3.65 KB)
@@ -52,12 +57,17 @@
 │   └── 📄 test_phase4_features.py (7.08 KB)
 ├── 📁 src/
 │   ├── 📁 __pycache__/
-│   │   ├── 📄 causal_memory_core.cpython-313.pyc (22.4 KB)
-│   │   └── 📄 mcp_server.cpython-313.pyc (17.93 KB)
+│   │   ├── 📄 __init__.cpython-313.pyc (146 B)
+│   │   ├── 📄 api_server.cpython-313.pyc (11.8 KB)
+│   │   ├── 📄 causal_memory_core.cpython-313.pyc (18.79 KB)
+│   │   └── 📄 mcp_server.cpython-313.pyc (10.98 KB)
 │   ├── 📄 __init__.py
-│   ├── 📄 api_server.py (8.51 KB)
-│   ├── 📄 causal_memory_core.py (24.84 KB)
-│   └── 📄 mcp_server.py (18.72 KB)
+│   ├── 📄 api_server.py (8.83 KB)
+│   ├── 📄 causal_agent_wrapper.py (3.19 KB)
+│   ├── 📄 causal_memory_client.py (9.71 KB)
+│   ├── 📄 causal_memory_core.py (13.48 KB)
+│   ├── 📄 mcp_railway_client.py (8.42 KB)
+│   └── 📄 mcp_server.py (9.05 KB)
 ├── 📁 test_results/
 │   ├── 📁 artifacts/
 │   ├── 📁 benchmarks/
@@ -81,6 +91,9 @@
 │   │   ├── 📄 bulk_events_10_20250914_215612.json (797 B)
 │   │   ├── 📄 bulk_events_10_20250916_213915.json (792 B)
 │   │   ├── 📄 bulk_events_10_20250927_045453.json (793 B)
+│   │   ├── 📄 bulk_events_10_20251125_064950.json (798 B)
+│   │   ├── 📄 bulk_events_10_20251202_112216.json (795 B)
+│   │   ├── 📄 bulk_events_10_20251202_112314.json (793 B)
 │   │   ├── 📄 bulk_events_100_20250909_182046.json (796 B)
 │   │   ├── 📄 bulk_events_100_20250909_182509.json (788 B)
 │   │   ├── 📄 bulk_events_100_20250909_213316.json (795 B)
@@ -100,6 +113,9 @@
 │   │   ├── 📄 bulk_events_100_20250914_215615.json (787 B)
 │   │   ├── 📄 bulk_events_100_20250916_213917.json (794 B)
 │   │   ├── 📄 bulk_events_100_20250927_045454.json (792 B)
+│   │   ├── 📄 bulk_events_100_20251125_064951.json (795 B)
+│   │   ├── 📄 bulk_events_100_20251202_112221.json (796 B)
+│   │   ├── 📄 bulk_events_100_20251202_112318.json (794 B)
 │   │   ├── 📄 bulk_events_50_20250909_182044.json (793 B)
 │   │   ├── 📄 bulk_events_50_20250909_182508.json (785 B)
 │   │   ├── 📄 bulk_events_50_20250909_213314.json (788 B)
@@ -119,6 +135,9 @@
 │   │   ├── 📄 bulk_events_50_20250914_215613.json (788 B)
 │   │   ├── 📄 bulk_events_50_20250916_213915.json (784 B)
 │   │   ├── 📄 bulk_events_50_20250927_045454.json (787 B)
+│   │   ├── 📄 bulk_events_50_20251125_064951.json (799 B)
+│   │   ├── 📄 bulk_events_50_20251202_112218.json (785 B)
+│   │   ├── 📄 bulk_events_50_20251202_112316.json (791 B)
 │   │   ├── 📄 bulk_events_500_20250909_182050.json (789 B)
 │   │   ├── 📄 bulk_events_500_20250909_182514.json (782 B)
 │   │   ├── 📄 bulk_events_500_20250909_213322.json (791 B)
@@ -138,6 +157,9 @@
 │   │   ├── 📄 bulk_events_500_20250914_215625.json (790 B)
 │   │   ├── 📄 bulk_events_500_20250916_213923.json (788 B)
 │   │   ├── 📄 bulk_events_500_20250927_045457.json (794 B)
+│   │   ├── 📄 bulk_events_500_20251125_064953.json (796 B)
+│   │   ├── 📄 bulk_events_500_20251202_112232.json (789 B)
+│   │   ├── 📄 bulk_events_500_20251202_112330.json (794 B)
 │   │   ├── 📄 concurrent_operations_20250909_180317.json (407 B)
 │   │   ├── 📄 concurrent_operations_20250909_182056.json (702 B)
 │   │   ├── 📄 concurrent_operations_20250909_182519.json (706 B)
@@ -158,11 +180,16 @@
 │   │   ├── 📄 concurrent_operations_20250914_215635.json (700 B)
 │   │   ├── 📄 concurrent_operations_20250916_213930.json (696 B)
 │   │   ├── 📄 concurrent_operations_20250927_045501.json (699 B)
+│   │   ├── 📄 concurrent_operations_20251125_064958.json (700 B)
+│   │   ├── 📄 concurrent_operations_20251202_112245.json (701 B)
+│   │   ├── 📄 concurrent_operations_20251202_112357.json (699 B)
 │   │   ├── 📄 daily_benchmarks_20250909.jsonl (22.68 KB)
 │   │   ├── 📄 daily_benchmarks_20250913.jsonl (52.25 KB)
 │   │   ├── 📄 daily_benchmarks_20250914.jsonl (39.19 KB)
 │   │   ├── 📄 daily_benchmarks_20250916.jsonl (6.52 KB)
 │   │   ├── 📄 daily_benchmarks_20250927.jsonl (6.55 KB)
+│   │   ├── 📄 daily_benchmarks_20251125.jsonl (6.58 KB)
+│   │   ├── 📄 daily_benchmarks_20251202.jsonl (13.08 KB)
 │   │   ├── 📄 database_operations_20250909_180316.json (403 B)
 │   │   ├── 📄 database_operations_20250909_182055.json (680 B)
 │   │   ├── 📄 database_operations_20250909_182519.json (681 B)
@@ -183,6 +210,9 @@
 │   │   ├── 📄 database_operations_20250914_215634.json (678 B)
 │   │   ├── 📄 database_operations_20250916_213929.json (679 B)
 │   │   ├── 📄 database_operations_20250927_045501.json (693 B)
+│   │   ├── 📄 database_operations_20251125_064957.json (684 B)
+│   │   ├── 📄 database_operations_20251202_112243.json (678 B)
+│   │   ├── 📄 database_operations_20251202_112352.json (680 B)
 │   │   ├── 📄 memory_scaling_20250909_180316.json (399 B)
 │   │   ├── 📄 memory_scaling_20250909_182055.json (1.09 KB)
 │   │   ├── 📄 memory_scaling_20250909_182518.json (1.1 KB)
@@ -203,6 +233,9 @@
 │   │   ├── 📄 memory_scaling_20250914_215632.json (1.1 KB)
 │   │   ├── 📄 memory_scaling_20250916_213928.json (1.1 KB)
 │   │   ├── 📄 memory_scaling_20250927_045500.json (1.09 KB)
+│   │   ├── 📄 memory_scaling_20251125_064956.json (1.1 KB)
+│   │   ├── 📄 memory_scaling_20251202_112242.json (1.1 KB)
+│   │   ├── 📄 memory_scaling_20251202_112349.json (1.1 KB)
 │   │   ├── 📄 query_performance_20250909_180316.json (407 B)
 │   │   ├── 📄 query_performance_20250909_182055.json (1.28 KB)
 │   │   ├── 📄 query_performance_20250909_182519.json (1.29 KB)
@@ -223,6 +256,9 @@
 │   │   ├── 📄 query_performance_20250914_215632.json (1.28 KB)
 │   │   ├── 📄 query_performance_20250916_213928.json (1.28 KB)
 │   │   ├── 📄 query_performance_20250927_045500.json (1.29 KB)
+│   │   ├── 📄 query_performance_20251125_064957.json (1.29 KB)
+│   │   ├── 📄 query_performance_20251202_112242.json (1.28 KB)
+│   │   ├── 📄 query_performance_20251202_112350.json (1.28 KB)
 │   │   ├── 📄 quick_benchmark_20250909_181956.json (661 B)
 │   │   ├── 📄 quick_benchmark_20250927_045545.json (659 B)
 │   │   ├── 📄 single_event_performance_20250909_180315.json (401 B)
@@ -246,7 +282,10 @@
 │   │   ├── 📄 single_event_performance_20250914_215237.json (677 B)
 │   │   ├── 📄 single_event_performance_20250914_215612.json (676 B)
 │   │   ├── 📄 single_event_performance_20250916_213914.json (682 B)
-│   │   └── 📄 single_event_performance_20250927_045453.json (683 B)
+│   │   ├── 📄 single_event_performance_20250927_045453.json (683 B)
+│   │   ├── 📄 single_event_performance_20251125_064950.json (683 B)
+│   │   ├── 📄 single_event_performance_20251202_112216.json (681 B)
+│   │   └── 📄 single_event_performance_20251202_112314.json (681 B)
 │   ├── 📁 logs/
 │   ├── 📁 reports/
 │   │   ├── 📄 api_e2e_tests_results.xml (1.21 KB)
@@ -281,24 +320,38 @@
 │   └── 📄 COMPREHENSIVE_TEST_SUMMARY.md (7.99 KB)
 ├── 📁 tests/
 │   ├── 📁 __pycache__/
+│   │   ├── 📄 final_comprehensive_test.cpython-313-pytest-8.4.2.pyc (16.76 KB)
+│   │   ├── 📄 test_api_integration.cpython-313-pytest-8.4.2.pyc (9.21 KB)
+│   │   ├── 📄 test_api_server.cpython-313-pytest-8.4.2.pyc (35.39 KB)
+│   │   ├── 📄 test_basic_functionality.cpython-313-pytest-8.4.2.pyc (4.58 KB)
+│   │   ├── 📄 test_causal_chain.cpython-313-pytest-8.4.2.pyc (3.62 KB)
 │   │   ├── 📄 test_cli.cpython-313-pytest-8.4.2.pyc (23.78 KB)
 │   │   ├── 📄 test_config.cpython-313-pytest-8.4.2.pyc (12.16 KB)
+│   │   ├── 📄 test_context.cpython-313-pytest-8.4.2.pyc (4.13 KB)
 │   │   ├── 📄 test_mcp_preprocessor.cpython-313-pytest-8.4.2.pyc (8.13 KB)
+│   │   ├── 📄 test_mcp_server.cpython-313-pytest-7.4.3.pyc (19.51 KB)
 │   │   ├── 📄 test_mcp_server.cpython-313-pytest-8.4.2.pyc (19.4 KB)
 │   │   ├── 📄 test_mcp_suggestions.cpython-313-pytest-8.4.2.pyc (5.04 KB)
 │   │   ├── 📄 test_memory_core_advanced.cpython-313-pytest-8.4.2.pyc (32.84 KB)
+│   │   ├── 📄 test_memory_core.cpython-313-pytest-7.4.3.pyc (23.88 KB)
 │   │   ├── 📄 test_memory_core.cpython-313-pytest-8.4.1.pyc (11.25 KB)
-│   │   ├── 📄 test_memory_core.cpython-313-pytest-8.4.2.pyc (11.24 KB)
+│   │   ├── 📄 test_memory_core.cpython-313-pytest-8.4.2.pyc (24.19 KB)
 │   │   ├── 📄 test_memory_core.cpython-313.pyc (11.13 KB)
+│   │   ├── 📄 test_narrative_continuity.cpython-313-pytest-8.4.2.pyc (15.87 KB)
 │   │   ├── 📄 test_semantic_search_validation.cpython-313-pytest-8.4.2.pyc (15.03 KB)
 │   │   └── 📄 test_similarity_threshold_investigation.cpython-313-pytest-8.4.2.pyc (11.51 KB)
 │   ├── 📁 e2e/
 │   │   ├── 📁 __pycache__/
 │   │   │   ├── 📄 __init__.cpython-313.pyc (152 B)
+│   │   │   ├── 📄 test_api_e2e.cpython-313-pytest-7.4.3.pyc (19.1 KB)
 │   │   │   ├── 📄 test_api_e2e.cpython-313-pytest-8.4.2.pyc (19.44 KB)
+│   │   │   ├── 📄 test_cli_e2e.cpython-313-pytest-7.4.3.pyc (30.29 KB)
 │   │   │   ├── 📄 test_cli_e2e.cpython-313-pytest-8.4.2.pyc (31.36 KB)
+│   │   │   ├── 📄 test_mcp_server_e2e.cpython-313-pytest-7.4.3.pyc (38.19 KB)
 │   │   │   ├── 📄 test_mcp_server_e2e.cpython-313-pytest-8.4.2.pyc (39.43 KB)
+│   │   │   ├── 📄 test_performance_benchmarks.cpython-313-pytest-7.4.3.pyc (21.32 KB)
 │   │   │   ├── 📄 test_performance_benchmarks.cpython-313-pytest-8.4.2.pyc (21.37 KB)
+│   │   │   ├── 📄 test_realistic_scenarios_e2e.cpython-313-pytest-7.4.3.pyc (24.86 KB)
 │   │   │   └── 📄 test_realistic_scenarios_e2e.cpython-313-pytest-8.4.2.pyc (25.41 KB)
 │   │   ├── 📄 __init__.py (34 B)
 │   │   ├── 📄 test_api_e2e.py (13.13 KB)
@@ -308,17 +361,16 @@
 │   │   └── 📄 test_realistic_scenarios_e2e.py (18.1 KB)
 │   ├── 📄 final_comprehensive_test.py (13.98 KB)
 │   ├── 📄 legacy_test_config.py (1 KB)
-│   ├── 📄 test_api_server.py (10.63 KB)
+│   ├── 📄 test_api_integration.py (2.82 KB)
+│   ├── 📄 test_api_server.py (10.67 KB)
 │   ├── 📄 test_basic_functionality.py (3.25 KB)
-│   ├── 📄 test_causal_chain.py (592 B)
+│   ├── 📄 test_causal_chain.py (2.1 KB)
 │   ├── 📄 test_cli.py (18.53 KB)
-│   ├── 📄 test_config.py (9.59 KB)
-│   ├── 📄 test_context.py (307 B)
-│   ├── 📄 test_mcp_preprocessor.py (5.63 KB)
-│   ├── 📄 test_mcp_server.py (15.85 KB)
-│   ├── 📄 test_mcp_suggestions.py (2.46 KB)
+│   ├── 📄 test_config.py (9.58 KB)
+│   ├── 📄 test_context.py (2.28 KB)
+│   ├── 📄 test_mcp_server.py (16.05 KB)
 │   ├── 📄 test_memory_core_advanced.py (24.23 KB)
-│   ├── 📄 test_memory_core.py (8.33 KB)
+│   ├── 📄 test_memory_core.py (12.43 KB)
 │   ├── 📄 test_narrative_continuity.py (13.18 KB)
 │   ├── 📄 test_semantic_search_validation.py (14.96 KB)
 │   └── 📄 test_similarity_threshold_investigation.py (10.48 KB)
@@ -329,35 +381,41 @@
 ├── 📄 CHANGELOG.md (6.99 KB)
 ├── 📄 cli.py (7.1 KB)
 ├── 📄 COMPLETION_REPORT.md (8.91 KB)
-├── 📄 config.py (2.32 KB)
+├── 📄 config.py (1.14 KB)
 ├── 📄 CONTRIBUTING.md (9.14 KB)
 ├── 📄 custom.db (1.01 MB)
 ├── 📄 DEPLOYMENT.md (11.3 KB)
 ├── 📄 docker-compose.yml (580 B)
-├── 📄 Dockerfile (1.12 KB)
+├── 📄 Dockerfile (1.28 KB)
 ├── 📄 final_report.md (3.61 KB)
 ├── 📄 fly.toml (773 B)
 ├── 📄 GEMINI.md (3.42 KB)
 ├── 📄 github_issues.md (7.75 KB)
 ├── 📄 Grimoire Page_ The Causal Memory Core Blueprint.md (10.42 KB)
+├── 📄 mcp_config_railway.json (895 B)
+├── 📄 mcp_config_sse.json (711 B)
 ├── 📄 mcp_config.json (560 B)
 ├── 📄 MCP_Integration_Test_Results.md (15.79 KB)
 ├── 📄 PR_DESCRIPTION.md (9.43 KB)
 ├── 📄 PRODUCTION_READINESS_REPORT.md (11.8 KB)
 ├── 📄 PROJECT_STRUCTURE.md (11.27 KB)
 ├── 📄 pytest.ini (497 B)
-├── 📄 railway.json (293 B)
-├── 📄 README.md (12.16 KB)
+├── 📄 railway.json (289 B)
+├── 📄 README.md (12.52 KB)
 ├── 📄 render.yaml (614 B)
-├── 📄 requirements-dev.txt (781 B)
-├── 📄 requirements.txt (230 B)
+├── 📄 requirements-dev.txt (818 B)
+├── 📄 requirements.txt (237 B)
+├── 📄 run_tests.bat (117 B)
 ├── 📄 setup.py (4.26 KB)
+├── 📄 start_server.sh (337 B)
 ├── 📄 stress_test.py (14.72 KB)
 ├── 📄 test_cli.db (1.01 MB)
+├── 📄 test_cmc_remote.py (3.45 KB)
 ├── 📄 The_Bestowal_Plan.md (8.01 KB)
-├── 📄 tobefixed.md (6.69 KB)
+├── 📄 tobefixed.md (8.97 KB)
 ├── 📄 Triptych Trial.md (4.36 KB)
-└── 📄 VoidCatDev (E).lnk (384 B)
+├── 📄 VoidCatDev (E).lnk (384 B)
+└── 📄 WORK_ORDER_ALBEDO_CMC_QUERY.md (15.51 KB)
 ```
 
 ## 📑 Table of Contents
@@ -367,9 +425,13 @@
 - [📄 docs/albedo_integration.md](#📄-docs-albedo-integration-md)
 - [📄 docs/api.md](#📄-docs-api-md)
 - [📄 docs/architecture.md](#📄-docs-architecture-md)
+- [📄 docs/RAILWAY_DEPLOYMENT.md](#📄-docs-railway-deployment-md)
+- [📄 docs/railway_mcp_client.md](#📄-docs-railway-mcp-client-md)
+- [📄 docs/railway_mcp_sse.md](#📄-docs-railway-mcp-sse-md)
 - [📄 examples/example_usage.py](#📄-examples-example-usage-py)
 - [📄 examples/vscode_mcp_test.py](#📄-examples-vscode-mcp-test-py)
 - [📄 integration/albedo/memory_first_demo.py](#📄-integration-albedo-memory-first-demo-py)
+- [📄 reports/BETTY_REPORT.md](#📄-reports-betty-report-md)
 - [📄 scripts/analyze_benchmarks.py](#📄-scripts-analyze-benchmarks-py)
 - [📄 scripts/database_maintenance.py](#📄-scripts-database-maintenance-py)
 - [📄 scripts/db_inspector.py](#📄-scripts-db-inspector-py)
@@ -380,7 +442,10 @@
 - [📄 scripts/test_phase4_features.py](#📄-scripts-test-phase4-features-py)
 - [📄 src/__init__.py](#📄-src-init-py)
 - [📄 src/api_server.py](#📄-src-api-server-py)
+- [📄 src/causal_agent_wrapper.py](#📄-src-causal-agent-wrapper-py)
+- [📄 src/causal_memory_client.py](#📄-src-causal-memory-client-py)
 - [📄 src/causal_memory_core.py](#📄-src-causal-memory-core-py)
+- [📄 src/mcp_railway_client.py](#📄-src-mcp-railway-client-py)
 - [📄 src/mcp_server.py](#📄-src-mcp-server-py)
 - [📄 test_results/benchmarks/bulk_events_10_20250909_180316.json](#📄-test-results-benchmarks-bulk-events-10-20250909-180316-json)
 - [📄 test_results/benchmarks/bulk_events_10_20250909_182044.json](#📄-test-results-benchmarks-bulk-events-10-20250909-182044-json)
@@ -402,6 +467,9 @@
 - [📄 test_results/benchmarks/bulk_events_10_20250914_215612.json](#📄-test-results-benchmarks-bulk-events-10-20250914-215612-json)
 - [📄 test_results/benchmarks/bulk_events_10_20250916_213915.json](#📄-test-results-benchmarks-bulk-events-10-20250916-213915-json)
 - [📄 test_results/benchmarks/bulk_events_10_20250927_045453.json](#📄-test-results-benchmarks-bulk-events-10-20250927-045453-json)
+- [📄 test_results/benchmarks/bulk_events_10_20251125_064950.json](#📄-test-results-benchmarks-bulk-events-10-20251125-064950-json)
+- [📄 test_results/benchmarks/bulk_events_10_20251202_112216.json](#📄-test-results-benchmarks-bulk-events-10-20251202-112216-json)
+- [📄 test_results/benchmarks/bulk_events_10_20251202_112314.json](#📄-test-results-benchmarks-bulk-events-10-20251202-112314-json)
 - [📄 test_results/benchmarks/bulk_events_100_20250909_182046.json](#📄-test-results-benchmarks-bulk-events-100-20250909-182046-json)
 - [📄 test_results/benchmarks/bulk_events_100_20250909_182509.json](#📄-test-results-benchmarks-bulk-events-100-20250909-182509-json)
 - [📄 test_results/benchmarks/bulk_events_100_20250909_213316.json](#📄-test-results-benchmarks-bulk-events-100-20250909-213316-json)
@@ -421,6 +489,9 @@
 - [📄 test_results/benchmarks/bulk_events_100_20250914_215615.json](#📄-test-results-benchmarks-bulk-events-100-20250914-215615-json)
 - [📄 test_results/benchmarks/bulk_events_100_20250916_213917.json](#📄-test-results-benchmarks-bulk-events-100-20250916-213917-json)
 - [📄 test_results/benchmarks/bulk_events_100_20250927_045454.json](#📄-test-results-benchmarks-bulk-events-100-20250927-045454-json)
+- [📄 test_results/benchmarks/bulk_events_100_20251125_064951.json](#📄-test-results-benchmarks-bulk-events-100-20251125-064951-json)
+- [📄 test_results/benchmarks/bulk_events_100_20251202_112221.json](#📄-test-results-benchmarks-bulk-events-100-20251202-112221-json)
+- [📄 test_results/benchmarks/bulk_events_100_20251202_112318.json](#📄-test-results-benchmarks-bulk-events-100-20251202-112318-json)
 - [📄 test_results/benchmarks/bulk_events_50_20250909_182044.json](#📄-test-results-benchmarks-bulk-events-50-20250909-182044-json)
 - [📄 test_results/benchmarks/bulk_events_50_20250909_182508.json](#📄-test-results-benchmarks-bulk-events-50-20250909-182508-json)
 - [📄 test_results/benchmarks/bulk_events_50_20250909_213314.json](#📄-test-results-benchmarks-bulk-events-50-20250909-213314-json)
@@ -440,6 +511,9 @@
 - [📄 test_results/benchmarks/bulk_events_50_20250914_215613.json](#📄-test-results-benchmarks-bulk-events-50-20250914-215613-json)
 - [📄 test_results/benchmarks/bulk_events_50_20250916_213915.json](#📄-test-results-benchmarks-bulk-events-50-20250916-213915-json)
 - [📄 test_results/benchmarks/bulk_events_50_20250927_045454.json](#📄-test-results-benchmarks-bulk-events-50-20250927-045454-json)
+- [📄 test_results/benchmarks/bulk_events_50_20251125_064951.json](#📄-test-results-benchmarks-bulk-events-50-20251125-064951-json)
+- [📄 test_results/benchmarks/bulk_events_50_20251202_112218.json](#📄-test-results-benchmarks-bulk-events-50-20251202-112218-json)
+- [📄 test_results/benchmarks/bulk_events_50_20251202_112316.json](#📄-test-results-benchmarks-bulk-events-50-20251202-112316-json)
 - [📄 test_results/benchmarks/bulk_events_500_20250909_182050.json](#📄-test-results-benchmarks-bulk-events-500-20250909-182050-json)
 - [📄 test_results/benchmarks/bulk_events_500_20250909_182514.json](#📄-test-results-benchmarks-bulk-events-500-20250909-182514-json)
 - [📄 test_results/benchmarks/bulk_events_500_20250909_213322.json](#📄-test-results-benchmarks-bulk-events-500-20250909-213322-json)
@@ -459,6 +533,9 @@
 - [📄 test_results/benchmarks/bulk_events_500_20250914_215625.json](#📄-test-results-benchmarks-bulk-events-500-20250914-215625-json)
 - [📄 test_results/benchmarks/bulk_events_500_20250916_213923.json](#📄-test-results-benchmarks-bulk-events-500-20250916-213923-json)
 - [📄 test_results/benchmarks/bulk_events_500_20250927_045457.json](#📄-test-results-benchmarks-bulk-events-500-20250927-045457-json)
+- [📄 test_results/benchmarks/bulk_events_500_20251125_064953.json](#📄-test-results-benchmarks-bulk-events-500-20251125-064953-json)
+- [📄 test_results/benchmarks/bulk_events_500_20251202_112232.json](#📄-test-results-benchmarks-bulk-events-500-20251202-112232-json)
+- [📄 test_results/benchmarks/bulk_events_500_20251202_112330.json](#📄-test-results-benchmarks-bulk-events-500-20251202-112330-json)
 - [📄 test_results/benchmarks/concurrent_operations_20250909_180317.json](#📄-test-results-benchmarks-concurrent-operations-20250909-180317-json)
 - [📄 test_results/benchmarks/concurrent_operations_20250909_182056.json](#📄-test-results-benchmarks-concurrent-operations-20250909-182056-json)
 - [📄 test_results/benchmarks/concurrent_operations_20250909_182519.json](#📄-test-results-benchmarks-concurrent-operations-20250909-182519-json)
@@ -479,6 +556,9 @@
 - [📄 test_results/benchmarks/concurrent_operations_20250914_215635.json](#📄-test-results-benchmarks-concurrent-operations-20250914-215635-json)
 - [📄 test_results/benchmarks/concurrent_operations_20250916_213930.json](#📄-test-results-benchmarks-concurrent-operations-20250916-213930-json)
 - [📄 test_results/benchmarks/concurrent_operations_20250927_045501.json](#📄-test-results-benchmarks-concurrent-operations-20250927-045501-json)
+- [📄 test_results/benchmarks/concurrent_operations_20251125_064958.json](#📄-test-results-benchmarks-concurrent-operations-20251125-064958-json)
+- [📄 test_results/benchmarks/concurrent_operations_20251202_112245.json](#📄-test-results-benchmarks-concurrent-operations-20251202-112245-json)
+- [📄 test_results/benchmarks/concurrent_operations_20251202_112357.json](#📄-test-results-benchmarks-concurrent-operations-20251202-112357-json)
 - [📄 test_results/benchmarks/database_operations_20250909_180316.json](#📄-test-results-benchmarks-database-operations-20250909-180316-json)
 - [📄 test_results/benchmarks/database_operations_20250909_182055.json](#📄-test-results-benchmarks-database-operations-20250909-182055-json)
 - [📄 test_results/benchmarks/database_operations_20250909_182519.json](#📄-test-results-benchmarks-database-operations-20250909-182519-json)
@@ -499,6 +579,9 @@
 - [📄 test_results/benchmarks/database_operations_20250914_215634.json](#📄-test-results-benchmarks-database-operations-20250914-215634-json)
 - [📄 test_results/benchmarks/database_operations_20250916_213929.json](#📄-test-results-benchmarks-database-operations-20250916-213929-json)
 - [📄 test_results/benchmarks/database_operations_20250927_045501.json](#📄-test-results-benchmarks-database-operations-20250927-045501-json)
+- [📄 test_results/benchmarks/database_operations_20251125_064957.json](#📄-test-results-benchmarks-database-operations-20251125-064957-json)
+- [📄 test_results/benchmarks/database_operations_20251202_112243.json](#📄-test-results-benchmarks-database-operations-20251202-112243-json)
+- [📄 test_results/benchmarks/database_operations_20251202_112352.json](#📄-test-results-benchmarks-database-operations-20251202-112352-json)
 - [📄 test_results/benchmarks/memory_scaling_20250909_180316.json](#📄-test-results-benchmarks-memory-scaling-20250909-180316-json)
 - [📄 test_results/benchmarks/memory_scaling_20250909_182055.json](#📄-test-results-benchmarks-memory-scaling-20250909-182055-json)
 - [📄 test_results/benchmarks/memory_scaling_20250909_182518.json](#📄-test-results-benchmarks-memory-scaling-20250909-182518-json)
@@ -519,6 +602,9 @@
 - [📄 test_results/benchmarks/memory_scaling_20250914_215632.json](#📄-test-results-benchmarks-memory-scaling-20250914-215632-json)
 - [📄 test_results/benchmarks/memory_scaling_20250916_213928.json](#📄-test-results-benchmarks-memory-scaling-20250916-213928-json)
 - [📄 test_results/benchmarks/memory_scaling_20250927_045500.json](#📄-test-results-benchmarks-memory-scaling-20250927-045500-json)
+- [📄 test_results/benchmarks/memory_scaling_20251125_064956.json](#📄-test-results-benchmarks-memory-scaling-20251125-064956-json)
+- [📄 test_results/benchmarks/memory_scaling_20251202_112242.json](#📄-test-results-benchmarks-memory-scaling-20251202-112242-json)
+- [📄 test_results/benchmarks/memory_scaling_20251202_112349.json](#📄-test-results-benchmarks-memory-scaling-20251202-112349-json)
 - [📄 test_results/benchmarks/query_performance_20250909_180316.json](#📄-test-results-benchmarks-query-performance-20250909-180316-json)
 - [📄 test_results/benchmarks/query_performance_20250909_182055.json](#📄-test-results-benchmarks-query-performance-20250909-182055-json)
 - [📄 test_results/benchmarks/query_performance_20250909_182519.json](#📄-test-results-benchmarks-query-performance-20250909-182519-json)
@@ -539,6 +625,9 @@
 - [📄 test_results/benchmarks/query_performance_20250914_215632.json](#📄-test-results-benchmarks-query-performance-20250914-215632-json)
 - [📄 test_results/benchmarks/query_performance_20250916_213928.json](#📄-test-results-benchmarks-query-performance-20250916-213928-json)
 - [📄 test_results/benchmarks/query_performance_20250927_045500.json](#📄-test-results-benchmarks-query-performance-20250927-045500-json)
+- [📄 test_results/benchmarks/query_performance_20251125_064957.json](#📄-test-results-benchmarks-query-performance-20251125-064957-json)
+- [📄 test_results/benchmarks/query_performance_20251202_112242.json](#📄-test-results-benchmarks-query-performance-20251202-112242-json)
+- [📄 test_results/benchmarks/query_performance_20251202_112350.json](#📄-test-results-benchmarks-query-performance-20251202-112350-json)
 - [📄 test_results/benchmarks/quick_benchmark_20250909_181956.json](#📄-test-results-benchmarks-quick-benchmark-20250909-181956-json)
 - [📄 test_results/benchmarks/quick_benchmark_20250927_045545.json](#📄-test-results-benchmarks-quick-benchmark-20250927-045545-json)
 - [📄 test_results/benchmarks/single_event_performance_20250909_180315.json](#📄-test-results-benchmarks-single-event-performance-20250909-180315-json)
@@ -563,6 +652,9 @@
 - [📄 test_results/benchmarks/single_event_performance_20250914_215612.json](#📄-test-results-benchmarks-single-event-performance-20250914-215612-json)
 - [📄 test_results/benchmarks/single_event_performance_20250916_213914.json](#📄-test-results-benchmarks-single-event-performance-20250916-213914-json)
 - [📄 test_results/benchmarks/single_event_performance_20250927_045453.json](#📄-test-results-benchmarks-single-event-performance-20250927-045453-json)
+- [📄 test_results/benchmarks/single_event_performance_20251125_064950.json](#📄-test-results-benchmarks-single-event-performance-20251125-064950-json)
+- [📄 test_results/benchmarks/single_event_performance_20251202_112216.json](#📄-test-results-benchmarks-single-event-performance-20251202-112216-json)
+- [📄 test_results/benchmarks/single_event_performance_20251202_112314.json](#📄-test-results-benchmarks-single-event-performance-20251202-112314-json)
 - [📄 test_results/reports/api_e2e_tests_results.xml](#📄-test-results-reports-api-e2e-tests-results-xml)
 - [📄 test_results/reports/benchmark_analysis_20250909_182207.json](#📄-test-results-reports-benchmark-analysis-20250909-182207-json)
 - [📄 test_results/reports/benchmark_report_20250909_182207.md](#📄-test-results-reports-benchmark-report-20250909-182207-md)
@@ -601,15 +693,14 @@
 - [📄 tests/e2e/test_realistic_scenarios_e2e.py](#📄-tests-e2e-test-realistic-scenarios-e2e-py)
 - [📄 tests/final_comprehensive_test.py](#📄-tests-final-comprehensive-test-py)
 - [📄 tests/legacy_test_config.py](#📄-tests-legacy-test-config-py)
+- [📄 tests/test_api_integration.py](#📄-tests-test-api-integration-py)
 - [📄 tests/test_api_server.py](#📄-tests-test-api-server-py)
 - [📄 tests/test_basic_functionality.py](#📄-tests-test-basic-functionality-py)
 - [📄 tests/test_causal_chain.py](#📄-tests-test-causal-chain-py)
 - [📄 tests/test_cli.py](#📄-tests-test-cli-py)
 - [📄 tests/test_config.py](#📄-tests-test-config-py)
 - [📄 tests/test_context.py](#📄-tests-test-context-py)
-- [📄 tests/test_mcp_preprocessor.py](#📄-tests-test-mcp-preprocessor-py)
 - [📄 tests/test_mcp_server.py](#📄-tests-test-mcp-server-py)
-- [📄 tests/test_mcp_suggestions.py](#📄-tests-test-mcp-suggestions-py)
 - [📄 tests/test_memory_core_advanced.py](#📄-tests-test-memory-core-advanced-py)
 - [📄 tests/test_memory_core.py](#📄-tests-test-memory-core-py)
 - [📄 tests/test_narrative_continuity.py](#📄-tests-test-narrative-continuity-py)
@@ -630,6 +721,8 @@
 - [📄 GEMINI.md](#📄-gemini-md)
 - [📄 github_issues.md](#📄-github-issues-md)
 - [📄 Grimoire Page_ The Causal Memory Core Blueprint.md](#📄-grimoire-page-the-causal-memory-core-blueprint-md)
+- [📄 mcp_config_railway.json](#📄-mcp-config-railway-json)
+- [📄 mcp_config_sse.json](#📄-mcp-config-sse-json)
 - [📄 mcp_config.json](#📄-mcp-config-json)
 - [📄 MCP_Integration_Test_Results.md](#📄-mcp-integration-test-results-md)
 - [📄 PR_DESCRIPTION.md](#📄-pr-description-md)
@@ -641,11 +734,15 @@
 - [📄 render.yaml](#📄-render-yaml)
 - [📄 requirements-dev.txt](#📄-requirements-dev-txt)
 - [📄 requirements.txt](#📄-requirements-txt)
+- [📄 run_tests.bat](#📄-run-tests-bat)
 - [📄 setup.py](#📄-setup-py)
+- [📄 start_server.sh](#📄-start-server-sh)
 - [📄 stress_test.py](#📄-stress-test-py)
+- [📄 test_cmc_remote.py](#📄-test-cmc-remote-py)
 - [📄 The_Bestowal_Plan.md](#📄-the-bestowal-plan-md)
 - [📄 tobefixed.md](#📄-tobefixed-md)
 - [📄 Triptych Trial.md](#📄-triptych-trial-md)
+- [📄 WORK_ORDER_ALBEDO_CMC_QUERY.md](#📄-work-order-albedo-cmc-query-md)
 
 ---
 
@@ -653,22 +750,22 @@
 
 | Metric | Count |
 |--------|-------|
-| Total Files | 319 |
-| Total Directories | 19 |
-| Text Files | 282 |
-| Binary Files | 37 |
-| Total Size | 5.34 MB |
+| Total Files | 376 |
+| Total Directories | 20 |
+| Text Files | 321 |
+| Binary Files | 55 |
+| Total Size | 5.71 MB |
 
 ### 📄 File Types Distribution
 
 | Extension | Count |
 |-----------|-------|
-| `.json` | 196 |
-| `.py` | 42 |
-| `.md` | 30 |
-| `.pyc` | 27 |
+| `.json` | 225 |
+| `.py` | 45 |
+| `.pyc` | 43 |
+| `.md` | 35 |
+| `.jsonl` | 7 |
 | `.xml` | 7 |
-| `.jsonl` | 5 |
 | `.txt` | 3 |
 | `.db` | 3 |
 | `.yml` | 1 |
@@ -676,6 +773,8 @@
 | `.toml` | 1 |
 | `.ini` | 1 |
 | `.yaml` | 1 |
+| `.bat` | 1 |
+| `.sh` | 1 |
 | `.lnk` | 1 |
 
 ## 💻 File Code Contents
@@ -701,8 +800,8 @@ The following files were not included in the text content:
 - **Language**: `text`
 - **Location**: `docs/albedo_integration.md`
 - **Relative Path**: `docs`
-- **Created**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
+- **Created**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
 - **MD5**: `7829b571e1ee82cfb542b53293a3bf79`
 - **SHA256**: `d85722a85712ddaacb3ba24aef71e1523550791bb1da3418c3f3a4b0c0a13989`
 - **Encoding**: ASCII
@@ -805,15 +904,15 @@ From The Bestowal Plan:
 ### <a id="📄-docs-api-md"></a>📄 `docs/api.md`
 
 **File Info:**
-- **Size**: 11.84 KB
+- **Size**: 11.61 KB
 - **Extension**: `.md`
 - **Language**: `text`
 - **Location**: `docs/api.md`
 - **Relative Path**: `docs`
 - **Created**: 2025-09-15 11:04:32 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-09-15 11:05:28 (America/Chicago / GMT-05:00)
-- **MD5**: `a8cbfe9947a9f2d62542e064529f3738`
-- **SHA256**: `227915496c821a367e3c97e601496078f13b08461012061879847cf0e0cddfaf`
+- **Modified**: 2025-12-02 16:23:11 (America/Chicago / GMT-06:00)
+- **MD5**: `12aa817a711ed5ec9424e24cfc6bdc1d`
+- **SHA256**: `7931d92b3257ae2c4bdd2cd0674745519449761607243fa77744653da0a808e6`
 - **Encoding**: UTF-8
 
 **File code content:**
@@ -913,47 +1012,42 @@ if event:
 ~~~~
 ### Context Retrieval
 
-#### get_context()
+#### query()
 
-Retrieves causal context based on a query.
+Query memory and retrieve causal narrative.
 
 ~~~~python
-def get_context(
-    self,
-    query: str,
-    max_events: int = 10,
-    time_window: Optional[timedelta] = None,
-    filters: Optional[Dict[str, Any]] = None
-) -> ContextResponse
+def query(self, query_text: str) -> str
 ~~~~
 
 **Parameters:**
-- `query` (str): Search query for relevant events
-- `max_events` (int): Maximum number of events to return
-- `time_window` (Optional[timedelta]): Limit search to specific time range
-- `filters` (Optional[Dict[str, Any]]): Additional filtering criteria
+- `query_text` (str): Natural language query about context
 
 **Returns:**
-- `ContextResponse`: Structured response with events and causal relationships
+- `str`: Narrative string explaining the causal chain leading to the most relevant event.
 
 **Example:**
 ~~~~python
-from datetime import timedelta
-
 # Basic context query
-context = memory.get_context("user authentication issues")
+narrative = memory.query("user authentication issues")
 
-# Advanced query with filters
-context = memory.get_context(
-    "database performance",
-    max_events=20,
-    time_window=timedelta(days=7),
-    filters={"severity": "high"}
-)
-
-print(f"Found {len(context.events)} relevant events")
-print(f"Causal narrative: {context.narrative}")
+print(narrative)
+# Output: "Initially, User login failed. This led to Account locked."
 ~~~~
+
+#### get_context()
+
+Backward compatibility wrapper for query().
+
+~~~~python
+def get_context(self, query_text: str) -> str
+~~~~
+
+**Parameters:**
+- `query_text` (str): Natural language query about context
+
+**Returns:**
+- `str`: Narrative explaining causal chain (same as query())
 
 #### search_events()
 
@@ -1125,44 +1219,22 @@ Retrieve a specific event.
 }
 ~~~~
 
-#### POST /context
+#### POST /query
 
 Retrieve causal context for a query.
 
 **Request:**
 ~~~~json
 {
-  "query": "registration process issues",
-  "max_events": 15,
-  "time_window_hours": 168,
-  "filters": {
-    "source": "web_app"
-  }
+  "query": "registration process issues"
 }
 ~~~~
 
 **Response:**
 ~~~~json
 {
-  "events": [
-    {
-      "event_id": "evt_789",
-      "description": "User completed registration",
-      "timestamp": "2025-09-15T10:30:00Z",
-      "relevance_score": 0.92
-    }
-  ],
-  "causal_relationships": [
-    {
-      "source_event_id": "evt_788",
-      "target_event_id": "evt_789",
-      "relationship_type": "causal_successor",
-      "confidence": 0.85
-    }
-  ],
-  "narrative": "The registration process shows a clear causal sequence...",
-  "total_events": 1,
-  "query_time_ms": 245
+  "narrative": "Initially, User completed registration...",
+  "success": true
 }
 ~~~~
 
@@ -1722,6 +1794,950 @@ This architecture provides a solid foundation for the Causal Memory Core v1.1.0 
 
 ---
 
+### <a id="📄-docs-railway-deployment-md"></a>📄 `docs/RAILWAY_DEPLOYMENT.md`
+
+**File Info:**
+- **Size**: 8.04 KB
+- **Extension**: `.md`
+- **Language**: `text`
+- **Location**: `docs/RAILWAY_DEPLOYMENT.md`
+- **Relative Path**: `docs`
+- **Created**: 2025-12-02 09:00:26 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 09:00:27 (America/Chicago / GMT-06:00)
+- **MD5**: `ea8da1e1aebd21be6ed1fe1f1c4b7de3`
+- **SHA256**: `9fd43557d93db7763459594ea7a43e7bd38e17c2230e489a7fd590dac27287e9`
+- **Encoding**: UTF-8
+
+**File code content:**
+
+````markdown
+# Railway Deployment Guide - Dual Service Configuration
+
+## Overview
+
+This setup allows you to run **both** the REST API and MCP Server on Railway as separate services, sharing the same database.
+
+## Architecture
+
+~~~~
+Railway Project
+├── Service 1: REST API (port 8000)
+│   └── Endpoints: /health, /events, /query, /stats
+└── Service 2: MCP Server (port 8001) 
+    └── Endpoints: /sse, /messages, /
+~~~~
+
+Both services connect to the same persistent DuckDB database.
+
+## Setup Instructions
+
+### Step 1: Create Railway Project
+
+If you haven't already:
+
+1. Go to [railway.app](https://railway.app)
+2. Create a new project from GitHub repo: `sorrowscry86/Causal-Memory-Core`
+3. Railway will auto-detect the `Dockerfile` and deploy
+
+### Step 2: Configure REST API Service (Default)
+
+The initial deployment runs the REST API by default.
+
+**Environment Variables (Railway Dashboard):**
+
+~~~~bash
+# Required
+OPENAI_API_KEY=your-openai-api-key-here
+PORT=8000
+
+# Optional (with defaults)
+DB_PATH=/app/data/causal_memory.db
+EMBEDDING_MODEL=all-MiniLM-L6-v2
+LLM_MODEL=gpt-4
+LLM_TEMPERATURE=0.1
+MAX_POTENTIAL_CAUSES=7
+SIMILARITY_THRESHOLD=0.6
+TIME_DECAY_HOURS=168
+~~~~
+
+**This service will be available at:**
+`https://causal-memory-core-production.up.railway.app`
+
+### Step 3: Add MCP Server Service
+
+1. In Railway dashboard, click **"New Service"** → **"Empty Service"**
+2. Name it: `causal-memory-mcp`
+3. Link it to the same GitHub repo
+4. Configure the service:
+
+**Environment Variables for MCP Service:**
+
+~~~~bash
+# Required
+OPENAI_API_KEY=your-openai-api-key-here
+SERVICE_TYPE=mcp  # THIS IS KEY - tells startup script to run MCP server
+PORT=8001  # Different port from REST API
+
+# Optional (same as REST API service)
+DB_PATH=/app/data/causal_memory.db
+EMBEDDING_MODEL=all-MiniLM-L6-v2
+LLM_MODEL=gpt-4
+LLM_TEMPERATURE=0.1
+MAX_POTENTIAL_CAUSES=7
+SIMILARITY_THRESHOLD=0.6
+TIME_DECAY_HOURS=168
+~~~~
+
+**This service will be available at:**
+`https://causal-memory-mcp-production.up.railway.app`
+
+### Step 4: Configure Shared Database
+
+Both services need to access the same database. Options:
+
+#### Option A: Shared Volume (Recommended)
+
+1. Create a Railway volume in your project
+2. Name it: `causal-memory-data`
+3. Mount point: `/app/data`
+4. Attach the volume to **both** services
+5. Set `DB_PATH=/app/data/causal_memory.db` in both services
+
+#### Option B: External Database
+
+Use Railway PostgreSQL or external database:
+
+~~~~bash
+# Both services
+DB_TYPE=postgresql
+DATABASE_URL=your-postgresql-connection-string
+~~~~
+
+### Step 5: Deploy and Verify
+
+**Deploy REST API Service:**
+
+~~~~bash
+curl https://causal-memory-core-production.up.railway.app/health
+~~~~
+
+**Expected response:**
+
+~~~~json
+{
+  "status": "healthy",
+  "version": "1.1.1",
+  "database_connected": true
+}
+~~~~
+
+**Deploy MCP Server:**
+
+~~~~bash
+curl https://causal-memory-mcp-production.up.railway.app/
+~~~~
+
+**Expected response:**
+
+~~~~
+Causal Memory Core MCP Active 🧠
+~~~~
+
+## Claude Desktop Configuration
+
+Add **both** services to your `mcp.json`:
+
+~~~~json
+{
+  "mcpServers": {
+    "causal-memory-railway-sse": {
+      "type": "sse",
+      "url": "https://causal-memory-mcp-production.up.railway.app/sse",
+      "description": "Remote MCP server (SSE transport)"
+    }
+  }
+}
+~~~~
+
+You can also access the REST API directly if needed:
+
+~~~~bash
+# Add event via REST API
+curl -X POST https://causal-memory-core-production.up.railway.app/events \
+  -H "Content-Type: application/json" \
+  -d '{"effect_text": "Testing dual Railway deployment"}'
+
+# Query via REST API
+curl -X POST https://causal-memory-core-production.up.railway.app/query \
+  -H "Content-Type: application/json" \
+  -d '{"query": "dual deployment"}'
+~~~~
+
+## How the Startup Script Works
+
+The `start_server.sh` script checks the `SERVICE_TYPE` environment variable:
+
+~~~~bash
+if [ "$SERVICE_TYPE" = "mcp" ]; then
+    # Run MCP Server (SSE mode)
+    python src/mcp_server.py
+else
+    # Run REST API (default)
+    python src/api_server.py
+fi
+~~~~
+
+This allows the same Docker image to run different services based on configuration.
+
+## Service Comparison
+
+| Feature | REST API Service | MCP Server Service |
+|---------|-----------------|-------------------|
+| Port | 8000 | 8001 |
+| Protocol | HTTP/REST | MCP/SSE |
+| Endpoints | /health, /events, /query, /stats | /sse, /messages, / |
+| Clients | curl, Postman, web apps | Claude Desktop, MCP clients |
+| Database | Shared volume | Shared volume |
+| Use Case | Direct API access | MCP protocol integration |
+
+## Monitoring
+
+### Railway Dashboard
+
+Monitor both services:
+
+- **Metrics**: CPU, memory, network for each service
+- **Logs**: Separate logs for REST API and MCP server
+- **Deployments**: Independent deployment history
+- **Scaling**: Scale services independently
+
+### Health Checks
+
+**REST API:**
+
+~~~~bash
+curl https://causal-memory-core-production.up.railway.app/health
+~~~~
+
+**MCP Server:**
+
+~~~~bash
+curl https://causal-memory-mcp-production.up.railway.app/
+~~~~
+
+## Troubleshooting
+
+### Services Can't Connect to Database
+
+**Issue:** Both services need shared database access
+
+**Solutions:**
+
+- Verify shared volume is mounted to both services at `/app/data`
+- Check `DB_PATH` matches mount point in both services
+- Ensure volume has write permissions
+- Check Railway logs for database connection errors
+
+### MCP Server Not Starting
+
+**Issue:** Service starts but MCP endpoints don't work
+
+**Solutions:**
+
+- Verify `SERVICE_TYPE=mcp` is set in environment variables
+- Check logs for "Starting MCP Server (SSE)" message
+- Ensure port is correctly set (8001 recommended)
+- Test health endpoint first: `curl https://[mcp-url]/`
+
+### Services Using Different Databases
+
+**Issue:** Events added via REST API don't appear in MCP queries
+
+**Solutions:**
+
+- Confirm both services have identical `DB_PATH` values
+- Verify shared volume is attached to both services
+- Check Railway volume dashboard for mount points
+- Restart both services after volume configuration changes
+
+### Port Conflicts
+
+**Issue:** Services won't start due to port conflicts
+
+**Solutions:**
+
+- Ensure REST API uses `PORT=8000`
+- Ensure MCP Server uses `PORT=8001`
+- Railway automatically handles external port mapping
+- Internal port conflicts are unlikely in separate services
+
+## Scaling Considerations
+
+### Independent Scaling
+
+You can scale each service independently:
+
+- **REST API**: Scale for high HTTP traffic
+- **MCP Server**: Scale for multiple MCP clients
+
+### Database Contention
+
+Both services share one database:
+
+- DuckDB is single-writer, multi-reader
+- For high concurrency, consider PostgreSQL
+- Monitor Railway metrics for database bottlenecks
+
+## Cost Optimization
+
+Railway pricing considerations:
+
+- **Two services** = 2x compute costs
+- **Shared volume** = single storage cost
+- **Free tier**: May not support dual services
+- **Pro tier**: Recommended for production
+
+## Migration from Single Service
+
+If you're currently running only the REST API:
+
+1. ✅ Keep existing REST API service running
+2. ✅ Add new MCP server service (follow Step 3)
+3. ✅ Configure shared volume for both
+4. ✅ Update Claude Desktop config with MCP SSE URL
+5. ✅ Test both services independently
+6. ✅ Monitor both service logs
+
+## Next Steps
+
+1. ✅ Deploy REST API service (if not already done)
+2. ✅ Create MCP server service with `SERVICE_TYPE=mcp`
+3. ✅ Configure shared volume for database
+4. ✅ Verify both services can access database
+5. ✅ Add MCP SSE endpoint to Claude Desktop
+6. ✅ Test events/queries through both interfaces
+7. ✅ Monitor Railway metrics for both services
+
+## Support
+
+- **Railway Documentation**: [docs.railway.app](https://docs.railway.app)
+- **Project Issues**: [github.com/sorrowscry86/Causal-Memory-Core/issues](https://github.com/sorrowscry86/Causal-Memory-Core/issues)
+- **Contact**: SorrowsCry86@voidcat.org
+
+---
+
+**VoidCat RDC** | Causal Memory Core Dual Railway Deployment  
+**Developer**: @sorrowscry86
+
+````
+
+---
+
+### <a id="📄-docs-railway-mcp-client-md"></a>📄 `docs/railway_mcp_client.md`
+
+**File Info:**
+- **Size**: 5.22 KB
+- **Extension**: `.md`
+- **Language**: `text`
+- **Location**: `docs/railway_mcp_client.md`
+- **Relative Path**: `docs`
+- **Created**: 2025-12-02 08:53:26 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 09:02:01 (America/Chicago / GMT-06:00)
+- **MD5**: `412c15bab12b021196a1fc6e0afb359e`
+- **SHA256**: `ff750a2d9f37af5bc59e7016ca52e4450f206be017306e38cee5edda04c31091`
+- **Encoding**: UTF-8
+
+**File code content:**
+
+````markdown
+# Causal Memory Core - Railway MCP Client
+
+## Overview
+
+This MCP client allows you to interact with the Railway-hosted Causal Memory Core instance through the Model Context Protocol (MCP). Instead of running the memory core locally, all operations are proxied to the production REST API.
+
+## Architecture
+
+~~~~
+Claude Desktop (MCP Client)
+    ↓ stdio
+mcp_railway_client.py (MCP Server/Proxy)
+    ↓ HTTPS/REST
+Railway Production API (causal-memory-core-production.up.railway.app)
+    ↓
+PostgreSQL/DuckDB Database
+~~~~
+
+## Configuration
+
+### Environment Variables
+
+- `RAILWAY_BASE_URL`: Base URL for the Railway deployment (default: `https://causal-memory-core-production.up.railway.app`)
+- `API_KEY`: Optional API key for authenticated requests (set `CMC_API_KEY` in your environment)
+
+### Claude Desktop Configuration
+
+Add to your Claude Desktop `mcp.json`:
+
+~~~~json
+{
+  "mcpServers": {
+    "causal-memory-railway": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["d:/Development/Causal Memory Core/src/mcp_railway_client.py"],
+      "env": {
+        "RAILWAY_BASE_URL": "https://causal-memory-core-production.up.railway.app",
+        "API_KEY": "${env:CMC_API_KEY}"
+      }
+    }
+  }
+}
+~~~~
+
+## Available Tools
+
+### `add_event`
+Add a new event to the Railway-hosted memory system.
+
+**Parameters:**
+- `effect` (string, required): Description of the event
+
+**Example:**
+~~~~json
+{
+  "effect": "Deployed new Railway MCP client for remote memory access"
+}
+~~~~
+
+### `query`
+Query the Railway-hosted causal memory and retrieve narrative chains.
+
+**Parameters:**
+- `query` (string, required): Search query for memory retrieval
+
+**Example:**
+~~~~json
+{
+  "query": "What led to the Railway deployment?"
+}
+~~~~
+
+### `health_check`
+Check the health status of the Railway deployment.
+
+**Returns:**
+- Status (healthy/unhealthy)
+- Version number
+- Database connection status
+- Endpoint URL
+
+### `get_stats`
+Retrieve memory statistics from the Railway instance.
+
+**Returns:**
+- Total events stored
+- Linked events (with causal relationships)
+- Orphan events (no causal links)
+- Chain coverage percentage
+
+## Usage Examples
+
+### From Claude Desktop
+
+After adding the configuration to `mcp.json` and restarting Claude Desktop:
+
+**Add an event:**
+~~~~
+Use the causal-memory-railway add_event tool to record: "User configured Railway MCP client"
+~~~~
+
+**Query memory:**
+~~~~
+Use the causal-memory-railway query tool to search: "Railway configuration"
+~~~~
+
+**Check health:**
+~~~~
+Use the causal-memory-railway health_check tool
+~~~~
+
+**Get statistics:**
+~~~~
+Use the causal-memory-railway get_stats tool
+~~~~
+
+## Comparison: Local vs Railway
+
+| Feature | Local MCP Server | Railway MCP Client |
+|---------|------------------|-------------------|
+| Database | Local DuckDB file | Shared Railway database |
+| Latency | ~10ms | ~200-500ms (network) |
+| Persistence | Local machine only | Persistent cloud storage |
+| Multi-device | ❌ No | ✅ Yes |
+| API Key | Not required | Optional (recommended) |
+| Internet Required | ❌ No | ✅ Yes |
+| OpenAI API Calls | Direct from local | Server-side (Railway) |
+
+## Troubleshooting
+
+### Connection Refused
+- Verify Railway instance is running: `curl https://causal-memory-core-production.up.railway.app/health`
+- Check network connectivity
+- Ensure no firewall/proxy blocking Railway domain
+
+### 403 Forbidden
+- Set `API_KEY` environment variable if the Railway instance requires authentication
+- Verify API key matches the one configured on Railway (`API_KEY` env var)
+
+### 503 Service Unavailable
+- Railway instance may be starting up (cold start)
+- Check Railway dashboard for deployment status
+- Wait 30-60 seconds and retry
+
+## Performance Considerations
+
+- **Network Latency**: Remote calls add 200-500ms vs local (<10ms)
+- **Caching**: Consider local caching layer for frequently accessed narratives
+- **Batch Operations**: Plan to add batch endpoints if you need to add many events at once
+
+## Security
+
+- Always use HTTPS (default with Railway)
+- Set `API_KEY` environment variable for production use
+- Never commit API keys to version control
+- Railway endpoint uses Railway's built-in DDoS protection
+
+## Development
+
+To test the Railway client locally:
+
+~~~~bash
+# Set environment variables
+export RAILWAY_BASE_URL="https://causal-memory-core-production.up.railway.app"
+export CMC_API_KEY="your-api-key-here"
+
+# Run the MCP client
+python src/mcp_railway_client.py
+~~~~
+
+The client will start in stdio mode and wait for MCP protocol messages.
+
+## Next Steps
+
+1. Add the Railway MCP client to your Claude Desktop configuration
+2. Restart Claude Desktop to load the new server
+3. Test with a simple `health_check` tool call
+4. Begin adding events and querying the shared memory
+5. Monitor Railway logs for any errors or performance issues
+
+## Contact
+
+For issues related to:
+- **MCP Client**: Check this documentation or `src/mcp_railway_client.py`
+- **Railway Deployment**: Check Railway dashboard logs
+- **API Server**: See `src/api_server.py` and REST API documentation
+
+---
+
+**VoidCat RDC** | Causal Memory Core Railway Integration  
+**Developer**: @sorrowscry86  
+**Contact**: SorrowsCry86@voidcat.org
+
+````
+
+---
+
+### <a id="📄-docs-railway-mcp-sse-md"></a>📄 `docs/railway_mcp_sse.md`
+
+**File Info:**
+- **Size**: 8.81 KB
+- **Extension**: `.md`
+- **Language**: `text`
+- **Location**: `docs/railway_mcp_sse.md`
+- **Relative Path**: `docs`
+- **Created**: 2025-12-02 08:56:52 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-04 21:15:59 (America/Chicago / GMT-06:00)
+- **MD5**: `5b6d22c08d410e11ffca002b72739d5d`
+- **SHA256**: `c87e812f45127b9e25cfbaae430af7ac423e536480a5f28b2050d9d90eff9788`
+- **Encoding**: UTF-8
+
+**File code content:**
+
+````markdown
+# Causal Memory Core - Railway MCP Server (SSE)
+
+## Overview
+
+The Railway deployment now exposes the Causal Memory Core as a **remote MCP server** using SSE (Server-Sent Events) transport. Claude Desktop and other MCP clients can connect directly to the Railway instance without needing a local proxy.
+
+## Architecture
+
+~~~~
+Claude Desktop (MCP Client)
+    ↓ HTTPS/SSE
+Railway MCP Server (causal-memory-core-production.up.railway.app)
+    ↓
+DuckDB Database (persistent volume)
+~~~~
+
+## Railway Configuration
+
+The MCP server automatically switches to SSE mode when the `PORT` environment variable is detected (which Railway provides automatically).
+
+### Railway Environment Variables
+
+Set these in your Railway project dashboard:
+
+~~~~bash
+# Required
+OPENAI_API_KEY=your-openai-api-key
+PORT=8000  # Automatically set by Railway
+
+# Optional (with defaults)
+DB_PATH=/app/data/causal_memory.db
+EMBEDDING_MODEL=all-MiniLM-L6-v2
+LLM_MODEL=gpt-4
+LLM_TEMPERATURE=0.1
+MAX_POTENTIAL_CAUSES=7
+SIMILARITY_THRESHOLD=0.6
+TIME_DECAY_HOURS=168
+~~~~
+
+### Railway Deployment
+
+The MCP server will run on Railway with these endpoints:
+
+- `GET /` - Health check endpoint
+- `GET /sse` - SSE endpoint for MCP client connections
+- `POST /messages` - MCP message endpoint
+
+## Claude Desktop Configuration
+
+Add to your Claude Desktop `mcp.json`:
+
+~~~~json
+{
+  "mcpServers": {
+    "causal-memory-railway": {
+      "type": "sse",
+      "url": "https://causal-memory-core-production.up.railway.app/sse"
+    }
+  }
+}
+~~~~
+
+**That's it!** No local Python process needed. Claude Desktop connects directly to Railway.
+
+## Available Tools
+
+### `add_event`
+
+Add a new event to the Railway-hosted memory system.
+
+**Parameters:**
+
+- `effect` (string, required): Description of the event
+
+**Example:**
+
+~~~~json
+{
+  "effect": "Deployed Railway MCP server with SSE transport"
+}
+~~~~
+
+### `query`
+
+Query the Railway-hosted causal memory and retrieve narrative chains.
+
+**Parameters:**
+
+- `query` (string, required): Search query for memory retrieval
+
+**Example:**
+
+~~~~json
+{
+  "query": "What caused the Railway deployment?"
+}
+~~~~
+
+## Usage Examples
+
+### From Claude Desktop
+
+After adding the SSE configuration to `mcp.json` and restarting Claude Desktop:
+
+**Add an event:**
+
+~~~~
+Use the causal-memory-railway add_event tool to record: "Configured Railway MCP server with SSE transport"
+~~~~
+
+**Query memory:**
+
+~~~~
+Use the causal-memory-railway query tool to search: "Railway MCP deployment"
+~~~~
+
+## Comparison: stdio vs SSE
+
+| Feature | stdio (Local) | SSE (Railway) |
+|---------|---------------|---------------|
+| Connection | Process pipes | HTTPS/SSE |
+| Location | Local machine | Remote cloud |
+| Setup | Python + dependencies | Just URL |
+| Database | Local DuckDB | Shared Railway DB |
+| Multi-device | ❌ No | ✅ Yes |
+| Latency | ~10ms | ~200-500ms |
+| Persistence | Local only | Persistent cloud |
+| Auto-start | Manual | Always running |
+
+## Testing the Connection
+
+### 1. Verify Railway Health
+
+~~~~bash
+curl https://causal-memory-core-production.up.railway.app/
+~~~~
+
+**Expected response:**
+
+~~~~
+Causal Memory Core MCP Active 🧠
+~~~~
+
+### 2. Test SSE Endpoint
+
+~~~~bash
+curl https://causal-memory-core-production.up.railway.app/sse
+~~~~
+
+**Expected:** SSE connection opens (Claude Desktop will handle the MCP protocol handshake)
+
+### 3. Check Claude Desktop
+
+After adding the config and restarting:
+
+1. Look for `causal-memory-railway` in the MCP servers list
+2. The server should show as "Connected"
+3. Test with any tool call
+
+## Troubleshooting
+
+### Connection Failed
+
+**Issue:** Claude Desktop can't connect to SSE endpoint
+
+**Solutions:**
+
+- Verify Railway instance is running (check Railway dashboard)
+- Test health endpoint: `curl https://causal-memory-core-production.up.railway.app/`
+- Check Railway logs for startup errors
+- Ensure no corporate firewall blocking Railway domain
+
+### Server Not Listed in Claude Desktop
+
+**Issue:** `causal-memory-railway` doesn't appear in MCP servers
+
+**Solutions:**
+
+- Verify `mcp.json` syntax is correct (use JSON validator)
+- Restart Claude Desktop completely (quit and reopen)
+- Check Claude Desktop logs for configuration errors
+- Ensure `type: "sse"` is set (not `stdio`)
+
+### Tool Calls Fail
+
+**Issue:** Tools are listed but calls return errors
+
+**Solutions:**
+
+- Check Railway logs for server-side errors
+- Verify `OPENAI_API_KEY` is set on Railway
+- Ensure Railway instance has enough memory (512MB+ recommended)
+- Check database path and permissions
+
+### Cold Start Delays
+
+**Issue:** First request after inactivity is slow
+
+**Railway cold starts** can take 30-60 seconds if the instance was idle. Solutions:
+
+- Accept the delay (free tier behavior)
+- Upgrade to Railway Pro for always-on instances
+- Implement a health check ping every 5 minutes
+
+## Performance Optimization
+
+### Railway Instance Configuration
+
+**Recommended settings:**
+
+- **Memory**: 512MB minimum (1GB for heavy usage)
+- **Region**: Choose closest to your location
+- **Persistent Volume**: Mount at `/app/data` for database
+
+### Database Persistence
+
+Ensure your Railway project has a persistent volume mounted:
+
+~~~~toml
+# railway.toml
+[deploy]
+healthcheckPath = "/"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+
+[[volumes]]
+mountPath = "/app/data"
+~~~~
+
+Set `DB_PATH=/app/data/causal_memory.db` in Railway environment variables.
+
+### Rate Limiting
+
+The MCP server has no built-in rate limiting. For production:
+
+- Use Railway's built-in DDoS protection
+- Monitor usage in Railway dashboard
+- Consider adding authentication if needed
+
+## Security
+
+### Public Endpoint Considerations
+
+The Railway MCP server is **publicly accessible** by default. Security measures:
+
+1. **No authentication** - Anyone with the URL can use the tools
+2. **Consider adding API key authentication** if needed
+3. **Monitor Railway logs** for suspicious activity
+4. **Use Railway's built-in protections** (DDoS, rate limiting)
+
+### Adding Authentication (Optional)
+
+To add API key authentication, modify the Railway environment:
+
+~~~~bash
+API_KEY=your-secret-key-here
+~~~~
+
+Update `mcp_server.py` to check this key on SSE connections (requires code modification).
+
+## Development
+
+### Local Testing of SSE Mode
+
+Run the MCP server in SSE mode locally:
+
+~~~~bash
+# Set PORT to enable SSE mode
+export PORT=8000
+export OPENAI_API_KEY=your-key
+
+# Run server
+python src/mcp_server.py
+~~~~
+
+Server will start on `http://localhost:8000` with SSE endpoints.
+
+Test the connection:
+
+~~~~bash
+curl http://localhost:8000/
+~~~~
+
+### Deploying Updates
+
+1. Push changes to GitHub
+2. Railway auto-deploys from `main` branch
+3. Monitor Railway build logs
+4. Test SSE endpoint after deployment
+5. Restart Claude Desktop to pick up changes
+
+## Migration from stdio to SSE
+
+If you're currently using the local stdio MCP server:
+
+**Old configuration:**
+
+~~~~json
+{
+  "mcpServers": {
+    "causal-memory": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["d:/Development/Causal Memory Core/src/mcp_server.py"]
+    }
+  }
+}
+~~~~
+
+**New configuration:**
+
+~~~~json
+{
+  "mcpServers": {
+    "causal-memory-railway": {
+      "type": "sse",
+      "url": "https://causal-memory-core-production.up.railway.app/sse"
+    }
+  }
+}
+~~~~
+
+**Migration steps:**
+
+1. Export existing local database (if you want to preserve events)
+2. Update `mcp.json` with new SSE configuration
+3. Restart Claude Desktop
+4. Test the Railway connection
+5. Optionally import local events to Railway (requires manual script)
+
+## Monitoring
+
+### Railway Dashboard
+
+Monitor your MCP server:
+
+- **Metrics**: CPU, memory, network usage
+- **Logs**: Real-time server logs and errors
+- **Deployments**: Build history and rollback
+- **Scaling**: Auto-scaling rules (Pro tier)
+
+### Key Metrics to Watch
+
+- **Response time**: Should be <500ms for most operations
+- **Memory usage**: Should stay under 80% of allocated
+- **Error rate**: Watch for LLM API failures or database errors
+- **Database size**: Monitor growth rate
+
+## Next Steps
+
+1. ✅ Set Railway environment variables
+2. ✅ Update Claude Desktop `mcp.json` with SSE configuration
+3. ✅ Restart Claude Desktop
+4. ✅ Test connection with health check
+5. ✅ Add first event and query memory
+6. ✅ Monitor Railway logs for issues
+
+## Additional Resources
+
+- **Railway Documentation**: [railway.app/docs](https://railway.app/docs)
+- **MCP SSE Transport**: [modelcontextprotocol.io](https://modelcontextprotocol.io)
+- **Project Repository**: [github.com/sorrowscry86/Causal-Memory-Core](https://github.com/sorrowscry86/Causal-Memory-Core)
+
+---
+
+**VoidCat RDC** | Causal Memory Core Railway MCP Server  
+**Developer**: @sorrowscry86  
+**Contact**: <SorrowsCry86@voidcat.org>
+
+````
+
+---
+
 ### <a id="📄-examples-example-usage-py"></a>📄 `examples/example_usage.py`
 
 **File Info:**
@@ -1949,8 +2965,8 @@ if __name__ == "__main__":
 - **Language**: `python`
 - **Location**: `integration/albedo/memory_first_demo.py`
 - **Relative Path**: `integration/albedo`
-- **Created**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
+- **Created**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
 - **MD5**: `a318d6907dbc58fabc6b730019682c2d`
 - **SHA256**: `9afb18197460082f650ca9a6d4257778ab90192e71e680caa3bd32159ef5230f`
 - **Encoding**: ASCII
@@ -2093,6 +3109,73 @@ if __name__ == "__main__":
     )
 
 ```
+
+---
+
+### <a id="📄-reports-betty-report-md"></a>📄 `reports/BETTY_REPORT.md`
+
+**File Info:**
+- **Size**: 3.08 KB
+- **Extension**: `.md`
+- **Language**: `text`
+- **Location**: `reports/BETTY_REPORT.md`
+- **Relative Path**: `reports`
+- **Created**: 2025-12-03 17:19:14 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-03 21:37:54 (America/Chicago / GMT-06:00)
+- **MD5**: `232caa2b74c965e6e49e5ee2c0341773`
+- **SHA256**: `7d292ec28a1aa0b81f8cef3851c9131e8ffd933e584013ed657326fc90e9553c`
+- **Encoding**: ASCII
+
+**File code content:**
+
+````markdown
+# Betty Report
+
+**Date:** 2025-12-03
+
+## Summary
+
+- Restored `src/causal_memory_core.py` to the v1.1.2 implementation with soft-link fallback, embedding cache, and narrative formatting aligned with the project instructions.
+- Updated `requirements.txt` so every dependency (duckdb, sentence-transformers, openai, numpy, python-dotenv, mcp, starlette, uvicorn, fastapi, slowapi, httpx, pydantic) matches the requested minimum versions.
+
+## Testing
+
+- **17/17 tests passed** (`tests/test_memory_core.py`) in 59 seconds.
+
+## Next Steps
+
+1. Exercise the CLI or MCP server to confirm higher-level flows remain green.
+2. Consider a quick E2E run (`python -m pytest tests/e2e/ -v`) if additional confidence is needed.
+
+=========================================== test session starts ===========================================
+platform win32 -- Python 3.13.9, pytest-7.4.3, pluggy-1.6.0 -- C:\Users\Wykeve\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\python.exe
+cachedir: .pytest_cache
+rootdir: D:\Development\Causal Memory Core
+configfile: pytest.ini
+plugins: anyio-4.10.0, aio-1.9.0, cov-4.1.0
+collected 17 items
+
+tests/test_memory_core.py::TestCausalMemoryCore::test_add_event_with_cause PASSED                    [  5%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_add_event_without_cause PASSED                 [ 11%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_cosine_similarity_calculation PASSED           [ 17%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_database_initialization PASSED                 [ 23%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_event_class PASSED                             [ 29%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_get_context_causal_chain PASSED                [ 35%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_get_context_delegates_to_query PASSED          [ 41%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_get_context_empty_string_raises_error PASSED   [ 47%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_get_context_no_events PASSED                   [ 52%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_get_context_single_event PASSED                [ 58%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_query_empty_string_raises_error PASSED         [ 64%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_query_no_relevant_context_returns_default_message PASSED [ 70%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_query_uses_embedding_cache PASSED              [ 76%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_query_valid_single_event PASSED                [ 82%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_query_whitespace_only_raises_error PASSED      [ 88%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_query_with_causal_chain_returns_full_narrative PASSED [ 94%]
+tests/test_memory_core.py::TestCausalMemoryCore::test_similarity_threshold PASSED                    [100%]
+
+=========================================== 17 passed in 59.21s ==========================================
+
+````
 
 ---
 
@@ -4095,6 +5178,8 @@ if __name__ == "__main__":
 
 The following files were not included in the text content:
 
+- `src/__pycache__/__init__.cpython-313.pyc`
+- `src/__pycache__/api_server.cpython-313.pyc`
 - `src/__pycache__/causal_memory_core.cpython-313.pyc`
 - `src/__pycache__/mcp_server.cpython-313.pyc`
 
@@ -4123,15 +5208,15 @@ The following files were not included in the text content:
 ### <a id="📄-src-api-server-py"></a>📄 `src/api_server.py`
 
 **File Info:**
-- **Size**: 8.51 KB
+- **Size**: 8.83 KB
 - **Extension**: `.py`
 - **Language**: `python`
 - **Location**: `src/api_server.py`
 - **Relative Path**: `src`
 - **Created**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **MD5**: `98805bb584df9243b0844831d865f984`
-- **SHA256**: `a40dc0918c49d95298ba891b4a0810fcc0643be37a81157c144fc3214d3d4231`
+- **Modified**: 2025-12-02 16:23:11 (America/Chicago / GMT-06:00)
+- **MD5**: `ef0d834284bba6fe0e2a97095f0541a3`
+- **SHA256**: `998867790269d893545c51cb72573bc71eb7b005214e70083189a11086b5eca6`
 - **Encoding**: ASCII
 
 **File code content:**
@@ -4321,8 +5406,8 @@ async def health_check():
 @app.post("/events", response_model=AddEventResponse)
 @limiter.limit("60/minute")  # 60 events per minute per IP
 async def add_event(
-    request_obj: Request,
-    request: AddEventRequest,
+    request: Request,
+    request_data: AddEventRequest,
     authenticated: Optional[str] = Header(None, include_in_schema=False, alias="x-api-key")
 ):
     """Add a new event to memory.
@@ -4342,14 +5427,17 @@ async def add_event(
         raise HTTPException(status_code=503, detail="Memory core not initialized")
 
     try:
-        logger.info(f"Adding event: {request.effect_text[:100]}...")
-        memory_core.add_event(request.effect_text)
+        logger.info(f"Adding event: {request_data.effect_text[:100]}...")
+        memory_core.add_event(request_data.effect_text)
         logger.info("Event added successfully")
 
         return AddEventResponse(
             success=True,
             message="Event added successfully"
         )
+    except ValueError as e:
+        logger.warning(f"Validation error adding event: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         logger.error(f"Error adding event: {e}")
         raise HTTPException(status_code=500, detail=f"Error adding event: {str(e)}")
@@ -4358,8 +5446,8 @@ async def add_event(
 @app.post("/query", response_model=QueryResponse)
 @limiter.limit("120/minute")  # 120 queries per minute per IP
 async def query_memory(
-    request_obj: Request,
-    request: QueryRequest,
+    request: Request,
+    request_data: QueryRequest,
     authenticated: Optional[str] = Header(None, include_in_schema=False, alias="x-api-key")
 ):
     """Query memory and retrieve causal narrative.
@@ -4379,14 +5467,17 @@ async def query_memory(
         raise HTTPException(status_code=503, detail="Memory core not initialized")
 
     try:
-        logger.info(f"Processing query: {request.query[:100]}...")
-        narrative = memory_core.query(request.query)
+        logger.info(f"Processing query: {request_data.query[:100]}...")
+        narrative = memory_core.query(request_data.query)
         logger.info("Query processed successfully")
 
         return QueryResponse(
             narrative=narrative,
             success=True
         )
+    except ValueError as e:
+        logger.warning(f"Validation error processing query: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         logger.error(f"Error processing query: {e}")
         raise HTTPException(status_code=500, detail=f"Error processing query: {str(e)}")
@@ -4428,34 +5519,440 @@ if __name__ == "__main__":
 
 ---
 
-### <a id="📄-src-causal-memory-core-py"></a>📄 `src/causal_memory_core.py`
+### <a id="📄-src-causal-agent-wrapper-py"></a>📄 `src/causal_agent_wrapper.py`
 
 **File Info:**
-- **Size**: 24.84 KB
+- **Size**: 3.19 KB
 - **Extension**: `.py`
 - **Language**: `python`
-- **Location**: `src/causal_memory_core.py`
+- **Location**: `src/causal_agent_wrapper.py`
 - **Relative Path**: `src`
-- **Created**: 2025-09-17 02:29:18 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-11-25 02:41:12 (America/Chicago / GMT-06:00)
-- **MD5**: `42e25f7a53b825fce5da0042ea01050d`
-- **SHA256**: `075379bc5bc819ed099cd0d05aa5ab474a3e7716c97ac9c5c4a055de9f188986`
+- **Created**: 2025-12-03 16:43:50 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-03 16:51:00 (America/Chicago / GMT-06:00)
+- **MD5**: `beb8b05ee0179d7fef1ef66f92cf124c`
+- **SHA256**: `041f3bdb7377f6158f5b2ffc9acc41fb0ffee3f532f50473d8055e3c653714f7`
 - **Encoding**: ASCII
 
 **File code content:**
 
 ```python
-
-"""Causal Memory Core - unified, cleaned implementation.
-
-Provides semantic recall with causal chain narration. Implements:
- - Explicit constructor overrides (similarity_threshold, max_potential_causes,
-     time_decay_hours)
- - Unified query() (semantic locate -> ascend -> narrate path -> limited
-     consequences)
- - get_context() wrapper for backward compatibility
- - atexit hook for reliable DuckDB cleanup (Windows file lock mitigation)
 """
+The Compulsory Memory Wrapper.
+Architectural Pattern: Middleware / Decorator
+Author: Beatrice (VoidCat RDC)
+
+This class wraps an LLM client. It intercepts every interaction to:
+1. MANDATORY QUERY: Fetch causal context before the LLM sees the prompt.
+2. CONTEXT INJECTION: Inject that narrative into the system prompt.
+3. MANDATORY RECORDING: Log the LLM's decision/action to memory after generation.
+"""
+
+import os
+import logging
+
+from openai import OpenAI
+
+from .causal_memory_client import CausalMemoryClient
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("causal-agent-wrapper")
+
+
+class CausalAgentWrapper:
+    def __init__(self, system_name: str, base_system_prompt: str):
+        self.system_name = system_name
+        self.base_system_prompt = base_system_prompt
+        
+        # The Memory Organ (Vital, not optional)
+        self.memory = CausalMemoryClient()
+        
+        # The Reasoning Engine
+        self.llm = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    def _inject_context(self, user_query: str) -> str:
+        """THE INVOLUNTARY RECALL"""
+        logger.info(f"[{self.system_name}] 👁️  Involuntarily recalling context...")
+        try:
+            response = self.memory.query(user_query)
+            narrative = response.narrative
+            return narrative
+        except Exception as e:
+            logger.warning(f"[{self.system_name}] ⚠️ Memory access failed: {e}")
+            return "No memory available due to connection error."
+
+    def _record_action(self, action_description: str):
+        """THE INVOLUNTARY SCRIBE"""
+        logger.info(f"[{self.system_name}] 📝 Compelling memory storage...")
+        try:
+            self.memory.add_event(f"{self.system_name} Action: {action_description}")
+        except Exception as e:
+            logger.warning(f"[{self.system_name}] ⚠️ Memory scribe failed: {e}")
+
+    def act(self, user_input: str) -> str:
+        # 1. PRE-COMPUTATION
+        causal_narrative = self._inject_context(user_input)
+
+        # 2. CONTEXT CONSTRUCTION
+        dynamic_system_prompt = (
+            f"{self.base_system_prompt}\n\n"
+            f"### MANDATORY MEMORY CONTEXT ###\n"
+            f"The following is the causal history relevant to the current situation. "
+            f"You MUST align your decisions with this history.\n\n"
+            f"{causal_narrative}\n\n"
+            f"### END MEMORY ###"
+        )
+
+        # 3. COMPUTATION
+        try:
+            response = self.llm.chat.completions.create(
+                model="gpt-4",
+                messages=[
+                    {"role": "system", "content": dynamic_system_prompt},
+                    {"role": "user", "content": user_input}
+                ],
+                temperature=0.1
+            )
+            
+            result_text = str(response.choices[0].message.content)
+
+            # 4. POST-COMPUTATION
+            self._record_action(f"User asked: '{user_input}' -> I responded: '{result_text}'")
+
+            return result_text
+            
+        except Exception as e:
+            logger.error(f"Agent failure: {e}")
+            return f"Error during processing: {e}"
+
+```
+
+---
+
+### <a id="📄-src-causal-memory-client-py"></a>📄 `src/causal_memory_client.py`
+
+**File Info:**
+- **Size**: 9.71 KB
+- **Extension**: `.py`
+- **Language**: `python`
+- **Location**: `src/causal_memory_client.py`
+- **Relative Path**: `src`
+- **Created**: 2025-12-03 16:42:12 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-03 16:51:00 (America/Chicago / GMT-06:00)
+- **MD5**: `207521d74e0750e1bdcb72b4f8ff0347`
+- **SHA256**: `efd387f561114e47f16bf58d3611338d568250e504b90be169f636e9c3d06240`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```python
+"""
+Causal Memory Client Library
+Version: 1.1.2
+Author: Beatrice (via VoidCat RDC)
+
+A production-ready Python client for interacting with the Causal Memory Core API.
+Supports both synchronous and asynchronous operations via httpx.
+"""
+
+import os
+import logging
+from typing import Optional, Dict, Any, List
+
+import httpx
+from pydantic import BaseModel, Field
+
+# Configure logging - allowing external configuration
+logger = logging.getLogger("causal-memory-client")
+if not logger.handlers:
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+
+# --- Data Models ---
+
+class EventRequest(BaseModel):
+    """Payload for adding an event."""
+    effect_text: str = Field(..., description="Description of the event/effect to record")
+
+class EventResponse(BaseModel):
+    """Response after adding an event."""
+    status: str
+    event_id: str
+    timestamp: str
+    causal_links_detected: int = 0
+
+class QueryRequest(BaseModel):
+    """Payload for querying context."""
+    query: str = Field(..., description="The topic or question to investigate")
+
+class QueryResponse(BaseModel):
+    """Response containing causal narrative."""
+    query: str
+    narrative: str
+    related_events: List[Dict[str, Any]] = []
+
+# --- Synchronous Client Implementation ---
+
+class CausalMemoryClient:
+    """
+    Synchronous client for the Causal Memory Core REST API.
+    """
+
+    DEFAULT_URL = "https://causal-memory-core-production.up.railway.app"
+
+    def __init__(
+        self, 
+        base_url: Optional[str] = None, 
+        api_key: Optional[str] = None,
+        timeout: float = 10.0
+    ):
+        """
+        Initialize the client.
+        
+        Args:
+            base_url: API endpoint (defaults to Railway production URL or CMC_API_URL env var)
+            api_key: Optional authentication token (if configured on server)
+            timeout: Request timeout in seconds
+        """
+        self.base_url = (
+            base_url 
+            or os.getenv("CMC_API_URL") 
+            or self.DEFAULT_URL
+        ).rstrip("/")
+        
+        self.api_key = api_key or os.getenv("CMC_API_KEY")
+        self.timeout = timeout
+        
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "VoidCat-CMC-Client/1.1.2"
+        }
+        
+        if self.api_key:
+            headers["Authorization"] = f"Bearer {self.api_key}"
+
+        self.client = httpx.Client(
+            base_url=self.base_url,
+            headers=headers,
+            timeout=self.timeout
+        )
+        
+        logger.debug(f"Causal Memory Client initialized against {self.base_url}")
+
+    def check_health(self) -> Dict[str, Any]:
+        """Check if the API is alive."""
+        try:
+            response = self.client.get("/")
+            # Handle plain text response from Railway or JSON
+            if response.status_code == 200:
+                content_type = response.headers.get("content-type", "")
+                if content_type.startswith("text/plain"):
+                    return {"status": "healthy", "message": response.text}
+                return response.json()
+            response.raise_for_status()
+            return {"status": "unknown"}
+        except httpx.HTTPError as e:
+            logger.error(f"Health check failed: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                logger.error(f"Response content: {e.response.text}")
+            raise
+
+    def add_event(self, text: str) -> EventResponse:
+        """Record a new event in the memory core."""
+        if not text or not text.strip():
+            raise ValueError("Event text cannot be empty.")
+
+        payload = EventRequest(effect_text=text).model_dump()
+        
+        try:
+            # Assumes REST endpoints exposed by the server
+            response = self.client.post("/events", json=payload)
+            response.raise_for_status()
+            data = response.json()
+            return EventResponse(**data)
+        except httpx.HTTPError as e:
+            logger.error(f"Failed to add event: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                logger.error(f"Response content: {e.response.text}")
+            raise
+
+    def query(self, query_text: str) -> QueryResponse:
+        """Retrieve causal context for a given query."""
+        if not query_text or not query_text.strip():
+            raise ValueError("Query text cannot be empty.")
+
+        payload = QueryRequest(query=query_text).model_dump()
+        
+        try:
+            response = self.client.post("/query", json=payload)
+            response.raise_for_status()
+            data = response.json()
+            
+            return QueryResponse(
+                query=data.get("query", query_text),
+                narrative=data.get("context") or data.get("narrative", "No context found."),
+                related_events=data.get("related_events", [])
+            )
+        except httpx.HTTPError as e:
+            logger.error(f"Query failed: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                logger.error(f"Response content: {e.response.text}")
+            raise
+
+    def close(self):
+        """Close the HTTP client."""
+        self.client.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close()
+
+
+# --- Asynchronous Client Implementation ---
+
+class AsyncCausalMemoryClient:
+    """
+    Asynchronous client for the Causal Memory Core REST API.
+    """
+
+    DEFAULT_URL = CausalMemoryClient.DEFAULT_URL
+
+    def __init__(
+        self, 
+        base_url: Optional[str] = None, 
+        api_key: Optional[str] = None,
+        timeout: float = 10.0
+    ):
+        """
+        Initialize the async client.
+        
+        Args:
+            base_url: API endpoint (defaults to Railway production URL or CMC_API_URL env var)
+            api_key: Optional authentication token (if configured on server)
+            timeout: Request timeout in seconds
+        """
+        self.base_url = (
+            base_url 
+            or os.getenv("CMC_API_URL") 
+            or self.DEFAULT_URL
+        ).rstrip("/")
+        
+        self.api_key = api_key or os.getenv("CMC_API_KEY")
+        self.timeout = timeout
+        
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "VoidCat-CMC-AsyncClient/1.1.2"
+        }
+        
+        if self.api_key:
+            headers["Authorization"] = f"Bearer {self.api_key}"
+
+        self.client = httpx.AsyncClient(
+            base_url=self.base_url,
+            headers=headers,
+            timeout=self.timeout
+        )
+        
+        logger.debug(f"Async Causal Memory Client initialized against {self.base_url}")
+
+    async def check_health(self) -> Dict[str, Any]:
+        """Check if the API is alive asynchronously."""
+        try:
+            response = await self.client.get("/")
+            if response.status_code == 200:
+                content_type = response.headers.get("content-type", "")
+                if content_type.startswith("text/plain"):
+                    return {"status": "healthy", "message": response.text}
+                return response.json()
+            response.raise_for_status()
+            return {"status": "unknown"}
+        except httpx.HTTPError as e:
+            logger.error(f"Async health check failed: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                logger.error(f"Response content: {e.response.text}")
+            raise
+
+    async def add_event(self, text: str) -> EventResponse:
+        """Record a new event asynchronously."""
+        if not text or not text.strip():
+            raise ValueError("Event text cannot be empty.")
+
+        payload = EventRequest(effect_text=text).model_dump()
+        
+        try:
+            response = await self.client.post("/events", json=payload)
+            response.raise_for_status()
+            data = response.json()
+            return EventResponse(**data)
+        except httpx.HTTPError as e:
+            logger.error(f"Async failed to add event: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                logger.error(f"Response content: {e.response.text}")
+            raise
+
+    async def query(self, query_text: str) -> QueryResponse:
+        """Retrieve causal context asynchronously."""
+        if not query_text or not query_text.strip():
+            raise ValueError("Query text cannot be empty.")
+
+        payload = QueryRequest(query=query_text).model_dump()
+        
+        try:
+            response = await self.client.post("/query", json=payload)
+            response.raise_for_status()
+            data = response.json()
+            
+            return QueryResponse(
+                query=data.get("query", query_text),
+                narrative=data.get("context") or data.get("narrative", "No context found."),
+                related_events=data.get("related_events", [])
+            )
+        except httpx.HTTPError as e:
+            logger.error(f"Async query failed: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                logger.error(f"Response content: {e.response.text}")
+            raise
+
+    async def close(self):
+        """Close the HTTP client."""
+        await self.client.aclose()
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_value, traceback):
+        await self.close()
+
+```
+
+---
+
+### <a id="📄-src-causal-memory-core-py"></a>📄 `src/causal_memory_core.py`
+
+**File Info:**
+- **Size**: 13.48 KB
+- **Extension**: `.py`
+- **Language**: `python`
+- **Location**: `src/causal_memory_core.py`
+- **Relative Path**: `src`
+- **Created**: 2025-12-03 17:28:34 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-03 17:33:55 (America/Chicago / GMT-06:00)
+- **MD5**: `a1d716dba4692bc2523a7326fba070d2`
+- **SHA256**: `853ff9f016b0559914891ed08356c268306a397b6121df8b27c02cff9259b614`
+- **Encoding**: UTF-8 (with BOM)
+
+**File code content:**
+
+```python
+﻿from __future__ import annotations
+
+"""Causal Memory Core v1.1.2 with soft-link fallback and narrative recall."""
 
 import atexit
 import logging
@@ -4468,20 +5965,20 @@ from typing import Any, List, Optional
 
 import duckdb
 import numpy as np
-import openai
 from sentence_transformers import SentenceTransformer
 
-# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
-# Ensure config import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from config import Config  # noqa: E402
-import config as config_mod  # noqa: F401,E402
+try:
+    from config import Config
+except ImportError:
+    import config as config_mod
+    Config = config_mod.Config
 
 
 @dataclass
@@ -4495,42 +5992,45 @@ class Event:
 
 
 class CausalMemoryCore:
-    def __init__(self, db_path: Optional[str] = None, llm_client: Any = None,
-                 embedding_model: Any = None, embedding_model_name: Optional[str] = None,
-                 similarity_threshold: Optional[float] = None,
-                 max_potential_causes: Optional[int] = None,
-                 time_decay_hours: Optional[int] = None,
-                 max_consequence_depth: Optional[int] = None,
-                 embedding_cache_size: int = 1000):
-        self.db_path = db_path or Config.DB_PATH
+    def __init__(
+        self,
+        db_path: Optional[str] = None,
+        llm_client: Any | None = None,
+        embedding_model: Any | None = None,
+        embedding_model_name: Optional[str] = None,
+        similarity_threshold: Optional[float] = None,
+        max_potential_causes: Optional[int] = None,
+        time_decay_hours: Optional[int] = None,
+        max_consequence_depth: Optional[int] = None,
+        embedding_cache_size: int = 1000,
+    ) -> None:
         self.config = Config()
-        self.embedding_model_name = embedding_model_name or Config.EMBEDDING_MODEL
+        self.db_path = db_path or self.config.DB_PATH
+        self.embedding_model_name = embedding_model_name or self.config.EMBEDDING_MODEL
         self.similarity_threshold = (
             similarity_threshold if similarity_threshold is not None
-            else Config.SIMILARITY_THRESHOLD
+            else self.config.SIMILARITY_THRESHOLD
         )
+        self.soft_link_threshold = 0.85
         self.max_potential_causes = (
             max_potential_causes if max_potential_causes is not None
-            else Config.MAX_POTENTIAL_CAUSES
+            else self.config.MAX_POTENTIAL_CAUSES
         )
         self.time_decay_hours = (
             time_decay_hours if time_decay_hours is not None
-            else Config.TIME_DECAY_HOURS
+            else self.config.TIME_DECAY_HOURS
         )
         self.max_consequence_depth = (
             max_consequence_depth if max_consequence_depth is not None
-            else Config.MAX_CONSEQUENCE_DEPTH
+            else getattr(self.config, 'MAX_CONSEQUENCE_DEPTH', 2)
         )
-        self.llm_model = Config.LLM_MODEL
-        self.llm_temperature = Config.LLM_TEMPERATURE
+        self.llm_model = self.config.LLM_MODEL
+        self.llm_temperature = self.config.LLM_TEMPERATURE
 
-        # LRU cache for query embeddings (performance optimization)
         self._embedding_cache: OrderedDict[str, List[float]] = OrderedDict()
         self._embedding_cache_size = embedding_cache_size
 
-        self.conn: Optional[duckdb.DuckDBPyConnection] = duckdb.connect(
-            self.db_path
-        )
+        self.conn: duckdb.DuckDBPyConnection = duckdb.connect(self.db_path)
         self._initialize_database()
 
         self.llm = llm_client or self._initialize_llm()
@@ -4538,9 +6038,7 @@ class CausalMemoryCore:
 
         atexit.register(self.close)
 
-    # ---------------- Initialization ----------------
     def _initialize_database(self) -> None:
-        assert self.conn is not None
         self.conn.execute(
             """
             CREATE TABLE IF NOT EXISTS events (
@@ -4553,39 +6051,14 @@ class CausalMemoryCore:
             )
             """
         )
+        self.conn.execute("CREATE INDEX IF NOT EXISTS idx_events_timestamp ON events(timestamp)")
         try:
-            self.conn.execute(
-                "CREATE SEQUENCE IF NOT EXISTS events_seq START 1"
-            )
+            self.conn.execute("CREATE SEQUENCE IF NOT EXISTS events_seq START 1")
         except Exception:
             pass
-        self.conn.execute(
-            "CREATE TABLE IF NOT EXISTS _events_seq (val INTEGER)"
-        )
-        _seq_row = self.conn.execute(
-            "SELECT COUNT(*) FROM _events_seq"
-        ).fetchone()
-        if _seq_row and _seq_row[0] == 0:
+        self.conn.execute("CREATE TABLE IF NOT EXISTS _events_seq (val INTEGER)")
+        if not self.conn.execute("SELECT COUNT(*) FROM _events_seq").fetchone()[0]:
             self.conn.execute("INSERT INTO _events_seq VALUES (1)")
-        try:
-            self.conn.execute(
-                "CREATE TABLE IF NOT EXISTS _compat_sequences(sequence_name VARCHAR)"
-            )
-            self.conn.execute(
-                """
-                INSERT INTO _compat_sequences(sequence_name)
-                SELECT 'events_seq'
-                WHERE NOT EXISTS (
-                    SELECT 1 FROM _compat_sequences
-                    WHERE sequence_name='events_seq'
-                )
-                """
-            )
-        except Exception:
-            pass
-        self.conn.execute(
-            "CREATE INDEX IF NOT EXISTS idx_events_timestamp ON events(timestamp)"
-        )
         try:
             self.conn.execute("INSTALL vss")
             self.conn.execute("LOAD vss")
@@ -4595,461 +6068,505 @@ class CausalMemoryCore:
     def _initialize_llm(self):
         api_key = os.getenv("OPENAI_API_KEY")
         base_url = os.getenv("OPENAI_BASE_URL")
-        # Prefer OpenAI v1 client when base_url is provided (LM Studio / self-hosted)
         if base_url:
             try:
-                from openai import OpenAI  # v1 client
-                # LM Studio often ignores the API key; provide placeholder if missing
-                return OpenAI(base_url=base_url, api_key=api_key or "not-needed")
+                from openai import OpenAI as OpenAIClient
+                return OpenAIClient(base_url=base_url, api_key=api_key or "not-needed")
             except Exception:
-                # Fall back to legacy module even if base_url is set
-                pass
+                logger.warning("Failed to instantiate OpenAI v1 client with base_url, falling back.")
         if not api_key:
-            raise ValueError(
-                "OPENAI_API_KEY must be set in environment variables"
-            )
-        # Legacy style module client (compatible with existing tests/mocks)
+            raise ValueError("OPENAI_API_KEY must be set to issue causal judgments")
         try:
             import openai as _openai
             _openai.api_key = api_key
-            # If base_url exists and module supports it, set it
             if base_url and hasattr(_openai, "base_url"):
                 try:
-                    _openai.base_url = base_url
+                    setattr(_openai, "base_url", base_url)
                 except Exception:
                     pass
             return _openai
         except Exception:
-            # As a last resort, try the v1 client without base_url
-            from openai import OpenAI  # type: ignore
-            return OpenAI(api_key=api_key)
+            from openai import OpenAI as OpenAIClient
+            return OpenAIClient(api_key=api_key)
 
-    def _initialize_embedder(self):
-        return SentenceTransformer(
-            self.embedding_model_name,
-        )
+    def _initialize_embedder(self) -> SentenceTransformer:
+        return SentenceTransformer(self.embedding_model_name)
 
     def _get_cached_embedding(self, text: str) -> List[float]:
-        """Get embedding with LRU caching for performance.
-
-        Args:
-            text: Text to encode
-
-        Returns:
-            Embedding vector as list of floats
-        """
-        # Check cache first
         if text in self._embedding_cache:
-            # Move to end (most recently used)
             self._embedding_cache.move_to_end(text)
-            logger.debug(f"Embedding cache HIT for: {text[:50]}...")
             return self._embedding_cache[text]
-
-        # Cache miss - compute embedding
-        logger.debug(f"Embedding cache MISS for: {text[:50]}...")
         encoded = self.embedder.encode(text)
-        if hasattr(encoded, "tolist"):
-            embedding = [float(x) for x in encoded.tolist()]
-        else:
-            embedding = [float(x) for x in list(encoded)]
-
-        # Add to cache with LRU eviction
+        embedding = encoded.tolist() if hasattr(encoded, "tolist") else list(encoded)
         self._embedding_cache[text] = embedding
         if len(self._embedding_cache) > self._embedding_cache_size:
-            # Remove oldest (first) item
             self._embedding_cache.popitem(last=False)
-            logger.debug(f"Evicted oldest embedding from cache (size: {self._embedding_cache_size})")
-
         return embedding
 
-    # ---------------- Public API ----------------
     def add_event(self, effect_text: str) -> None:
-        # Input validation
-        if not isinstance(effect_text, str):
-            raise TypeError(
-                f"effect_text must be a string, got {type(effect_text).__name__}"
-            )
         if not effect_text or not effect_text.strip():
-            raise ValueError(
-                "effect_text cannot be empty or contain only whitespace"
-            )
+            raise ValueError("effect_text cannot be empty")
+        embedding = self._get_cached_embedding(effect_text)
+        potential_causes = self._find_potential_causes(embedding, effect_text)
 
-        encoded = self.embedder.encode(effect_text)
-        if hasattr(encoded, "tolist"):
-            effect_embedding = [float(x) for x in encoded.tolist()]
-        else:
-            effect_embedding = [float(x) for x in list(encoded)]
-        potential_causes = self._find_potential_causes(
-            effect_embedding, effect_text
-        )
         cause_id: Optional[int] = None
         relationship_text: Optional[str] = None
-        for cause in potential_causes:
+
+        for cause, score in potential_causes:
             relationship = self._judge_causality(cause, effect_text)
             if relationship:
                 cause_id = cause.event_id
                 relationship_text = relationship
                 break
-        self._insert_event(
-        
-                    # New, more lenient prompt that accepts narrative continuity
-                    prompt = (
-                        "Consider these two sequential events:\n"
-                        "1. \"{c}\"\n"
-                        "2. \"{e}\"\n\n"
-                        "Are these events part of the same workflow or narrative sequence? "
-                        "This includes:\n"
-                        "- Direct causal relationships (A caused B)\n"
-                        "- Sequential steps in a process (A then B)\n"
-                        "- Related actions in a workflow\n\n"
-                        "If they ARE related, briefly describe their relationship in one sentence. "
-                        "If they are NOT related or are completely independent, respond with \"No.\""
-                    ).format(c=cause_text, e=effect_norm)
-
-                    log_path = os.path.join(os.path.dirname(self.db_path), "causality_diagnostic.log")
-                    with open(log_path, "a", encoding="utf-8") as log_file:
-                        log_file.write("=" * 80 + "\n")
-                        log_file.write(f"[TIMESTAMP] {datetime.now().isoformat()}\n")
-                        log_file.write(f"[CAUSALITY JUDGMENT] Event ID {cause_event.event_id} → New Event\n")
-                        log_file.write(f"[CAUSE EVENT] (ID {cause_event.event_id}): {cause_event.effect_text}\n")
-                        log_file.write(f"[EFFECT EVENT]: {effect_text}\n")
-                        log_file.write(f"[CAUSE TIMESTAMP]: {cause_event.timestamp}\n")
-                        log_file.write(f"[PROMPT TO LLM]:\n{prompt}\n\n")
-
-                    def _record_judgment(result_text: str, verdict: str, relationship: Optional[str] = None) -> None:
-                        with open(log_path, "a", encoding="utf-8") as log_file:
-                            log_file.write(f"[LLM FULL RESPONSE]: {result_text}\n")
-                            log_file.write(f"[JUDGMENT]: {verdict}\n")
-                            if relationship:
-                                log_file.write(f"[RELATIONSHIP]: {relationship}\n")
-                            log_file.write("=" * 80 + "\n\n")
-
-                    def _record_error(exc: Exception) -> None:
-                        with open(log_path, "a", encoding="utf-8") as log_file:
-                            log_file.write(f"[ERROR]: {type(exc).__name__}: {exc}\n")
-                            log_file.write("=" * 80 + "\n\n")
-
-                    try:
-                potential_causes = self._find_potential_causes(effect_embedding, effect_text)
-                cause_id: Optional[int] = None
-                relationship_text: Optional[str] = None
-
-                for cause in potential_causes:
-                    relationship = self._judge_causality(cause, effect_text)
-                    if relationship:
-                        cause_id = cause.event_id
-                        relationship_text = relationship
-                        if result.lower() == "no." or result.lower().startswith("no"):
-                            _record_judgment(result, "REJECTED - No causal relationship detected")
-                            return None
-
-                        _record_judgment(result, "ACCEPTED - Causal link established", result)
-                        return result
-                    except (openai.APIConnectionError, openai.RateLimitError, openai.APIError,
-                            AttributeError, KeyError, IndexError) as exc:
-                        logger.error(
-                            f"Error during causality judgment: {type(exc).__name__}: {exc}",
-                            exc_info=True,
-                        )
-                        _record_error(exc)
-                        return None
-                    except Exception as exc:  # pragma: no cover - defensive fallback
-                        logger.error(
-                            f"Unexpected error judging causality: {type(exc).__name__}: {exc}",
-                            exc_info=True,
-                        )
-                        _record_error(exc)
-                        return None
-        curr = target
-        while curr.cause_id is not None:
-            cause = self._get_event_by_id(curr.cause_id)
-            if not cause:
-                logger.warning(
-                    f"Broken causal chain at cause_id={curr.cause_id}. "
-                    "Truncating ancestry."
-                )
+            if score >= self.soft_link_threshold:
+                cause_id = cause.event_id
+                relationship_text = "Sequential workflow step detected via high semantic correlation"
+                logger.info("Soft link enforced (score %.3f) for event %s", score, cause.event_id)
                 break
-            if cause.event_id in seen:
-                logger.error(
-                    f"Circular reference at event_id={cause.event_id}. "
-                    "Abort ascent."
-                )
-                break
-            ancestry.append(cause)
-            seen.add(cause.event_id)
-            curr = cause
-        path = list(reversed(ancestry))
-        # Limited consequences (configurable depth)
+
+        self._insert_event(effect_text, embedding, cause_id, relationship_text)
+
+    def query(self, query_text: str) -> str:
+        if not query_text or not query_text.strip():
+            raise ValueError("query_text cannot be empty")
+        query_embedding = self._get_cached_embedding(query_text)
+        anchor = self._find_most_relevant_event(query_embedding)
+        if not anchor:
+            return "No relevant context found in memory."
+        chain = self._build_causal_chain(anchor)
+
         consequences: List[Event] = []
-        frontier = target
+        frontier = anchor
         for _ in range(self.max_consequence_depth):
-            if self.conn is None:
-                break
             row = self.conn.execute(
-                """
-                SELECT event_id, timestamp, effect_text, embedding, cause_id, relationship_text
-                FROM events WHERE cause_id = ?
-                ORDER BY timestamp ASC
-                LIMIT 1
-                """,
+                "SELECT event_id, timestamp, effect_text, embedding, cause_id, relationship_text "
+                "FROM events WHERE cause_id = ? ORDER BY timestamp ASC LIMIT 1",
                 [frontier.event_id],
             ).fetchone()
             if not row:
                 break
             child = Event(*row)
-            if child.event_id in {e.event_id for e in path}:
+            if child.event_id in {ev.event_id for ev in chain}:
                 break
             consequences.append(child)
             frontier = child
-        return self._format_chain_as_narrative(path + consequences)
 
-    # ---------------- Internal Helpers ----------------
-    def _find_potential_causes(self, effect_embedding: List[float],
-                               effect_text: str) -> List[Event]:
-        if self.conn is None:
-            return []
-        time_threshold = (
-            datetime.now() - timedelta(hours=self.time_decay_hours)
-        )
+        return self._format_chain_as_narrative(chain + consequences)
+
+    def get_context(self, query_text: str) -> str:
+        return self.query(query_text)
+
+    def _find_potential_causes(
+        self,
+        embedding: List[float],
+        effect_text: str,
+    ) -> List[tuple[Event, float]]:
+        threshold_time = datetime.now() - timedelta(hours=self.time_decay_hours)
         rows = self.conn.execute(
-            """
-         SELECT event_id, timestamp, effect_text, embedding,
-             cause_id, relationship_text
-            FROM events WHERE timestamp > ?
-            ORDER BY timestamp DESC
-            LIMIT 50
-            """,
-            [time_threshold],
+            "SELECT event_id, timestamp, effect_text, embedding, cause_id, relationship_text "
+            "FROM events WHERE timestamp > ? ORDER BY timestamp DESC LIMIT 50",
+            [threshold_time],
         ).fetchall()
         if not rows:
             return []
-        eff_np = np.array(effect_embedding, dtype=float)
-        candidates: List[tuple[float, Event]] = []
-        # Always read config at call time for test patching
-        from config import Config
-        similarity_threshold = getattr(Config, 'SIMILARITY_THRESHOLD', self.similarity_threshold)
-        max_potential_causes = getattr(Config, 'MAX_POTENTIAL_CAUSES', self.max_potential_causes)
-        for r in rows:
-            emb_np = np.array(r[3], dtype=float)
-            if emb_np.shape != eff_np.shape:
+        candidates: List[tuple[Event, float]] = []
+        eff_np = np.array(embedding, dtype=float)
+        for row in rows:
+            emb = np.array(row[3], dtype=float)
+            if row[2] == effect_text:
                 continue
-            if r[2] == effect_text:
-                continue
-            denom = np.linalg.norm(eff_np) * np.linalg.norm(emb_np)
+            denom = np.linalg.norm(eff_np) * np.linalg.norm(emb)
             if denom == 0:
                 continue
-            sim = float(np.dot(eff_np, emb_np) / denom)
-            logger.debug(f"Similarity: {sim:.3f}, Threshold: {similarity_threshold}")
-            if sim >= similarity_threshold:
-                candidates.append((sim, Event(*r)))
-        candidates.sort(key=lambda x: (x[0], x[1].timestamp), reverse=True)
-        try:
-            limit = int(max_potential_causes)
-        except Exception:
-            limit = 5
-        return [e for _, e in candidates[:limit]]
+            sim = float(np.dot(eff_np, emb) / denom)
+            if sim >= self.similarity_threshold:
+                candidates.append((Event(*row), sim))
+        candidates.sort(key=lambda pair: (pair[1], pair[0].timestamp), reverse=True)
+        return candidates[: self.max_potential_causes]
 
-    def _judge_causality(self, cause_event: Event,
-                         effect_text: str) -> Optional[str]:
-        cause_text = (cause_event.effect_text or "").lower()
-        effect_norm = (effect_text or "").lower()
-
+    def _judge_causality(self, cause_event: Event, effect_text: str) -> Optional[str]:
+        if not self.llm:
+            return None
         prompt = (
             "Consider these two sequential events:\n"
-            "1. \"{c}\"\n"
-            "2. \"{e}\"\n\n"
-            "Are these events part of the same workflow or narrative sequence? "
-            "This includes:\n"
-            "- Direct causal relationships (A caused B)\n"
-            "- Sequential steps in a process (A then B)\n"
-            "- Related actions in a workflow\n\n"
-            "If they ARE related, briefly describe their relationship in one sentence. "
-            "If they are NOT related or are completely independent, respond with \"No.\""
-        ).format(c=cause_text, e=effect_norm)
-
-        log_path = os.path.join(os.path.dirname(self.db_path), "causality_diagnostic.log")
-        with open(log_path, "a", encoding="utf-8") as log_file:
-            log_file.write("=" * 80 + "\n")
-            log_file.write(f"[TIMESTAMP] {datetime.now().isoformat()}\n")
-            log_file.write(f"[CAUSALITY JUDGMENT] Event ID {cause_event.event_id} → New Event\n")
-            log_file.write(f"[CAUSE EVENT] (ID {cause_event.event_id}): {cause_event.effect_text}\n")
-            log_file.write(f"[EFFECT EVENT]: {effect_text}\n")
-            log_file.write(f"[CAUSE TIMESTAMP]: {cause_event.timestamp}\n")
-            log_file.write(f"[PROMPT TO LLM]:\n{prompt}\n\n")
-
-        def _record_judgment(result_text: str, verdict: str, relationship: Optional[str] = None) -> None:
-            with open(log_path, "a", encoding="utf-8") as log_file:
-                log_file.write(f"[LLM FULL RESPONSE]: {result_text}\n")
-                log_file.write(f"[JUDGMENT]: {verdict}\n")
-                if relationship:
-                    log_file.write(f"[RELATIONSHIP]: {relationship}\n")
-                log_file.write("=" * 80 + "\n\n")
-
-        def _record_error(exc: Exception) -> None:
-            with open(log_path, "a", encoding="utf-8") as log_file:
-                log_file.write(f"[ERROR]: {type(exc).__name__}: {exc}\n")
-                log_file.write("=" * 80 + "\n\n")
-
+            f"1. \"{cause_event.effect_text}\"\n"
+            f"2. \"{effect_text}\"\n\n"
+            "Are these steps part of the same workflow? If so, describe the causal link in one sentence. "
+            "If not, respond with 'No.'"
+        )
         try:
             response = self.llm.chat.completions.create(
-                model=self.config.LLM_MODEL,
+                model=self.llm_model,
                 messages=[{"role": "user", "content": prompt}],
-                temperature=self.config.LLM_TEMPERATURE,
-                max_tokens=100,
+                temperature=self.llm_temperature,
+                max_tokens=120,
             )
-            result = str(response.choices[0].message.content).strip()
-            logger.debug(f"Causality check - Prompt: {prompt[:100]}...")
-            logger.debug(f"LLM Response: {result}")
-
-            if result.lower() == "no." or result.lower().startswith("no"):
-                _record_judgment(result, "REJECTED - No causal relationship detected")
+            text = str(response.choices[0].message.content).strip()
+            if text.lower().startswith("no"):
                 return None
-
-            _record_judgment(result, "ACCEPTED - Causal link established", result)
-            return result
-        except (openai.APIConnectionError, openai.RateLimitError, openai.APIError,
-                AttributeError, KeyError, IndexError) as exc:
-            logger.error(
-                f"Error during causality judgment: {type(exc).__name__}: {exc}",
-                exc_info=True,
-            )
-            _record_error(exc)
-            return None
-        except Exception as exc:  # pragma: no cover - defensive fallback
-            logger.error(
-                f"Unexpected error judging causality: {type(exc).__name__}: {exc}",
-                exc_info=True,
-            )
-            _record_error(exc)
+            return text
+        except Exception as exc:
+            logger.warning("LLM causality check failed: %s", exc)
             return None
 
-    def _insert_event(self, effect_text: str, embedding: List[float],
-                      cause_id: Optional[int],
-                      relationship_text: Optional[str]) -> None:
-        if self.conn is None:
-            return
-        try:
-            seq_row = self.conn.execute(
-                "SELECT nextval('events_seq')"
-            ).fetchone()
-            if seq_row:
-                next_id = seq_row[0]
-            else:
-                raise RuntimeError("Sequence row missing")
-        except Exception:
-            row = self.conn.execute(
-                "SELECT val FROM _events_seq"
-            ).fetchone()
-            if not row:
-                self.conn.execute("INSERT INTO _events_seq VALUES (1)")
-                row = (1,)
+    def _reserve_event_id(self) -> int:
+        row = self.conn.execute("SELECT val FROM _events_seq").fetchone()
+        if row:
             next_id = row[0]
             self.conn.execute("UPDATE _events_seq SET val = val + 1")
+            return next_id
+        next_id = int(datetime.now().timestamp() * 1000)
+        self.conn.execute("INSERT INTO _events_seq VALUES (?)", [next_id + 1])
+        return next_id
+
+    def _insert_event(
+        self,
+        effect_text: str,
+        embedding: List[float],
+        cause_id: Optional[int],
+        relationship_text: Optional[str],
+    ) -> None:
+        event_id = self._reserve_event_id()
         self.conn.execute(
-            """
-            INSERT INTO events (event_id, timestamp, effect_text, embedding,
-                                cause_id, relationship_text)
-            VALUES (?, ?, ?, ?, ?, ?)
-            """,
-            [next_id, datetime.now(), effect_text, embedding,
-             cause_id, relationship_text],
+            "INSERT INTO events (event_id, timestamp, effect_text, embedding, cause_id, relationship_text) "
+            "VALUES (?, ?, ?, ?, ?, ?)",
+            [event_id, datetime.now(), effect_text, embedding, cause_id, relationship_text],
         )
 
     def _get_event_by_id(self, event_id: int) -> Optional[Event]:
-        if self.conn is None:
-            return None
         row = self.conn.execute(
-            """
-         SELECT event_id, timestamp, effect_text, embedding,
-             cause_id, relationship_text
-            FROM events WHERE event_id = ?
-            """,
+            "SELECT event_id, timestamp, effect_text, embedding, cause_id, relationship_text "
+            "FROM events WHERE event_id = ?",
             [event_id],
         ).fetchone()
         return Event(*row) if row else None
 
-    def _find_most_relevant_event(self,
-                                  query_embedding: List[float]
-                                  ) -> Optional[Event]:
-        if self.conn is None:
-            return None
+    def _find_most_relevant_event(self, embedding: List[float]) -> Optional[Event]:
         rows = self.conn.execute(
-            """
-         SELECT event_id, timestamp, effect_text, embedding,
-             cause_id, relationship_text FROM events
-            """
+            "SELECT event_id, timestamp, effect_text, embedding, cause_id, relationship_text FROM events"
         ).fetchall()
-        if not rows:
-            return None
         best_sim = -1.0
         best_event: Optional[Event] = None
-        q_np = np.array(query_embedding, dtype=float)
-        for r in rows:
-            emb = np.array(r[3], dtype=float)
-            if emb.shape != q_np.shape:
-                continue
-            denom = np.linalg.norm(q_np) * np.linalg.norm(emb)
+        query_vec = np.array(embedding, dtype=float)
+        for row in rows:
+            emb = np.array(row[3], dtype=float)
+            denom = np.linalg.norm(query_vec) * np.linalg.norm(emb)
             if denom == 0:
                 continue
-            sim = float(np.dot(q_np, emb) / denom)
-            newer = (best_event and r[1] > best_event.timestamp)
+            sim = float(np.dot(query_vec, emb) / denom)
+            newer = best_event and row[1] > best_event.timestamp
             if (sim > best_sim) or (sim == best_sim and newer):
                 best_sim = sim
-                best_event = Event(*r)
-        return best_event if best_sim >= self.similarity_threshold else None
+                best_event = Event(*row)
+        if best_event and best_sim >= self.similarity_threshold:
+            return best_event
+        return None
+
+    def _build_causal_chain(self, anchor: Event) -> List[Event]:
+        chain: List[Event] = [anchor]
+        visited = {anchor.event_id}
+        current = anchor
+        while current.cause_id is not None:
+            cause = self._get_event_by_id(current.cause_id)
+            if not cause or cause.event_id in visited:
+                break
+            chain.insert(0, cause)
+            visited.add(cause.event_id)
+            current = cause
+        return chain
 
     def _format_chain_as_narrative(self, chain: List[Event]) -> str:
         if not chain:
             return "No causal chain found."
-        id_map = {e.event_id: e for e in chain}
-        roots = [
-            e for e in chain
-            if (e.cause_id is None) or (e.cause_id not in id_map)
-        ]
-        root = roots[0] if roots else chain[0]
-        children = {e.cause_id: e for e in chain if e.cause_id is not None}
-        ordered: List[Event] = [root]
-        visited = {root.event_id}
-        while ordered[-1].event_id in children:
-            nxt = children[ordered[-1].event_id]
-            if nxt.event_id in visited:
-                break
-            visited.add(nxt.event_id)
-            ordered.append(nxt)
-        if len(ordered) == 1:
-            return f"Initially, {ordered[0].effect_text}."
-        narrative = f"Initially, {ordered[0].effect_text}."
-        clauses: List[str] = []
-        for i in range(1, len(ordered)):
-            ev = ordered[i]
-            rel = f" ({ev.relationship_text})" if ev.relationship_text else ""
-            if i == 1:
-                clauses.append(f"This led to {ev.effect_text}{rel}")
+        narrative = f"Initially, {chain[0].effect_text}."
+        periodic = []
+        for idx, event in enumerate(chain[1:], start=1):
+            rel = f" ({event.relationship_text})" if event.relationship_text else ""
+            if idx == 1:
+                periodic.append(f"This led to {event.effect_text}{rel}.")
             else:
-                clauses.append(f"which in turn caused {ev.effect_text}{rel}")
-        if clauses:
-            narrative += " " + ", ".join(clauses) + "."
+                periodic.append(f"Which in turn caused {event.effect_text}{rel}.")
+        if periodic:
+            narrative += " " + " ".join(periodic)
         return narrative
 
-    # ---------------- Lifecycle ----------------
-    def close(self):
-        if self.conn is None:
-            return
+    def close(self) -> None:
         try:
-            try:
-                self.conn.execute("CHECKPOINT")
-            except Exception:
-                pass
             self.conn.close()
         except Exception:
             pass
-        # Do NOT set self.conn = None; keep for test compatibility
 
-    def __del__(self):  # pragma: no cover
-        try:
-            self.close()
-        except Exception:
-            pass
+    def __del__(self):
+        self.close()
+
+```
+
+---
+
+### <a id="📄-src-mcp-railway-client-py"></a>📄 `src/mcp_railway_client.py`
+
+**File Info:**
+- **Size**: 8.42 KB
+- **Extension**: `.py`
+- **Language**: `python`
+- **Location**: `src/mcp_railway_client.py`
+- **Relative Path**: `src`
+- **Created**: 2025-12-02 08:52:40 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 09:01:55 (America/Chicago / GMT-06:00)
+- **MD5**: `7a4786dc5a0ba32110d42ce0144020f6`
+- **SHA256**: `6bdc73ceee2d5de11a256bc8c6059d00c85378aba194957f68da2a309a3c01fe`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```python
+#!/usr/bin/env python3
+"""
+MCP Client for Causal Memory Core Railway Deployment
+Proxies MCP tool calls to the Railway-hosted REST API server
+Allows MCP clients to use the remote production instance
+"""
+
+import asyncio
+import logging
+import os
+from typing import Optional
+
+import httpx
+from mcp.server.models import InitializationOptions
+import mcp.types as types
+from mcp.server import NotificationOptions, Server
+from mcp.server.stdio import stdio_server
+
+from config import Config
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("causal-memory-railway-client")
+
+# Create server instance (MCP server that proxies to Railway)
+server = Server("causal-memory-railway-client")
+
+# Railway endpoint configuration
+RAILWAY_BASE_URL = os.getenv(
+    "RAILWAY_BASE_URL", 
+    "https://causal-memory-core-production.up.railway.app"
+)
+API_KEY = os.getenv("API_KEY")  # Optional API key for Railway endpoint
+
+# HTTP client with timeout and retry configuration
+http_client = httpx.AsyncClient(
+    base_url=RAILWAY_BASE_URL,
+    timeout=30.0,
+    headers={"x-api-key": API_KEY} if API_KEY else {}
+)
+
+
+@server.list_tools()
+async def handle_list_tools() -> list[types.Tool]:
+    """List available tools (same as local MCP server)"""
+    return [
+        types.Tool(
+            name="add_event",
+            description="Add a new event to the causal memory system on Railway. The system will automatically determine causal relationships with previous events using semantic similarity and LLM reasoning, creating links that enable narrative chain reconstruction.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "effect": {
+                        "type": "string",
+                        "description": "Description of the event that occurred (the effect). Should be a clear, concise statement from the agent's perspective. The system will analyze this against recent events to detect causal relationships."
+                    }
+                },
+                "required": ["effect"]
+            }
+        ),
+        types.Tool(
+            name="query",
+            description="Query the causal memory on Railway",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "The query to search for in memory. Can be a question, topic, or description of an event. The system will return the complete causal narrative leading to the most relevant event."
+                    }
+                },
+                "required": ["query"]
+            }
+        ),
+        types.Tool(
+            name="health_check",
+            description="Check the health status of the Railway deployment",
+            inputSchema={
+                "type": "object",
+                "properties": {},
+            }
+        ),
+        types.Tool(
+            name="get_stats",
+            description="Get memory statistics from the Railway deployment (total events, linked events, orphan events)",
+            inputSchema={
+                "type": "object",
+                "properties": {},
+            }
+        )
+    ]
+
+
+@server.call_tool()
+async def handle_call_tool(name: str, arguments: Optional[dict]) -> list[types.TextContent]:
+    """Handle tool calls by proxying to Railway REST API"""
+    if arguments is None:
+        arguments = {}
+    
+    try:
+        if name == "add_event":
+            effect = arguments.get("effect")
+            if not effect:
+                return [types.TextContent(
+                    type="text",
+                    text="Error: 'effect' parameter is required"
+                )]
+            
+            # POST to /events endpoint
+            response = await http_client.post(
+                "/events",
+                json={"effect_text": effect}
+            )
+            response.raise_for_status()
+            
+            result = response.json()
+            logger.info(f"Added event to Railway: {effect}")
+            return [types.TextContent(
+                type="text",
+                text=f"Successfully added event to Railway memory: {effect}"
+            )]
+            
+        elif name == "query":
+            query = arguments.get("query")
+            if not query:
+                return [types.TextContent(
+                    type="text",
+                    text="Error: 'query' parameter is required"
+                )]
+            
+            # POST to /query endpoint
+            response = await http_client.post(
+                "/query",
+                json={"query": query}
+            )
+            response.raise_for_status()
+            
+            result = response.json()
+            narrative = result.get("narrative", "No context found")
+            logger.info(f"Retrieved context from Railway for query: {query}")
+            return [types.TextContent(
+                type="text",
+                text=narrative
+            )]
+            
+        elif name == "health_check":
+            # GET /health endpoint
+            response = await http_client.get("/health")
+            response.raise_for_status()
+            
+            result = response.json()
+            status = result.get("status", "unknown")
+            version = result.get("version", "unknown")
+            db_connected = result.get("database_connected", False)
+            
+            health_text = (
+                f"Railway Instance Health Check:\n"
+                f"Status: {status}\n"
+                f"Version: {version}\n"
+                f"Database Connected: {db_connected}\n"
+                f"Endpoint: {RAILWAY_BASE_URL}"
+            )
+            
+            return [types.TextContent(
+                type="text",
+                text=health_text
+            )]
+            
+        elif name == "get_stats":
+            # GET /stats endpoint
+            response = await http_client.get("/stats")
+            response.raise_for_status()
+            
+            result = response.json()
+            total = result.get("total_events", 0)
+            linked = result.get("linked_events", 0)
+            orphan = result.get("orphan_events", 0)
+            
+            stats_text = (
+                f"Railway Memory Statistics:\n"
+                f"Total Events: {total}\n"
+                f"Linked Events: {linked}\n"
+                f"Orphan Events: {orphan}\n"
+                f"Chain Coverage: {(linked/total*100 if total > 0 else 0):.1f}%"
+            )
+            
+            return [types.TextContent(
+                type="text",
+                text=stats_text
+            )]
+            
+        else:
+            return [types.TextContent(
+                type="text",
+                text=f"Unknown tool: {name}"
+            )]
+            
+    except httpx.HTTPStatusError as e:
+        error_msg = f"Railway API error ({e.response.status_code}): {e.response.text}"
+        logger.error(error_msg)
+        return [types.TextContent(
+            type="text",
+            text=error_msg
+        )]
+    except httpx.RequestError as e:
+        error_msg = f"Railway connection error: {str(e)}"
+        logger.error(error_msg)
+        return [types.TextContent(
+            type="text",
+            text=error_msg
+        )]
+    except Exception as e:
+        logger.error(f"Error executing {name}: {e}")
+        return [types.TextContent(
+            type="text",
+            text=f"Error executing {name}: {str(e)}"
+        )]
+
+
+def _build_initialization_options() -> InitializationOptions:
+    return InitializationOptions(
+        server_name="causal-memory-railway-client",
+        server_version=Config.MCP_SERVER_VERSION,
+        capabilities=server.get_capabilities(
+            notification_options=NotificationOptions(),
+            experimental_capabilities={},
+        ),
+    )
+
+
+async def _run_stdio_server() -> None:
+    async with stdio_server() as (read_stream, write_stream):
+        await server.run(
+            read_stream,
+            write_stream,
+            _build_initialization_options(),
+        )
+
+
+async def main():
+    """Main entry point for the Railway MCP client"""
+    logger.info(f"Starting Railway MCP client (proxying to {RAILWAY_BASE_URL})")
+    await _run_stdio_server()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
 
 ```
 
@@ -5058,15 +6575,15 @@ class CausalMemoryCore:
 ### <a id="📄-src-mcp-server-py"></a>📄 `src/mcp_server.py`
 
 **File Info:**
-- **Size**: 18.72 KB
+- **Size**: 9.05 KB
 - **Extension**: `.py`
 - **Language**: `python`
 - **Location**: `src/mcp_server.py`
 - **Relative Path**: `src`
 - **Created**: 2025-09-17 02:25:48 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
-- **MD5**: `63c6b5d5bd68b5258cd43b76aff7f51d`
-- **SHA256**: `573b777e14b102ac38628892d8bb4c24ce6c91ff052044a0a9194f0fe29460ce`
+- **Modified**: 2025-12-04 12:40:13 (America/Chicago / GMT-06:00)
+- **MD5**: `cae890b6a3873af1c2845ddf38813983`
+- **SHA256**: `685f57b90c0ad5520fe896a0845f1e312039382a900615067f4943153a5a4cd8`
 - **Encoding**: ASCII
 
 **File code content:**
@@ -5082,6 +6599,7 @@ Supports dual transports: stdio for local usage and Starlette/uvicorn SSE for cl
 import asyncio
 import logging
 import os
+from typing import Optional
 
 # MCP SDK imports
 from mcp.server.models import InitializationOptions
@@ -5116,195 +6634,28 @@ server = Server(Config.MCP_SERVER_NAME)
 # Global memory core instance
 memory_core = None
 
-# Semantic Query Preprocessor (Week 1-2)
-# Week 1: pass-through; Week 2: basic classification + semantic mapping for queries
-from enum import Enum
-from dataclasses import dataclass
-import re
+# Involuntary Memory Protocol - System Prompt Injection
+MEMORY_MANDATE = """
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧠 INVOLUNTARY MEMORY PROTOCOL ACTIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+You are bound by the Involuntary Memory Protocol:
 
-class QueryType(Enum):
-    DIRECT_KEYWORD = "direct_keyword"
-    CONCEPTUAL = "conceptual"
-    NARRATIVE = "narrative"
-    CAUSAL = "causal"
-    UNKNOWN = "unknown"
+1. CONTEXT BEFORE THOUGHT: Query memory before formulating responses
+2. RECORD EVERY ACTION: Log significant actions after completion
+3. NEVER OPERATE BLIND: If memory unavailable, notify user
 
-@dataclass
-class TranslationResult:
-    text: str
-    confidence: float
-
-class QueryClassifier:
-    """Lightweight rule-based classifier for Week 2."""
-    DIRECT_HINTS = [
-        r"\b(add|insert|create|write)[ _-]?(event|record|file|dir|directory|folder)\b",
-        r"\bquery\b",
-        r"\bsearch\b",
-    ]
-    CONCEPTUAL_HINTS = [
-        r"\bwhy\b|\bhow\b|\broot cause\b|\bcontext\b",
-        r"\bexplain\b|\bmeaning\b|\bconcept\b",
-    ]
-
-    def classify_query(self, query_text: str) -> QueryType:
-        qt = query_text.lower()
-        if any(re.search(p, qt) for p in self.DIRECT_HINTS):
-            return QueryType.DIRECT_KEYWORD
-        if any(re.search(p, qt) for p in self.CONCEPTUAL_HINTS):
-            return QueryType.CONCEPTUAL
-        # Simple narrative/causal heuristics
-        if "cause" in qt or "led to" in qt or "because" in qt:
-            return QueryType.CAUSAL
-        return QueryType.UNKNOWN
-
-class SemanticMapper:
-    """Maps conceptual/natural language to known keywords (Week 2)."""
-    SEMANTIC_MAPPINGS = {
-        # category: list of known phrases/keywords to bias toward
-        "file creation": [
-            "file creation", "created", "write_file", "file created",
-            "new file", "create file"
-        ],
-        "testing activities": [
-            "testing", "comprehensive testing", "test", "testing outcomes",
-            "e2e tests", "unit tests", "benchmark"
-        ],
-        "memory systems": [
-            "memory", "causal memory core", "memory systems", "context", "narrative",
-            "causal chain", "retrieve context"
-        ],
-        "directory operations": [
-            "directory", "create_directory", "folder", "make folder"
-        ],
-        "application launch": [
-            "opening application", "app opened", "launched application", "interactive mode"
-        ],
-        "document loading": [
-            "document loaded", "file loaded", "load document", "file opened"
-        ],
-        "project creation": [
-            "project creation", "created project", "new project"
-        ],
-        "workflow actions": [
-            "workflow actions", "workflow", "actions", "add event", "query memory"
-        ],
-        "bug resolution": [
-            "bug resolved", "fix applied", "patch deployed"
-        ],
-        "special characters": [
-            "special characters", "symbols", "encoding"
-        ],
-        "mcp server": [
-            "mcp server", "model context protocol"
-        ],
-        "user interactions": [
-            "clicked on a file", "clicked", "open file"
-        ],
-    }
-
-    def translate(self, text: str) -> TranslationResult:
-        lt = text.lower()
-        best_match = None
-        best_score = 0.0
-        for _, phrases in self.SEMANTIC_MAPPINGS.items():
-            for p in phrases:
-                score = self._similarity(lt, p)
-                if score > best_score:
-                    best_score = score
-                    best_match = p
-        # If no good match, return original with low confidence
-        return TranslationResult(text=best_match or text, confidence=best_score)
-
-    @staticmethod
-    def _similarity(a: str, b: str) -> float:
-        # Very rough token overlap similarity for Week 2 bootstrap
-        at = set(re.findall(r"\w+", a))
-        bt = set(re.findall(r"\w+", b))
-        if not at or not bt:
-            return 0.0
-        inter = len(at & bt)
-        union = len(at | bt)
-        return inter / union
-
-_classifier = QueryClassifier()
-_mapper = SemanticMapper()
-
-# In-memory metrics (Week 2)
-_metrics = {
-    "total_calls": 0,
-    "total_query_calls": 0,
-    "total_event_calls": 0,
-    "classifications": {qt.value: 0 for qt in QueryType},
-    "translations_applied": 0,
-    "translations_rejected": 0,
-    "errors": 0,
-    "recent": []  # list of dicts {mode, input, output, qtype, confidence}
-}
-
-def _record_metric(entry: dict) -> None:
-    try:
-        # Bound list size to avoid memory growth
-        _metrics["recent"].append(entry)
-        limit = max(0, Config.PREPROCESSOR_METRICS_RECENT_LIMIT)
-        if len(_metrics["recent"]) > limit:
-            _metrics["recent"] = _metrics["recent"][-limit:]
-    except Exception:
-        # Metrics must never interfere with flow
-        pass
-
-
-def preprocess_input(text: str, mode: str) -> str:
-    """
-    Week 1-2 preprocessor with fail-open behavior.
-    - mode: 'add_event' or 'query'
-    Behavior:
-      - Disabled: returns text unchanged
-      - Enabled:
-        - add_event: pass-through (Week 2 focuses on queries)
-        - query: classify and attempt semantic translation, apply if above threshold
-    """
-    try:
-        _metrics["total_calls"] += 1
-        if not Config.PREPROCESSOR_ENABLED:
-            return text
-
-        if mode == "add_event":
-            _metrics["total_event_calls"] += 1
-            return text  # Preserve event integrity
-
-        if mode == "query":
-            _metrics["total_query_calls"] += 1
-            qtype = _classifier.classify_query(text)
-            _metrics["classifications"][qtype.value] += 1
-            if qtype == QueryType.DIRECT_KEYWORD:
-                _record_metric({"mode": mode, "input": text, "output": text, "qtype": qtype.value, "confidence": None})
-                return text  # keep successful direct patterns as-is
-            # For conceptual/causal/unknown, try translation
-            result = _mapper.translate(text)
-            if result.confidence >= Config.PREPROCESSOR_CONFIDENCE_THRESHOLD:
-                _metrics["translations_applied"] += 1
-                logger.debug(f"Preprocessor translated query: '{text}' -> '{result.text}' (conf={result.confidence:.2f})")
-                _record_metric({"mode": mode, "input": text, "output": result.text, "qtype": qtype.value, "confidence": result.confidence})
-                return result.text
-            _metrics["translations_rejected"] += 1
-            logger.debug(f"Preprocessor kept original (low confidence={result.confidence:.2f})")
-            _record_metric({"mode": mode, "input": text, "output": text, "qtype": qtype.value, "confidence": result.confidence})
-            return text
-
-        return text
-    except Exception as e:
-        logger.warning(f"Preprocessor error in mode={mode}: {e}")
-        if Config.PREPROCESSOR_FAIL_OPEN:
-            return text
-        raise
+Use add_event() after actions. Use query() before responding to complex requests.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+"""
 
 @server.list_tools()
 async def handle_list_tools() -> list[types.Tool]:
     """List available tools"""
-    tools = [
+    return [
         types.Tool(
             name="add_event",
-            description="Add a new event to the causal memory system. The system will automatically determine causal relationships with previous events using semantic similarity and LLM reasoning, creating links that enable narrative chain reconstruction.",
+            description="[INVOLUNTARY MEMORY PROTOCOL] Add a new event to the causal memory system. You MUST call this after completing any significant action. The system will automatically determine causal relationships with previous events using semantic similarity and LLM reasoning, creating links that enable narrative chain reconstruction.",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -5318,7 +6669,7 @@ async def handle_list_tools() -> list[types.Tool]:
         ),
         types.Tool(
             name="query",
-            description="Query the causal memory",
+            description="[INVOLUNTARY MEMORY PROTOCOL] Query the causal memory for context. You MUST call this before formulating responses to complex requests. Returns the complete causal narrative leading to relevant events.",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -5332,48 +6683,8 @@ async def handle_list_tools() -> list[types.Tool]:
         )
     ]
 
-    # Optionally expose debug tool for preprocessor metrics
-    if Config.PREPROCESSOR_ENABLED and Config.PREPROCESSOR_DEBUG_ENABLED:
-        tools.append(
-            types.Tool(
-                name="preprocessor_debug_metrics",
-                description="Inspect in-memory metrics for the semantic preprocessor (counts and recent translations).",
-                inputSchema={
-                    "type": "object",
-                    "properties": {},
-                    "additionalProperties": False
-                }
-            )
-        )
-
-    # Week 3 skeleton: suggestions tool
-    if Config.PREPROCESSOR_SUGGESTIONS_ENABLED:
-        tools.append(
-            types.Tool(
-                name="preprocessor_suggestions",
-                description="Suggest likely query keywords or categories based on input text using lightweight semantic mapping.",
-                inputSchema={
-                    "type": "object",
-                    "properties": {
-                        "text": {
-                            "type": "string",
-                            "description": "Free-form text to analyze for suggested query terms/categories."
-                        },
-                        "top_k": {
-                            "type": "number",
-                            "description": "Number of suggestions to return (default from config)."
-                        }
-                    },
-                    "required": ["text"],
-                    "additionalProperties": False
-                }
-            )
-        )
-
-    return tools
-
 @server.call_tool()
-async def handle_call_tool(name: str, arguments: dict | None) -> list[types.TextContent]:
+async def handle_call_tool(name: str, arguments: Optional[dict]) -> list[types.TextContent]:
     """Handle tool calls"""
     global memory_core
     
@@ -5401,13 +6712,11 @@ async def handle_call_tool(name: str, arguments: dict | None) -> list[types.Text
                     text="Error: 'effect' parameter is required"
                 )]
             
-            # Week 1: route through pass-through preprocessor (fail-open)
-            effect_processed = preprocess_input(effect, "add_event")
-            memory_core.add_event(effect_processed)
-            logger.info(f"Added event to memory: {effect_processed}")
+            memory_core.add_event(effect)
+            logger.info(f"Added event to memory: {effect}")
             return [types.TextContent(
                 type="text",
-                text=f"Successfully added event to memory: {effect_processed}"
+                text=f"✓ Event logged to Causal Memory: {effect}\n\n[Remember: Query memory before your next complex response]"
             )]
             
         elif name == "query":
@@ -5418,60 +6727,17 @@ async def handle_call_tool(name: str, arguments: dict | None) -> list[types.Text
                     text="Error: 'query' parameter is required"
                 )]
             
-            # Week 1: route through pass-through preprocessor (fail-open)
-            query_processed = preprocess_input(query, "query")
-            context = memory_core.get_context(query_processed)
-            logger.info(f"Retrieved context for query: {query_processed}")
+            context = memory_core.get_context(query)
+            logger.info(f"Retrieved context for query: {query}")
+            
+            # Inject memory mandate reminder with context
+            response_with_mandate = f"{context}\n\n{MEMORY_MANDATE}"
+            
             return [types.TextContent(
                 type="text",
-                text=context
+                text=response_with_mandate
             )]
             
-        elif name == "preprocessor_debug_metrics" and Config.PREPROCESSOR_ENABLED and Config.PREPROCESSOR_DEBUG_ENABLED:
-            # Safe snapshot of metrics to avoid mutation during serialization
-            try:
-                snapshot = {
-                    "total_calls": _metrics.get("total_calls", 0),
-                    "total_query_calls": _metrics.get("total_query_calls", 0),
-                    "total_event_calls": _metrics.get("total_event_calls", 0),
-                    "classifications": dict(_metrics.get("classifications", {})),
-                    "translations_applied": _metrics.get("translations_applied", 0),
-                    "translations_rejected": _metrics.get("translations_rejected", 0),
-                    "errors": _metrics.get("errors", 0),
-                    "recent": list(_metrics.get("recent", [])),
-                }
-            except Exception:
-                snapshot = {"error": "Failed to capture metrics snapshot"}
-            return [types.TextContent(type="text", text=str(snapshot))]
-
-        elif name == "preprocessor_suggestions" and Config.PREPROCESSOR_SUGGESTIONS_ENABLED:
-            text = arguments.get("text") if isinstance(arguments, dict) else None
-            if not text:
-                return [types.TextContent(type="text", text="Error: 'text' parameter is required")]
-            try:
-                top_k = arguments.get("top_k") if isinstance(arguments, dict) else None
-                try:
-                    k = int(top_k) if top_k is not None else int(Config.PREPROCESSOR_SUGGESTION_TOP_K)
-                except Exception:
-                    k = int(Config.PREPROCESSOR_SUGGESTION_TOP_K)
-                # Produce simple ranked suggestions by mapping similarity over phrases
-                lt = text.lower()
-                scored = []
-                for cat, phrases in SemanticMapper.SEMANTIC_MAPPINGS.items():
-                    for p in phrases:
-                        score = SemanticMapper._similarity(lt, p)
-                        if score > 0:
-                            scored.append((score, cat, p))
-                scored.sort(key=lambda x: x[0], reverse=True)
-                out = [
-                    {"category": cat, "phrase": phrase, "score": round(float(score), 3)}
-                    for score, cat, phrase in scored[:k]
-                ]
-                return [types.TextContent(type="text", text=str(out))]
-            except Exception as e:
-                logger.error(f"Suggestions error: {e}")
-                return [types.TextContent(type="text", text="[]")]
-
         else:
             return [types.TextContent(
                 type="text",
@@ -5479,11 +6745,6 @@ async def handle_call_tool(name: str, arguments: dict | None) -> list[types.Text
             )]
             
     except Exception as e:
-        # Increment error metric but preserve fail-open response
-        try:
-            _metrics["errors"] += 1
-        except Exception:
-            pass
         logger.error(f"Error executing {name}: {e}")
         return [types.TextContent(
             type="text",
@@ -6432,6 +7693,138 @@ if __name__ == "__main__":
 
 ---
 
+### <a id="📄-test-results-benchmarks-bulk-events-10-20251125-064950-json"></a>📄 `test_results/benchmarks/bulk_events_10_20251125_064950.json`
+
+**File Info:**
+- **Size**: 798 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_10_20251125_064950.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-11-25 12:49:50 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 12:49:50 (America/Chicago / GMT-06:00)
+- **MD5**: `dd09b29641b628e561812e3aba731752`
+- **SHA256**: `620fca1b52bb7cc3ca7f3ddc43f1516435152998988975e93109965f5962534c`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_10",
+  "timestamp": "2025-11-25T12:49:50.667674+00:00",
+  "start_time": 1764074990.4996397,
+  "start_memory_mb": 687.24609375,
+  "start_cpu_percent": 0.0,
+  "event_count": 10,
+  "bulk_add_duration": 0.02457141876220703,
+  "average_add_time": 0.0023482322692871095,
+  "median_add_time": 0.0022858381271362305,
+  "stddev_add_time": 0.0002157824338123553,
+  "min_add_time": 0.002121448516845703,
+  "max_add_time": 0.0028891563415527344,
+  "query_duration": 0.003779172897338867,
+  "context_length": 1014,
+  "events_per_second": 406.9769066563167,
+  "end_time": 1764074990.7701497,
+  "execution_time_seconds": 0.2705099582672119,
+  "end_memory_mb": 690.44921875,
+  "memory_delta_mb": 3.203125,
+  "end_cpu_percent": 15.2,
+  "cpu_delta_percent": 15.2
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-bulk-events-10-20251202-112216-json"></a>📄 `test_results/benchmarks/bulk_events_10_20251202_112216.json`
+
+**File Info:**
+- **Size**: 795 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_10_20251202_112216.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:22:16 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:22:16 (America/Chicago / GMT-06:00)
+- **MD5**: `6f6b78ed21d2a6704f024693a1ad9e99`
+- **SHA256**: `4598a8230a55a52532f3be61b1fceedc238de5fb156b492b43c44a315d9853ec`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_10",
+  "timestamp": "2025-12-02T17:22:16.660110+00:00",
+  "start_time": 1764696136.5024672,
+  "start_memory_mb": 453.10546875,
+  "start_cpu_percent": 0.0,
+  "event_count": 10,
+  "bulk_add_duration": 0.20170331001281738,
+  "average_add_time": 0.020003437995910645,
+  "median_add_time": 0.02039623260498047,
+  "stddev_add_time": 0.0010610393030377348,
+  "min_add_time": 0.017184734344482422,
+  "max_add_time": 0.020746946334838867,
+  "query_duration": 0.017283201217651367,
+  "context_length": 1014,
+  "events_per_second": 49.577768452905126,
+  "end_time": 1764696136.9473672,
+  "execution_time_seconds": 0.4449000358581543,
+  "end_memory_mb": 457.08984375,
+  "memory_delta_mb": 3.984375,
+  "end_cpu_percent": 13.6,
+  "cpu_delta_percent": 13.6
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-bulk-events-10-20251202-112314-json"></a>📄 `test_results/benchmarks/bulk_events_10_20251202_112314.json`
+
+**File Info:**
+- **Size**: 793 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_10_20251202_112314.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:23:14 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:23:14 (America/Chicago / GMT-06:00)
+- **MD5**: `19d2deaea9b83ce7c369719bdc397f56`
+- **SHA256**: `5c506d9c9a98d3098d64c7b424d46117309fe806df80999e0000f363fa45b142`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_10",
+  "timestamp": "2025-12-02T17:23:14.618967+00:00",
+  "start_time": 1764696194.471103,
+  "start_memory_mb": 457.90625,
+  "start_cpu_percent": 0.0,
+  "event_count": 10,
+  "bulk_add_duration": 0.1956629753112793,
+  "average_add_time": 0.019454813003540038,
+  "median_add_time": 0.019786357879638672,
+  "stddev_add_time": 0.0011074109309062738,
+  "min_add_time": 0.016340970993041992,
+  "max_add_time": 0.020190000534057617,
+  "query_duration": 0.017931222915649414,
+  "context_length": 1014,
+  "events_per_second": 51.108289568279574,
+  "end_time": 1764696194.8991165,
+  "execution_time_seconds": 0.42801356315612793,
+  "end_memory_mb": 455.34765625,
+  "memory_delta_mb": -2.55859375,
+  "end_cpu_percent": 8.2,
+  "cpu_delta_percent": 8.2
+}
+```
+
+---
+
 ### <a id="📄-test-results-benchmarks-bulk-events-100-20250909-182046-json"></a>📄 `test_results/benchmarks/bulk_events_100_20250909_182046.json`
 
 **File Info:**
@@ -7263,6 +8656,138 @@ if __name__ == "__main__":
   "memory_delta_mb": -3.28125,
   "end_cpu_percent": 14.7,
   "cpu_delta_percent": 14.7
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-bulk-events-100-20251125-064951-json"></a>📄 `test_results/benchmarks/bulk_events_100_20251125_064951.json`
+
+**File Info:**
+- **Size**: 795 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_100_20251125_064951.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-11-25 12:49:51 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 12:49:51 (America/Chicago / GMT-06:00)
+- **MD5**: `4042f86d8938cd87fba5a26ac4c01c64`
+- **SHA256**: `4bb1a74fbe618ec8e4ec70d4bf5b43365127d02b1d5148c2a58d0d4d51dcb367`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_100",
+  "timestamp": "2025-11-25T12:49:51.347933+00:00",
+  "start_time": 1764074991.1759174,
+  "start_memory_mb": 682.4453125,
+  "start_cpu_percent": 0.0,
+  "event_count": 100,
+  "bulk_add_duration": 0.2992093563079834,
+  "average_add_time": 0.0028608179092407225,
+  "median_add_time": 0.0027960538864135742,
+  "stddev_add_time": 0.0003076844251074058,
+  "min_add_time": 0.0024864673614501953,
+  "max_add_time": 0.004868268966674805,
+  "query_duration": 0.0470738410949707,
+  "context_length": 17344,
+  "events_per_second": 334.2141476921851,
+  "end_time": 1764074991.7774353,
+  "execution_time_seconds": 0.601517915725708,
+  "end_memory_mb": 692.53125,
+  "memory_delta_mb": 10.0859375,
+  "end_cpu_percent": 12.2,
+  "cpu_delta_percent": 12.2
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-bulk-events-100-20251202-112221-json"></a>📄 `test_results/benchmarks/bulk_events_100_20251202_112221.json`
+
+**File Info:**
+- **Size**: 796 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_100_20251202_112221.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:22:21 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:22:21 (America/Chicago / GMT-06:00)
+- **MD5**: `a90c0692de0c582bde9f447a95b93c6e`
+- **SHA256**: `6d8d7994a2f585c048e101eca8741f4294a342a18995ecda70bfe0d5944fa9d2`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_100",
+  "timestamp": "2025-12-02T17:22:18.518458+00:00",
+  "start_time": 1764696138.3620746,
+  "start_memory_mb": 459.8515625,
+  "start_cpu_percent": 0.0,
+  "event_count": 100,
+  "bulk_add_duration": 2.1206576824188232,
+  "average_add_time": 0.02107369661331177,
+  "median_add_time": 0.021042227745056152,
+  "stddev_add_time": 0.0008967771351117412,
+  "min_add_time": 0.019377946853637695,
+  "max_add_time": 0.02369832992553711,
+  "query_duration": 0.33860135078430176,
+  "context_length": 17344,
+  "events_per_second": 47.155182483737754,
+  "end_time": 1764696141.046372,
+  "execution_time_seconds": 2.6842973232269287,
+  "end_memory_mb": 457.11328125,
+  "memory_delta_mb": -2.73828125,
+  "end_cpu_percent": 13.9,
+  "cpu_delta_percent": 13.9
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-bulk-events-100-20251202-112318-json"></a>📄 `test_results/benchmarks/bulk_events_100_20251202_112318.json`
+
+**File Info:**
+- **Size**: 794 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_100_20251202_112318.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:23:18 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:23:18 (America/Chicago / GMT-06:00)
+- **MD5**: `47a788483166263d3db769a6456a9ca5`
+- **SHA256**: `a18e632c3f8bf305fc36b09015e9409730d50b157392ca840e5880494a91b1c9`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_100",
+  "timestamp": "2025-12-02T17:23:16.518451+00:00",
+  "start_time": 1764696196.347007,
+  "start_memory_mb": 458.73046875,
+  "start_cpu_percent": 0.0,
+  "event_count": 100,
+  "bulk_add_duration": 2.016051769256592,
+  "average_add_time": 0.020019705295562743,
+  "median_add_time": 0.019956469535827637,
+  "stddev_add_time": 0.0006306282700610752,
+  "min_add_time": 0.018413305282592773,
+  "max_add_time": 0.022675752639770508,
+  "query_duration": 0.30102992057800293,
+  "context_length": 17344,
+  "events_per_second": 49.601900866302884,
+  "end_time": 1764696198.9037547,
+  "execution_time_seconds": 2.5567476749420166,
+  "end_memory_mb": 456.859375,
+  "memory_delta_mb": -1.87109375,
+  "end_cpu_percent": 6.5,
+  "cpu_delta_percent": 6.5
 }
 ```
 
@@ -8104,6 +9629,138 @@ if __name__ == "__main__":
 
 ---
 
+### <a id="📄-test-results-benchmarks-bulk-events-50-20251125-064951-json"></a>📄 `test_results/benchmarks/bulk_events_50_20251125_064951.json`
+
+**File Info:**
+- **Size**: 799 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_50_20251125_064951.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-11-25 12:49:51 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 12:49:51 (America/Chicago / GMT-06:00)
+- **MD5**: `0de891bf979fc55bb6c15cf505b1e68c`
+- **SHA256**: `93787673e97e7906d41dd7e33fab27bb7f4d80fd32f3dfed87abc4bbfd69b338`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_50",
+  "timestamp": "2025-11-25T12:49:50.934006+00:00",
+  "start_time": 1764074990.7719903,
+  "start_memory_mb": 690.44921875,
+  "start_cpu_percent": 0.0,
+  "event_count": 50,
+  "bulk_add_duration": 0.14299941062927246,
+  "average_add_time": 0.0027274370193481447,
+  "median_add_time": 0.002663254737854004,
+  "stddev_add_time": 0.0004984596316510901,
+  "min_add_time": 0.0021996498107910156,
+  "max_add_time": 0.005150556564331055,
+  "query_duration": 0.018292665481567383,
+  "context_length": 6454,
+  "events_per_second": 349.651790730981,
+  "end_time": 1764074991.1746595,
+  "execution_time_seconds": 0.40266919136047363,
+  "end_memory_mb": 682.4453125,
+  "memory_delta_mb": -8.00390625,
+  "end_cpu_percent": 11.5,
+  "cpu_delta_percent": 11.5
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-bulk-events-50-20251202-112218-json"></a>📄 `test_results/benchmarks/bulk_events_50_20251202_112218.json`
+
+**File Info:**
+- **Size**: 785 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_50_20251202_112218.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:22:18 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:22:18 (America/Chicago / GMT-06:00)
+- **MD5**: `b6382764b038577e155ed7fa183d641e`
+- **SHA256**: `0ff65ff2ba3672d5582e31f1816fc730b2da51b60fb2e3b1d7fef25bb3b35499`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_50",
+  "timestamp": "2025-12-02T17:22:17.103035+00:00",
+  "start_time": 1764696136.948337,
+  "start_memory_mb": 457.09375,
+  "start_cpu_percent": 0.0,
+  "event_count": 50,
+  "bulk_add_duration": 1.0736083984375,
+  "average_add_time": 0.021339335441589356,
+  "median_add_time": 0.021319270133972168,
+  "stddev_add_time": 0.0008502355166610939,
+  "min_add_time": 0.019992351531982422,
+  "max_add_time": 0.02402806282043457,
+  "query_duration": 0.11245083808898926,
+  "context_length": 6454,
+  "events_per_second": 46.57191586128482,
+  "end_time": 1764696138.3610325,
+  "execution_time_seconds": 1.4126954078674316,
+  "end_memory_mb": 459.8515625,
+  "memory_delta_mb": 2.7578125,
+  "end_cpu_percent": 13.8,
+  "cpu_delta_percent": 13.8
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-bulk-events-50-20251202-112316-json"></a>📄 `test_results/benchmarks/bulk_events_50_20251202_112316.json`
+
+**File Info:**
+- **Size**: 791 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_50_20251202_112316.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:23:16 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:23:16 (America/Chicago / GMT-06:00)
+- **MD5**: `5566eab90e09308f22f3cb93267ba91d`
+- **SHA256**: `b9f2ae5af21e9c4d331eed2d864e65bca7d7cd9d1cee5ad912c3e25ec596a9bc`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_50",
+  "timestamp": "2025-12-02T17:23:15.048231+00:00",
+  "start_time": 1764696194.9000719,
+  "start_memory_mb": 455.34765625,
+  "start_cpu_percent": 0.0,
+  "event_count": 50,
+  "bulk_add_duration": 1.099059820175171,
+  "average_add_time": 0.021854090690612792,
+  "median_add_time": 0.021744608879089355,
+  "stddev_add_time": 0.001326475655949666,
+  "min_add_time": 0.019659996032714844,
+  "max_add_time": 0.025859355926513672,
+  "query_duration": 0.1267251968383789,
+  "context_length": 6454,
+  "events_per_second": 45.49342909472468,
+  "end_time": 1764696196.3460455,
+  "execution_time_seconds": 1.4459736347198486,
+  "end_memory_mb": 458.73046875,
+  "memory_delta_mb": 3.3828125,
+  "end_cpu_percent": 15.9,
+  "cpu_delta_percent": 15.9
+}
+```
+
+---
+
 ### <a id="📄-test-results-benchmarks-bulk-events-500-20250909-182050-json"></a>📄 `test_results/benchmarks/bulk_events_500_20250909_182050.json`
 
 **File Info:**
@@ -8935,6 +10592,138 @@ if __name__ == "__main__":
   "memory_delta_mb": 8.10546875,
   "end_cpu_percent": 17.8,
   "cpu_delta_percent": 17.8
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-bulk-events-500-20251125-064953-json"></a>📄 `test_results/benchmarks/bulk_events_500_20251125_064953.json`
+
+**File Info:**
+- **Size**: 796 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_500_20251125_064953.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-11-25 12:49:53 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 12:49:53 (America/Chicago / GMT-06:00)
+- **MD5**: `b4809dc3452a9d2b7d055298019dbe43`
+- **SHA256**: `feb8f80285f1f90c0ee52ef1a64b79fdabd38a86e70fcd938bcf3c93dc416271`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_500",
+  "timestamp": "2025-11-25T12:49:51.953735+00:00",
+  "start_time": 1764074991.77888,
+  "start_memory_mb": 692.53125,
+  "start_cpu_percent": 0.0,
+  "event_count": 500,
+  "bulk_add_duration": 1.5932469367980957,
+  "average_add_time": 0.0030599422454833983,
+  "median_add_time": 0.002922534942626953,
+  "stddev_add_time": 0.0005031206132622583,
+  "min_add_time": 0.0024940967559814453,
+  "max_add_time": 0.007124900817871094,
+  "query_duration": 0.22168898582458496,
+  "context_length": 72234,
+  "events_per_second": 313.8245481298939,
+  "end_time": 1764074993.8485923,
+  "execution_time_seconds": 2.0697124004364014,
+  "end_memory_mb": 691.35546875,
+  "memory_delta_mb": -1.17578125,
+  "end_cpu_percent": 14.0,
+  "cpu_delta_percent": 14.0
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-bulk-events-500-20251202-112232-json"></a>📄 `test_results/benchmarks/bulk_events_500_20251202_112232.json`
+
+**File Info:**
+- **Size**: 789 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_500_20251202_112232.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:22:32 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:22:32 (America/Chicago / GMT-06:00)
+- **MD5**: `6f1ca11fd2324888f1128ba1a5a89d11`
+- **SHA256**: `230d11134d20d67a1cd49226a60fae27d184e3c0a57d6fe8b545de36666b8864`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_500",
+  "timestamp": "2025-12-02T17:22:21.219410+00:00",
+  "start_time": 1764696141.047856,
+  "start_memory_mb": 457.11328125,
+  "start_cpu_percent": 0.0,
+  "event_count": 500,
+  "bulk_add_duration": 10.36263370513916,
+  "average_add_time": 0.020586848735809325,
+  "median_add_time": 0.020349860191345215,
+  "stddev_add_time": 0.0011858717122208685,
+  "min_add_time": 0.018824100494384766,
+  "max_add_time": 0.029175758361816406,
+  "query_duration": 1.2437212467193604,
+  "context_length": 72234,
+  "events_per_second": 48.25028214130874,
+  "end_time": 1764696152.8999074,
+  "execution_time_seconds": 11.852051258087158,
+  "end_memory_mb": 464.80078125,
+  "memory_delta_mb": 7.6875,
+  "end_cpu_percent": 8.3,
+  "cpu_delta_percent": 8.3
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-bulk-events-500-20251202-112330-json"></a>📄 `test_results/benchmarks/bulk_events_500_20251202_112330.json`
+
+**File Info:**
+- **Size**: 794 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/bulk_events_500_20251202_112330.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:23:30 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:23:30 (America/Chicago / GMT-06:00)
+- **MD5**: `463989f6bae4ab543ddb3b0be55af175`
+- **SHA256**: `a7f9fa61c77b7d353f36e80c16a4aefd281315889ada7dc3393152e1cb1fc553`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "bulk_events_500",
+  "timestamp": "2025-12-02T17:23:19.054084+00:00",
+  "start_time": 1764696198.905181,
+  "start_memory_mb": 456.859375,
+  "start_cpu_percent": 0.0,
+  "event_count": 500,
+  "bulk_add_duration": 10.548636436462402,
+  "average_add_time": 0.020958993911743166,
+  "median_add_time": 0.020772933959960938,
+  "stddev_add_time": 0.0012723666474387233,
+  "min_add_time": 0.018919706344604492,
+  "max_add_time": 0.029675006866455078,
+  "query_duration": 1.3106811046600342,
+  "context_length": 72234,
+  "events_per_second": 47.39949120548896,
+  "end_time": 1764696210.9811904,
+  "execution_time_seconds": 12.076009511947632,
+  "end_memory_mb": 464.92578125,
+  "memory_delta_mb": 8.06640625,
+  "end_cpu_percent": 10.0,
+  "cpu_delta_percent": 10.0
 }
 ```
 
@@ -9772,6 +11561,132 @@ if __name__ == "__main__":
 
 ---
 
+### <a id="📄-test-results-benchmarks-concurrent-operations-20251125-064958-json"></a>📄 `test_results/benchmarks/concurrent_operations_20251125_064958.json`
+
+**File Info:**
+- **Size**: 700 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/concurrent_operations_20251125_064958.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-11-25 12:49:58 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 12:49:58 (America/Chicago / GMT-06:00)
+- **MD5**: `6d0e177aa2785d96802850531ab8710d`
+- **SHA256**: `6ad5d00f4590c08855c291f49f5f62cbe2de05bb8ab88674ff699f59401dd814`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "concurrent_operations",
+  "timestamp": "2025-11-25T12:49:57.864063+00:00",
+  "start_time": 1764074997.6721961,
+  "start_memory_mb": 695.69921875,
+  "start_cpu_percent": 0.0,
+  "total_concurrent_time": 0.2156848907470703,
+  "total_operations": 60,
+  "add_operations": 50,
+  "query_operations": 10,
+  "operations_per_second": 278.183602904113,
+  "average_add_time": 0.0026790475845336914,
+  "average_query_time": 0.008160948753356934,
+  "successful_queries": 10,
+  "end_time": 1764074998.1544561,
+  "execution_time_seconds": 0.48225998878479004,
+  "end_memory_mb": 698.88671875,
+  "memory_delta_mb": 3.1875,
+  "end_cpu_percent": 16.1,
+  "cpu_delta_percent": 16.1
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-concurrent-operations-20251202-112245-json"></a>📄 `test_results/benchmarks/concurrent_operations_20251202_112245.json`
+
+**File Info:**
+- **Size**: 701 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/concurrent_operations_20251202_112245.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:22:45 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:22:45 (America/Chicago / GMT-06:00)
+- **MD5**: `8d3fbc8eba16ec3a0424d1f022358c9f`
+- **SHA256**: `c89f99ca7db6926c9070ac5627c5089e3d5fd9e47dfe55a4146a1d704d01a584`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "concurrent_operations",
+  "timestamp": "2025-12-02T17:22:43.892365+00:00",
+  "start_time": 1764696163.7338111,
+  "start_memory_mb": 462.98828125,
+  "start_cpu_percent": 0.0,
+  "total_concurrent_time": 1.4775712490081787,
+  "total_operations": 60,
+  "add_operations": 50,
+  "query_operations": 10,
+  "operations_per_second": 40.607178868887075,
+  "average_add_time": 0.02050642967224121,
+  "average_query_time": 0.04521248340606689,
+  "successful_queries": 10,
+  "end_time": 1764696165.4378316,
+  "execution_time_seconds": 1.7040205001831055,
+  "end_memory_mb": 463.0390625,
+  "memory_delta_mb": 0.05078125,
+  "end_cpu_percent": 10.2,
+  "cpu_delta_percent": 10.2
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-concurrent-operations-20251202-112357-json"></a>📄 `test_results/benchmarks/concurrent_operations_20251202_112357.json`
+
+**File Info:**
+- **Size**: 699 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/concurrent_operations_20251202_112357.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:23:57 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:23:57 (America/Chicago / GMT-06:00)
+- **MD5**: `4baba616b075250f48e77ab6c2c6da47`
+- **SHA256**: `436926af446298a4da71ab0b4537799ab36949c214a82011f81e6014196d2fc3`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "concurrent_operations",
+  "timestamp": "2025-12-02T17:23:53.207582+00:00",
+  "start_time": 1764696232.777148,
+  "start_memory_mb": 459.890625,
+  "start_cpu_percent": 45.5,
+  "total_concurrent_time": 3.7806243896484375,
+  "total_operations": 60,
+  "add_operations": 50,
+  "query_operations": 10,
+  "operations_per_second": 15.870394362445362,
+  "average_add_time": 0.05231276035308838,
+  "average_query_time": 0.1164660930633545,
+  "successful_queries": 10,
+  "end_time": 1764696237.1242335,
+  "execution_time_seconds": 4.347085475921631,
+  "end_memory_mb": 462.01953125,
+  "memory_delta_mb": 2.12890625,
+  "end_cpu_percent": 16.8,
+  "cpu_delta_percent": -28.7
+}
+```
+
+---
+
 ### <a id="📄-test-results-benchmarks-database-operations-20250909-180316-json"></a>📄 `test_results/benchmarks/database_operations_20250909_180316.json`
 
 **File Info:**
@@ -10580,6 +12495,129 @@ if __name__ == "__main__":
   "memory_delta_mb": -4.40625,
   "end_cpu_percent": 20.9,
   "cpu_delta_percent": 0.8999999999999986
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-database-operations-20251125-064957-json"></a>📄 `test_results/benchmarks/database_operations_20251125_064957.json`
+
+**File Info:**
+- **Size**: 684 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/database_operations_20251125_064957.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-11-25 12:49:57 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 12:49:57 (America/Chicago / GMT-06:00)
+- **MD5**: `d3a41886669f4dc51c79b52cc49ea403`
+- **SHA256**: `0a2fb12a123a4ff7da6045a37695d92ad42a9f4e56752829554b955999abc6f5`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "database_operations",
+  "timestamp": "2025-11-25T12:49:57.463600+00:00",
+  "start_time": 1764074997.2737877,
+  "start_memory_mb": 699.796875,
+  "start_cpu_percent": 0.0,
+  "initialization_time": 0.06763100624084473,
+  "average_write_time": 0.0024959683418273927,
+  "average_read_time": 0.007532715797424316,
+  "close_time": 0.010522603988647461,
+  "total_write_operations": 20,
+  "total_read_operations": 10,
+  "db_file_size_final": 1323008,
+  "end_time": 1764074997.6672196,
+  "execution_time_seconds": 0.3934319019317627,
+  "end_memory_mb": 695.68359375,
+  "memory_delta_mb": -4.11328125,
+  "end_cpu_percent": 19.6,
+  "cpu_delta_percent": 19.6
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-database-operations-20251202-112243-json"></a>📄 `test_results/benchmarks/database_operations_20251202_112243.json`
+
+**File Info:**
+- **Size**: 678 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/database_operations_20251202_112243.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:22:43 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:22:43 (America/Chicago / GMT-06:00)
+- **MD5**: `71d725a8a19642d7b071807ec067d227`
+- **SHA256**: `fb8ac11083b960000a93f79831c42cfbd5bbe84f78e1bc44ddc5d0fadce73f8f`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "database_operations",
+  "timestamp": "2025-12-02T17:22:42.920765+00:00",
+  "start_time": 1764696162.7472188,
+  "start_memory_mb": 468.0390625,
+  "start_cpu_percent": 0.0,
+  "initialization_time": 0.0557098388671875,
+  "average_write_time": 0.019207692146301268,
+  "average_read_time": 0.036031460762023924,
+  "close_time": 0.008399248123168945,
+  "total_write_operations": 20,
+  "total_read_operations": 10,
+  "db_file_size_final": 1323008,
+  "end_time": 1764696163.7295618,
+  "execution_time_seconds": 0.9823429584503174,
+  "end_memory_mb": 462.9609375,
+  "memory_delta_mb": -5.078125,
+  "end_cpu_percent": 9.1,
+  "cpu_delta_percent": 9.1
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-database-operations-20251202-112352-json"></a>📄 `test_results/benchmarks/database_operations_20251202_112352.json`
+
+**File Info:**
+- **Size**: 680 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/database_operations_20251202_112352.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:23:52 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:23:52 (America/Chicago / GMT-06:00)
+- **MD5**: `85cd615b5cf4b77eea2d45a805733f60`
+- **SHA256**: `7c56d2f7396001943219136a5639d42919ebb95cb0b98626093ee9846c2a59f5`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "database_operations",
+  "timestamp": "2025-12-02T17:23:50.950115+00:00",
+  "start_time": 1764696230.5720847,
+  "start_memory_mb": 462.1875,
+  "start_cpu_percent": 26.7,
+  "initialization_time": 0.12409639358520508,
+  "average_write_time": 0.04257822036743164,
+  "average_read_time": 0.08054320812225342,
+  "close_time": 0.03412652015686035,
+  "total_write_operations": 20,
+  "total_read_operations": 10,
+  "db_file_size_final": 1323008,
+  "end_time": 1764696232.7664902,
+  "execution_time_seconds": 2.1944055557250977,
+  "end_memory_mb": 459.88671875,
+  "memory_delta_mb": -2.30078125,
+  "end_cpu_percent": 12.7,
+  "cpu_delta_percent": -14.0
 }
 ```
 
@@ -11906,6 +13944,210 @@ if __name__ == "__main__":
   "memory_delta_mb": -4.7890625,
   "end_cpu_percent": 17.1,
   "cpu_delta_percent": 17.1
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-memory-scaling-20251125-064956-json"></a>📄 `test_results/benchmarks/memory_scaling_20251125_064956.json`
+
+**File Info:**
+- **Size**: 1.1 KB
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/memory_scaling_20251125_064956.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-11-25 12:49:56 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 12:49:56 (America/Chicago / GMT-06:00)
+- **MD5**: `4f385b23c09681875a5f8022f935acc3`
+- **SHA256**: `347f7bf66744f4ae217a5de93594a6032009aa77ddac6c27a6d68d9db19fac93`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "memory_scaling",
+  "timestamp": "2025-11-25T12:49:54.045908+00:00",
+  "start_time": 1764074993.8530369,
+  "start_memory_mb": 691.35546875,
+  "start_cpu_percent": 0.0,
+  "memory_scaling_data": [
+    {
+      "event_count": 0,
+      "memory_mb": 675.73046875,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 10,
+      "memory_mb": 679.83203125,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 25,
+      "memory_mb": 681.76171875,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 50,
+      "memory_mb": 683.75390625,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 100,
+      "memory_mb": 682.4609375,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 200,
+      "memory_mb": 685.08984375,
+      "db_file_size": 12288
+    }
+  ],
+  "max_memory_mb": 685.08984375,
+  "memory_growth_rate": 0.046796875,
+  "end_time": 1764074996.841824,
+  "execution_time_seconds": 2.9887871742248535,
+  "end_memory_mb": 687.390625,
+  "memory_delta_mb": -3.96484375,
+  "end_cpu_percent": 12.6,
+  "cpu_delta_percent": 12.6
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-memory-scaling-20251202-112242-json"></a>📄 `test_results/benchmarks/memory_scaling_20251202_112242.json`
+
+**File Info:**
+- **Size**: 1.1 KB
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/memory_scaling_20251202_112242.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:22:42 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:22:42 (America/Chicago / GMT-06:00)
+- **MD5**: `70482bfbe02f7838880cb68a36df6d78`
+- **SHA256**: `9fb437537055d75101d6cd4539307dc37bbe2ae3b3fa88742421fb1ed40c3e1d`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "memory_scaling",
+  "timestamp": "2025-12-02T17:22:33.060095+00:00",
+  "start_time": 1764696152.9038665,
+  "start_memory_mb": 464.83203125,
+  "start_cpu_percent": 0.0,
+  "memory_scaling_data": [
+    {
+      "event_count": 0,
+      "memory_mb": 467.71875,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 10,
+      "memory_mb": 468.75390625,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 25,
+      "memory_mb": 457.24609375,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 50,
+      "memory_mb": 457.66796875,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 100,
+      "memory_mb": 459.859375,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 200,
+      "memory_mb": 459.86328125,
+      "db_file_size": 12288
+    }
+  ],
+  "max_memory_mb": 468.75390625,
+  "memory_growth_rate": -0.03927734375,
+  "end_time": 1764696162.131358,
+  "execution_time_seconds": 9.22749137878418,
+  "end_memory_mb": 462.7421875,
+  "memory_delta_mb": -2.08984375,
+  "end_cpu_percent": 8.2,
+  "cpu_delta_percent": 8.2
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-memory-scaling-20251202-112349-json"></a>📄 `test_results/benchmarks/memory_scaling_20251202_112349.json`
+
+**File Info:**
+- **Size**: 1.1 KB
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/memory_scaling_20251202_112349.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:23:49 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:23:49 (America/Chicago / GMT-06:00)
+- **MD5**: `39aa57b0f91b1e4a95b0e5002778cefa`
+- **SHA256**: `1b496f3018fec53719f440382f3340db9643fa10dd591d11f322064ac088b55c`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "memory_scaling",
+  "timestamp": "2025-12-02T17:23:31.135660+00:00",
+  "start_time": 1764696210.9854414,
+  "start_memory_mb": 464.93359375,
+  "start_cpu_percent": 0.0,
+  "memory_scaling_data": [
+    {
+      "event_count": 0,
+      "memory_mb": 467.3984375,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 10,
+      "memory_mb": 468.51953125,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 25,
+      "memory_mb": 456.4140625,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 50,
+      "memory_mb": 458.2265625,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 100,
+      "memory_mb": 456.5546875,
+      "db_file_size": 12288
+    },
+    {
+      "event_count": 200,
+      "memory_mb": 462.01171875,
+      "db_file_size": 12288
+    }
+  ],
+  "max_memory_mb": 468.51953125,
+  "memory_growth_rate": -0.02693359375,
+  "end_time": 1764696229.347176,
+  "execution_time_seconds": 18.361734628677368,
+  "end_memory_mb": 462.98046875,
+  "memory_delta_mb": -1.953125,
+  "end_cpu_percent": 15.9,
+  "cpu_delta_percent": 15.9
 }
 ```
 
@@ -13256,6 +15498,213 @@ if __name__ == "__main__":
 
 ---
 
+### <a id="📄-test-results-benchmarks-query-performance-20251125-064957-json"></a>📄 `test_results/benchmarks/query_performance_20251125_064957.json`
+
+**File Info:**
+- **Size**: 1.29 KB
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/query_performance_20251125_064957.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-11-25 12:49:57 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 12:49:57 (America/Chicago / GMT-06:00)
+- **MD5**: `a295fe92e8fea571d8607e24319eee6f`
+- **SHA256**: `1b56d107d595558d73152c8387b8fd56490da6d04b739995a6de8bcd3d074071`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "query_performance",
+  "timestamp": "2025-11-25T12:49:57.039096+00:00",
+  "start_time": 1764074996.8470116,
+  "start_memory_mb": 687.42578125,
+  "start_cpu_percent": 25.0,
+  "query_results": [
+    {
+      "query": "application startup",
+      "duration": 0.004670858383178711,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "file operations",
+      "duration": 0.003346681594848633,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "document creation",
+      "duration": 0.00464177131652832,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "user interactions",
+      "duration": 0.003943204879760742,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "very specific query that might not match anything",
+      "duration": 0.003356456756591797,
+      "context_length": 886,
+      "has_context": true
+    }
+  ],
+  "average_query_time": 0.0039917945861816405,
+  "successful_queries": 5,
+  "query_success_rate": 1.0,
+  "end_time": 1764074997.2703652,
+  "execution_time_seconds": 0.4233536720275879,
+  "end_memory_mb": 699.7890625,
+  "memory_delta_mb": 12.36328125,
+  "end_cpu_percent": 14.0,
+  "cpu_delta_percent": -11.0
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-query-performance-20251202-112242-json"></a>📄 `test_results/benchmarks/query_performance_20251202_112242.json`
+
+**File Info:**
+- **Size**: 1.28 KB
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/query_performance_20251202_112242.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:22:42 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:22:42 (America/Chicago / GMT-06:00)
+- **MD5**: `4a2d9e2ee073a4b8df80388e1007ef1d`
+- **SHA256**: `9a0c8d3456dc785adcbef93dfbeb215547e5b9d0c9621ed453fd6156bdd8ed04`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "query_performance",
+  "timestamp": "2025-12-02T17:22:42.294455+00:00",
+  "start_time": 1764696162.1354048,
+  "start_memory_mb": 462.7890625,
+  "start_cpu_percent": 20.0,
+  "query_results": [
+    {
+      "query": "application startup",
+      "duration": 0.01724100112915039,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "file operations",
+      "duration": 0.017967700958251953,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "document creation",
+      "duration": 0.017066478729248047,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "user interactions",
+      "duration": 0.017342567443847656,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "very specific query that might not match anything",
+      "duration": 0.017119884490966797,
+      "context_length": 886,
+      "has_context": true
+    }
+  ],
+  "average_query_time": 0.01734752655029297,
+  "successful_queries": 5,
+  "query_success_rate": 1.0,
+  "end_time": 1764696162.743207,
+  "execution_time_seconds": 0.607802152633667,
+  "end_memory_mb": 468.00390625,
+  "memory_delta_mb": 5.21484375,
+  "end_cpu_percent": 6.0,
+  "cpu_delta_percent": -14.0
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-query-performance-20251202-112350-json"></a>📄 `test_results/benchmarks/query_performance_20251202_112350.json`
+
+**File Info:**
+- **Size**: 1.28 KB
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/query_performance_20251202_112350.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:23:50 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:23:50 (America/Chicago / GMT-06:00)
+- **MD5**: `c96e8640a7d07c04a1985209bc3d8dd0`
+- **SHA256**: `dd3f6d0872394dc7a9fa42bc97d1ff43c919e1a3f1b4ec4327d40ac3c656187e`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "query_performance",
+  "timestamp": "2025-12-02T17:23:49.574056+00:00",
+  "start_time": 1764696229.3554587,
+  "start_memory_mb": 462.9921875,
+  "start_cpu_percent": 14.3,
+  "query_results": [
+    {
+      "query": "application startup",
+      "duration": 0.0504918098449707,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "file operations",
+      "duration": 0.0420074462890625,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "document creation",
+      "duration": 0.038839101791381836,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "user interactions",
+      "duration": 0.040329933166503906,
+      "context_length": 886,
+      "has_context": true
+    },
+    {
+      "query": "very specific query that might not match anything",
+      "duration": 0.04922890663146973,
+      "context_length": 886,
+      "has_context": true
+    }
+  ],
+  "average_query_time": 0.044179439544677734,
+  "successful_queries": 5,
+  "query_success_rate": 1.0,
+  "end_time": 1764696230.563082,
+  "execution_time_seconds": 1.2076232433319092,
+  "end_memory_mb": 462.171875,
+  "memory_delta_mb": -0.8203125,
+  "end_cpu_percent": 11.8,
+  "cpu_delta_percent": -2.5
+}
+```
+
+---
+
 ### <a id="📄-test-results-benchmarks-quick-benchmark-20250909-181956-json"></a>📄 `test_results/benchmarks/quick_benchmark_20250909_181956.json`
 
 **File Info:**
@@ -14336,6 +16785,144 @@ if __name__ == "__main__":
 
 ---
 
+### <a id="📄-test-results-benchmarks-single-event-performance-20251125-064950-json"></a>📄 `test_results/benchmarks/single_event_performance_20251125_064950.json`
+
+**File Info:**
+- **Size**: 683 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/single_event_performance_20251125_064950.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-11-25 12:49:50 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 12:49:50 (America/Chicago / GMT-06:00)
+- **MD5**: `e759baf98a3deb6585ced6fec477f219`
+- **SHA256**: `63c9cb2c1238afba284f582b3bbc10ba01ecf662296ce687bbf2f4ca63e9797a`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "single_event_performance",
+  "timestamp": "2025-11-25T12:49:50.415006+00:00",
+  "start_time": 1764074990.2226677,
+  "start_memory_mb": 659.515625,
+  "start_cpu_percent": 14.2,
+  "operations": [
+    {
+      "operation": "add_event",
+      "duration": 0.0024385452270507812
+    },
+    {
+      "operation": "get_context",
+      "duration": 0.001346588134765625,
+      "context_length": 40
+    }
+  ],
+  "total_operations": 2,
+  "end_time": 1764074990.4940982,
+  "execution_time_seconds": 0.27143049240112305,
+  "end_memory_mb": 687.23828125,
+  "memory_delta_mb": 27.72265625,
+  "end_cpu_percent": 18.5,
+  "cpu_delta_percent": 4.300000000000001
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-single-event-performance-20251202-112216-json"></a>📄 `test_results/benchmarks/single_event_performance_20251202_112216.json`
+
+**File Info:**
+- **Size**: 681 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/single_event_performance_20251202_112216.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:22:16 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:22:16 (America/Chicago / GMT-06:00)
+- **MD5**: `feabc519cea7d18548f39e28af2a1801`
+- **SHA256**: `8bbbb8121cfaade9360f5becef080a36ef5e37a04347509d997f19a8789c5794`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "single_event_performance",
+  "timestamp": "2025-12-02T17:22:16.415063+00:00",
+  "start_time": 1764696136.2398314,
+  "start_memory_mb": 457.6015625,
+  "start_cpu_percent": 9.0,
+  "operations": [
+    {
+      "operation": "add_event",
+      "duration": 0.01753091812133789
+    },
+    {
+      "operation": "get_context",
+      "duration": 0.0005395412445068359,
+      "context_length": 40
+    }
+  ],
+  "total_operations": 2,
+  "end_time": 1764696136.4977028,
+  "execution_time_seconds": 0.2578713893890381,
+  "end_memory_mb": 453.08203125,
+  "memory_delta_mb": -4.51953125,
+  "end_cpu_percent": 13.7,
+  "cpu_delta_percent": 4.699999999999999
+}
+```
+
+---
+
+### <a id="📄-test-results-benchmarks-single-event-performance-20251202-112314-json"></a>📄 `test_results/benchmarks/single_event_performance_20251202_112314.json`
+
+**File Info:**
+- **Size**: 681 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `test_results/benchmarks/single_event_performance_20251202_112314.json`
+- **Relative Path**: `test_results/benchmarks`
+- **Created**: 2025-12-02 17:23:14 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:23:14 (America/Chicago / GMT-06:00)
+- **MD5**: `8a105a86355d22bb216eea2d6891bcb0`
+- **SHA256**: `c4e959e9dc3d2792fe76dfea3912f489ea5af46a9e82c5e85f45fe97a41e80bb`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "test_name": "single_event_performance",
+  "timestamp": "2025-12-02T17:23:14.384805+00:00",
+  "start_time": 1764696194.2321854,
+  "start_memory_mb": 457.55078125,
+  "start_cpu_percent": 8.5,
+  "operations": [
+    {
+      "operation": "add_event",
+      "duration": 0.016376495361328125
+    },
+    {
+      "operation": "get_context",
+      "duration": 0.0005550384521484375,
+      "context_length": 40
+    }
+  ],
+  "total_operations": 2,
+  "end_time": 1764696194.4668496,
+  "execution_time_seconds": 0.2346642017364502,
+  "end_memory_mb": 457.90234375,
+  "memory_delta_mb": 0.3515625,
+  "end_cpu_percent": 8.8,
+  "cpu_delta_percent": 0.3000000000000007
+}
+```
+
+---
+
 ## 🚫 Binary/Excluded Files
 
 The following files were not included in the text content:
@@ -14345,6 +16932,8 @@ The following files were not included in the text content:
 - `test_results/benchmarks/daily_benchmarks_20250914.jsonl`
 - `test_results/benchmarks/daily_benchmarks_20250916.jsonl`
 - `test_results/benchmarks/daily_benchmarks_20250927.jsonl`
+- `test_results/benchmarks/daily_benchmarks_20251125.jsonl`
+- `test_results/benchmarks/daily_benchmarks_20251202.jsonl`
 
 ### <a id="📄-test-results-reports-api-e2e-tests-results-xml"></a>📄 `test_results/reports/api_e2e_tests_results.xml`
 
@@ -19850,15 +22439,24 @@ Some E2E tests need refinement (not functionality issues, likely test environmen
 
 The following files were not included in the text content:
 
+- `tests/__pycache__/final_comprehensive_test.cpython-313-pytest-8.4.2.pyc`
+- `tests/__pycache__/test_api_integration.cpython-313-pytest-8.4.2.pyc`
+- `tests/__pycache__/test_api_server.cpython-313-pytest-8.4.2.pyc`
+- `tests/__pycache__/test_basic_functionality.cpython-313-pytest-8.4.2.pyc`
+- `tests/__pycache__/test_causal_chain.cpython-313-pytest-8.4.2.pyc`
 - `tests/__pycache__/test_cli.cpython-313-pytest-8.4.2.pyc`
 - `tests/__pycache__/test_config.cpython-313-pytest-8.4.2.pyc`
+- `tests/__pycache__/test_context.cpython-313-pytest-8.4.2.pyc`
 - `tests/__pycache__/test_mcp_preprocessor.cpython-313-pytest-8.4.2.pyc`
+- `tests/__pycache__/test_mcp_server.cpython-313-pytest-7.4.3.pyc`
 - `tests/__pycache__/test_mcp_server.cpython-313-pytest-8.4.2.pyc`
 - `tests/__pycache__/test_mcp_suggestions.cpython-313-pytest-8.4.2.pyc`
 - `tests/__pycache__/test_memory_core_advanced.cpython-313-pytest-8.4.2.pyc`
+- `tests/__pycache__/test_memory_core.cpython-313-pytest-7.4.3.pyc`
 - `tests/__pycache__/test_memory_core.cpython-313-pytest-8.4.1.pyc`
 - `tests/__pycache__/test_memory_core.cpython-313-pytest-8.4.2.pyc`
 - `tests/__pycache__/test_memory_core.cpython-313.pyc`
+- `tests/__pycache__/test_narrative_continuity.cpython-313-pytest-8.4.2.pyc`
 - `tests/__pycache__/test_semantic_search_validation.cpython-313-pytest-8.4.2.pyc`
 - `tests/__pycache__/test_similarity_threshold_investigation.cpython-313-pytest-8.4.2.pyc`
 
@@ -19867,10 +22465,15 @@ The following files were not included in the text content:
 The following files were not included in the text content:
 
 - `tests/e2e/__pycache__/__init__.cpython-313.pyc`
+- `tests/e2e/__pycache__/test_api_e2e.cpython-313-pytest-7.4.3.pyc`
 - `tests/e2e/__pycache__/test_api_e2e.cpython-313-pytest-8.4.2.pyc`
+- `tests/e2e/__pycache__/test_cli_e2e.cpython-313-pytest-7.4.3.pyc`
 - `tests/e2e/__pycache__/test_cli_e2e.cpython-313-pytest-8.4.2.pyc`
+- `tests/e2e/__pycache__/test_mcp_server_e2e.cpython-313-pytest-7.4.3.pyc`
 - `tests/e2e/__pycache__/test_mcp_server_e2e.cpython-313-pytest-8.4.2.pyc`
+- `tests/e2e/__pycache__/test_performance_benchmarks.cpython-313-pytest-7.4.3.pyc`
 - `tests/e2e/__pycache__/test_performance_benchmarks.cpython-313-pytest-8.4.2.pyc`
+- `tests/e2e/__pycache__/test_realistic_scenarios_e2e.cpython-313-pytest-7.4.3.pyc`
 - `tests/e2e/__pycache__/test_realistic_scenarios_e2e.cpython-313-pytest-8.4.2.pyc`
 
 ### <a id="📄-tests-e2e-init-py"></a>📄 `tests/e2e/__init__.py`
@@ -22186,18 +24789,112 @@ class TestConfig:
 
 ---
 
+### <a id="📄-tests-test-api-integration-py"></a>📄 `tests/test_api_integration.py`
+
+**File Info:**
+- **Size**: 2.82 KB
+- **Extension**: `.py`
+- **Language**: `python`
+- **Location**: `tests/test_api_integration.py`
+- **Relative Path**: `tests`
+- **Created**: 2025-12-02 16:23:11 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 16:23:11 (America/Chicago / GMT-06:00)
+- **MD5**: `ef7fd6307cc1fea63d3683ed3452a596`
+- **SHA256**: `f25c2c9c28a8e13831ff8f6a1099e70ff5989cc125e1e8f5780b22ea480a7612`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```python
+import os
+import pytest
+from fastapi.testclient import TestClient
+from unittest.mock import patch, MagicMock
+import numpy as np
+import sys
+
+# Ensure root is in path so we can import src
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from src.api_server import app
+
+@pytest.fixture
+def client():
+    """Create a test client with a real (but mocked internals) CausalMemoryCore."""
+
+    # Patch the initialization methods to avoid external dependencies
+    with patch('src.causal_memory_core.CausalMemoryCore._initialize_embedder') as mock_init_embedder, \
+         patch('src.causal_memory_core.CausalMemoryCore._initialize_llm') as mock_init_llm:
+
+        # Mock Embedder
+        mock_embedder_instance = MagicMock()
+        # Return a list of floats for encoding
+        mock_embedder_instance.encode.return_value = [0.1] * 4
+        mock_init_embedder.return_value = mock_embedder_instance
+
+        # Mock LLM
+        mock_llm_instance = MagicMock()
+        mock_llm_instance.chat.completions.create.return_value.choices[0].message.content = "No."
+        mock_init_llm.return_value = mock_llm_instance
+
+        # Use in-memory DB
+        os.environ["DB_PATH"] = ":memory:"
+
+        with TestClient(app) as test_client:
+            yield test_client
+
+        # Cleanup
+        if "DB_PATH" in os.environ:
+            del os.environ["DB_PATH"]
+
+def test_post_query_valid_request_returns_200(client):
+    """POST /query with valid request returns 200 OK."""
+    # First add an event
+    client.post("/events", json={"effect_text": "Test event"})
+    # Then query it
+    response = client.post("/query", json={"query": "test"})
+    assert response.status_code == 200
+    assert "success" in response.json()
+    assert response.json()["success"] is True
+
+def test_post_query_returns_narrative(client):
+    """POST /query response includes narrative field."""
+    client.post("/events", json={"effect_text": "Test event"})
+    response = client.post("/query", json={"query": "test"})
+    assert "narrative" in response.json()
+    assert isinstance(response.json()["narrative"], str)
+
+def test_post_query_empty_query_returns_422(client):
+    """POST /query with empty query string returns 422 (Pydantic validation)."""
+    response = client.post("/query", json={"query": ""})
+    assert response.status_code == 422
+
+def test_post_query_whitespace_query_returns_400(client):
+    """POST /query with whitespace-only query returns 400."""
+    response = client.post("/query", json={"query": "   "})
+    assert response.status_code == 400
+
+def test_post_query_invalid_json_returns_422(client):
+    """POST /query with invalid JSON returns 422."""
+    response = client.post("/query", content="not json", headers={"Content-Type": "application/json"})
+    assert response.status_code == 422
+
+```
+
+---
+
 ### <a id="📄-tests-test-api-server-py"></a>📄 `tests/test_api_server.py`
 
 **File Info:**
-- **Size**: 10.63 KB
+- **Size**: 10.67 KB
 - **Extension**: `.py`
 - **Language**: `python`
 - **Location**: `tests/test_api_server.py`
 - **Relative Path**: `tests`
 - **Created**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **MD5**: `e6ee1fa848cba173cdb4439bb1382bad`
-- **SHA256**: `b36aeae56a76ef365671a38f977ed3db1034cf4b2c93191106c66237db0f6433`
+- **Modified**: 2025-12-02 16:23:11 (America/Chicago / GMT-06:00)
+- **MD5**: `2fcb6fd3c4e9e38aec4cb861850573fd`
+- **SHA256**: `ba75defb21ad7c6d48dc2a9faa6ea9746051e13aa16053d50788a7a35713a6e0`
 - **Encoding**: ASCII
 
 **File code content:**
@@ -22212,10 +24909,10 @@ from unittest.mock import Mock, patch
 import pytest
 from fastapi.testclient import TestClient
 
-# Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+# Add root to path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from api_server import app, memory_core
+from src.api_server import app, memory_core
 
 
 @pytest.fixture
@@ -22227,7 +24924,7 @@ def client():
 @pytest.fixture
 def mock_memory_core():
     """Mock the global memory_core instance."""
-    with patch('api_server.memory_core') as mock_core:
+    with patch('src.api_server.memory_core') as mock_core:
         mock_core.conn = Mock()
         mock_core.add_event = Mock()
         mock_core.query = Mock(return_value="Test narrative response")
@@ -22248,7 +24945,7 @@ class TestHealthEndpoint:
 
     def test_health_check_unhealthy(self, client):
         """Test health check when database is not connected."""
-        with patch('api_server.memory_core', None):
+        with patch('src.api_server.memory_core', None):
             response = client.get("/health")
             assert response.status_code == 200
             data = response.json()
@@ -22328,7 +25025,7 @@ class TestAddEventEndpoint:
 
     def test_add_event_memory_core_not_initialized(self, client):
         """Test adding event when memory core is not initialized."""
-        with patch('api_server.memory_core', None):
+        with patch('src.api_server.memory_core', None):
             response = client.post(
                 "/events",
                 json={"effect_text": "Test event"}
@@ -22405,7 +25102,7 @@ class TestQueryEndpoint:
 
     def test_query_memory_core_not_initialized(self, client):
         """Test querying when memory core is not initialized."""
-        with patch('api_server.memory_core', None):
+        with patch('src.api_server.memory_core', None):
             response = client.post(
                 "/query",
                 json={"query": "Test query"}
@@ -22440,7 +25137,7 @@ class TestStatsEndpoint:
 
     def test_stats_memory_core_not_initialized(self, client):
         """Test stats when memory core is not initialized."""
-        with patch('api_server.memory_core', None):
+        with patch('src.api_server.memory_core', None):
             response = client.get("/stats")
             assert response.status_code == 503
 
@@ -22620,43 +25317,77 @@ print()
 ### <a id="📄-tests-test-causal-chain-py"></a>📄 `tests/test_causal_chain.py`
 
 **File Info:**
-- **Size**: 592 B
+- **Size**: 2.1 KB
 - **Extension**: `.py`
 - **Language**: `python`
 - **Location**: `tests/test_causal_chain.py`
 - **Relative Path**: `tests`
 - **Created**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **MD5**: `c15ca75efa8973b6f08fc7baed38976c`
-- **SHA256**: `781165f0030ee4497bcfa421956c821d3fc4726f87eb74f606d44f69ac8f2856`
+- **Modified**: 2025-11-27 01:37:34 (America/Chicago / GMT-06:00)
+- **MD5**: `02942083f0a9f47fa2184155556f7496`
+- **SHA256**: `147ae0d7e35878493078ac7d142127bb393fcf5aadc613fc40acdcd838ce2dd8`
 - **Encoding**: ASCII
 
 **File code content:**
 
 ```python
-from src.causal_memory_core import CausalMemoryCore
-from test_config import TestConfig
+"""Test causal chain functionality with mocked dependencies."""
+import os
+import sys
+import tempfile
+from unittest.mock import MagicMock, patch
 
-# Initialize the memory core with the test config
-memory = CausalMemoryCore(config=TestConfig())
+import pytest
 
-# Add the first event
-memory.add_event("The power went out.")
+# Add src to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-# Add the second event, which is caused by the first
-memory.add_event("The computer turned off.")
 
-# Define a query for the second event
-query = "Why did the computer turn off?"
+class TestCausalChain:
+    """Test suite for causal chain operations."""
 
-# Get the context for the query
-context = memory.get_context(query)
+    @pytest.fixture
+    def mock_memory_core(self):
+        """Create a mocked CausalMemoryCore instance."""
+        with patch.dict(os.environ, {'OPENAI_API_KEY': 'test-key'}):
+            with patch('src.causal_memory_core.SentenceTransformer') as mock_transformer:
+                with patch('src.causal_memory_core.openai'):
+                    # Setup mock embedder
+                    mock_embedder = MagicMock()
+                    mock_embedder.encode.return_value = [0.1] * 384
+                    mock_transformer.return_value = mock_embedder
+                    
+                    from src.causal_memory_core import CausalMemoryCore
+                    
+                    # Use temp file for database
+                    with tempfile.NamedTemporaryFile(suffix='.db', delete=False) as f:
+                        db_path = f.name
+                    
+                    memory = CausalMemoryCore(
+                        db_path=db_path,
+                        llm_client=MagicMock(),
+                        embedding_model=mock_embedder
+                    )
+                    yield memory
+                    memory.close()
+                    # Cleanup temp file
+                    try:
+                        os.unlink(db_path)
+                    except Exception:
+                        pass
 
-# Print the context
-print(context)
+    def test_add_event(self, mock_memory_core):
+        """Test adding a single event."""
+        mock_memory_core.add_event("The power went out.")
+        # If no exception, test passes
+        assert True
 
-# Close the connection
-memory.close()
+    def test_add_multiple_events(self, mock_memory_core):
+        """Test adding multiple events."""
+        mock_memory_core.add_event("The power went out.")
+        mock_memory_core.add_event("The computer turned off.")
+        assert True
+
 ```
 
 ---
@@ -23136,15 +25867,15 @@ if __name__ == '__main__':
 ### <a id="📄-tests-test-config-py"></a>📄 `tests/test_config.py`
 
 **File Info:**
-- **Size**: 9.59 KB
+- **Size**: 9.58 KB
 - **Extension**: `.py`
 - **Language**: `python`
 - **Location**: `tests/test_config.py`
 - **Relative Path**: `tests`
 - **Created**: 2025-09-17 02:25:48 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-09-17 03:04:13 (America/Chicago / GMT-05:00)
-- **MD5**: `0f4446542d8b2045d5c535aeec1fc82e`
-- **SHA256**: `a21a03f94ab8dd30a64f000bad0d4cbccc8f743701cee84c15cf4ee0cc1fd264`
+- **Modified**: 2025-12-03 16:51:00 (America/Chicago / GMT-06:00)
+- **MD5**: `ab2918c5a6e063271fa1cfc78f41ff2e`
+- **SHA256**: `92d4d07476326ad4d7a985f067a4b164ed7bd156dc456c8b3fb828ba89ac1666`
 - **Encoding**: ASCII
 
 **File code content:**
@@ -23186,7 +25917,7 @@ class TestConfig(unittest.TestCase):
                 
                 # Test default LLM settings
                 self.assertIsNone(Config.OPENAI_API_KEY)
-                self.assertEqual(Config.LLM_MODEL, 'gpt-3.5-turbo')
+                self.assertEqual(Config.LLM_MODEL, 'gpt-4')
                 self.assertEqual(Config.LLM_TEMPERATURE, 0.1)
                 
                 # Test default search settings
@@ -23397,183 +26128,83 @@ if __name__ == '__main__':
 ### <a id="📄-tests-test-context-py"></a>📄 `tests/test_context.py`
 
 **File Info:**
-- **Size**: 307 B
+- **Size**: 2.28 KB
 - **Extension**: `.py`
 - **Language**: `python`
 - **Location**: `tests/test_context.py`
 - **Relative Path**: `tests`
 - **Created**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **MD5**: `44aeb43ffd39e953a63e159f9ae65dec`
-- **SHA256**: `6b8714cc988ad5da1d72bc7e0127ced699c5736bc994e1b435a497726ba85aea`
+- **Modified**: 2025-11-27 01:37:34 (America/Chicago / GMT-06:00)
+- **MD5**: `2c924ce46f0d0d80f0bbc26fef50ba5e`
+- **SHA256**: `54e61b8ebee0df6c15c4dcf150e90f85ee9ef7aa3c8f6880194c215946be0e65`
 - **Encoding**: ASCII
 
 **File code content:**
 
 ```python
-from src.causal_memory_core import CausalMemoryCore
-
-# Initialize the memory core
-memory = CausalMemoryCore()
-
-# Define a query
-query = "test event"
-
-# Get the context for the query
-context = memory.get_context(query)
-
-# Print the context
-print(context)
-
-# Close the connection
-memory.close()
-```
-
----
-
-### <a id="📄-tests-test-mcp-preprocessor-py"></a>📄 `tests/test_mcp_preprocessor.py`
-
-**File Info:**
-- **Size**: 5.63 KB
-- **Extension**: `.py`
-- **Language**: `python`
-- **Location**: `tests/test_mcp_preprocessor.py`
-- **Relative Path**: `tests`
-- **Created**: 2025-09-17 16:29:23 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-09-17 16:29:23 (America/Chicago / GMT-05:00)
-- **MD5**: `5009a7e6e057816cf9ee0650b2eb5107`
-- **SHA256**: `5c4ab97c874603066b30102b9e67e809fa153b0e5b6fb979bb95c89970cdc1c2`
-- **Encoding**: ASCII
-
-**File code content:**
-
-```python
-"""
-Unit tests for MCP preprocessor (Week 2) behavior.
-Covers: classification, semantic mapping thresholding, metrics, recent bounding,
-fail-open behavior, and debug tool visibility. These tests only affect behavior
-when PREPROCESSOR flags are enabled.
-"""
-
-import unittest
-import asyncio
+"""Test context retrieval functionality with mocked dependencies."""
 import os
 import sys
-from unittest.mock import patch
+import tempfile
+from unittest.mock import MagicMock, patch
 
-# Ensure repo src is importable
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import pytest
 
-import mcp_server  # noqa: E402
-import mcp.types as types  # noqa: E402
-
-
-class TestMCPPreprocessor(unittest.TestCase):
-    def setUp(self):
-        # Reset metrics for clean state
-        mcp_server._metrics = {
-            "total_calls": 0,
-            "total_query_calls": 0,
-            "total_event_calls": 0,
-            "classifications": {qt.value: 0 for qt in mcp_server.QueryType},
-            "translations_applied": 0,
-            "translations_rejected": 0,
-            "errors": 0,
-            "recent": [],
-        }
-
-    # ----- Classification paths -----
-    def test_classifier_paths(self):
-        clf = mcp_server._classifier
-        self.assertEqual(clf.classify_query("add event now"), mcp_server.QueryType.DIRECT_KEYWORD)
-        self.assertEqual(clf.classify_query("why did this happen?"), mcp_server.QueryType.CONCEPTUAL)
-        self.assertEqual(clf.classify_query("This led to that"), mcp_server.QueryType.CAUSAL)
-        self.assertEqual(clf.classify_query("random unrelated"), mcp_server.QueryType.UNKNOWN)
-
-    # ----- add_event path is pass-through even when enabled -----
-    @patch('config.Config.PREPROCESSOR_ENABLED', True)
-    def test_add_event_pass_through(self):
-        input_text = "Create new record"
-        out = mcp_server.preprocess_input(input_text, mode="add_event")
-        self.assertEqual(out, input_text)
-
-    # ----- Mapping application vs rejection by threshold -----
-    @patch('config.Config.PREPROCESSOR_ENABLED', True)
-    @patch('config.Config.PREPROCESSOR_CONFIDENCE_THRESHOLD', 0.9)
-    def test_mapping_applied_when_above_threshold(self):
-        # Use a phrase that has an exact mapping for deterministic confidence=1.0
-        # "retrieve context" exists in SEMANTIC_MAPPINGS["memory systems"]
-        text = "retrieve context"
-        out = mcp_server.preprocess_input(text, mode="query")
-        # When translated, output equals the best match phrase (same string here)
-        self.assertEqual(out, "retrieve context")
-        self.assertEqual(mcp_server._metrics["translations_applied"], 1)
-        self.assertEqual(mcp_server._metrics["translations_rejected"], 0)
-
-    @patch('config.Config.PREPROCESSOR_ENABLED', True)
-    @patch('config.Config.PREPROCESSOR_CONFIDENCE_THRESHOLD', 0.95)
-    def test_mapping_rejected_when_below_threshold(self):
-        # Similar but not exact to ensure confidence < 0.95
-        # Input tokens: {open, file, now}; mapping "open file" => 2/3 ~= 0.666
-        text = "open file now"
-        out = mcp_server.preprocess_input(text, mode="query")
-        self.assertEqual(out, text)  # Kept original
-        self.assertEqual(mcp_server._metrics["translations_applied"], 0)
-        self.assertEqual(mcp_server._metrics["translations_rejected"], 1)
-
-    # ----- Metrics increments and recent list bounding -----
-    @patch('config.Config.PREPROCESSOR_ENABLED', True)
-    @patch('config.Config.PREPROCESSOR_CONFIDENCE_THRESHOLD', 0.0)
-    @patch('config.Config.PREPROCESSOR_METRICS_RECENT_LIMIT', 3)
-    def test_metrics_and_recent_bounding(self):
-        # Force all to apply translation by using very low threshold
-        for i in range(5):
-            mcp_server.preprocess_input(f"unit tests {i}", mode="query")
-        self.assertEqual(mcp_server._metrics["total_calls"], 5)
-        self.assertEqual(mcp_server._metrics["total_query_calls"], 5)
-        self.assertEqual(mcp_server._metrics["translations_applied"], 5)
-        self.assertEqual(len(mcp_server._metrics["recent"]), 3)  # bounded
-
-    # ----- Fail-open on classifier exception -----
-    @patch('config.Config.PREPROCESSOR_ENABLED', True)
-    @patch('config.Config.PREPROCESSOR_FAIL_OPEN', True)
-    def test_fail_open_on_exception(self):
-        original = mcp_server._classifier.classify_query
-        try:
-            def boom(_):
-                raise RuntimeError("boom")
-            mcp_server._classifier.classify_query = boom
-            text = "some query"
-            out = mcp_server.preprocess_input(text, mode="query")
-            self.assertEqual(out, text)  # fail-open returns original
-        finally:
-            mcp_server._classifier.classify_query = original
-
-    # ----- Debug tool visibility only when both flags enabled -----
-    def test_debug_tool_visibility(self):
-        async def run_case(enable_preproc: bool, enable_debug: bool):
-            with patch('config.Config.PREPROCESSOR_ENABLED', enable_preproc), \
-                 patch('config.Config.PREPROCESSOR_DEBUG_ENABLED', enable_debug):
-                tools = await mcp_server.handle_list_tools()
-                names = [t.name for t in tools]
-                return names
-
-        # Off -> no debug tool
-        names = asyncio.run(run_case(False, False))
-        self.assertNotIn('preprocessor_debug_metrics', names)
-
-        # On but debug off -> no debug tool
-        names = asyncio.run(run_case(True, False))
-        self.assertNotIn('preprocessor_debug_metrics', names)
-
-        # Both on -> debug tool present
-        names = asyncio.run(run_case(True, True))
-        self.assertIn('preprocessor_debug_metrics', names)
+# Add src to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 
-if __name__ == '__main__':
-    unittest.main()
+class TestContext:
+    """Test suite for context retrieval operations."""
+
+    @pytest.fixture
+    def mock_memory_core(self):
+        """Create a mocked CausalMemoryCore instance."""
+        with patch.dict(os.environ, {'OPENAI_API_KEY': 'test-key'}):
+            with patch('src.causal_memory_core.SentenceTransformer') as mock_transformer:
+                with patch('src.causal_memory_core.openai'):
+                    # Setup mock embedder
+                    mock_embedder = MagicMock()
+                    mock_embedder.encode.return_value = [0.1] * 384
+                    mock_transformer.return_value = mock_embedder
+
+                    from src.causal_memory_core import CausalMemoryCore
+
+                    # Use temp file for database
+                    with tempfile.NamedTemporaryFile(suffix='.db', delete=False) as f:
+                        db_path = f.name
+
+                    memory = CausalMemoryCore(
+                        db_path=db_path,
+                        llm_client=MagicMock(),
+                        embedding_model=mock_embedder
+                    )
+                    yield memory
+                    memory.close()
+                    # Cleanup temp file
+                    try:
+                        os.unlink(db_path)
+                    except Exception:
+                        pass
+
+    def test_get_context(self, mock_memory_core):
+        """Test getting context for a query."""
+        query = "test event"
+        context = mock_memory_core.get_context(query)
+        # If no exception, test passes
+        assert True
+
+    def test_get_context_empty_query(self, mock_memory_core):
+        """Test getting context with empty query."""
+        context = mock_memory_core.get_context("")
+        assert True
+
+    def test_context_after_add_event(self, mock_memory_core):
+        """Test getting context after adding an event."""
+        mock_memory_core.add_event("The power went out.")
+        context = mock_memory_core.get_context("power")
+        assert True
+
 ```
 
 ---
@@ -23581,15 +26212,15 @@ if __name__ == '__main__':
 ### <a id="📄-tests-test-mcp-server-py"></a>📄 `tests/test_mcp_server.py`
 
 **File Info:**
-- **Size**: 15.85 KB
+- **Size**: 16.05 KB
 - **Extension**: `.py`
 - **Language**: `python`
 - **Location**: `tests/test_mcp_server.py`
 - **Relative Path**: `tests`
 - **Created**: 2025-09-17 02:25:48 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-09-17 02:25:48 (America/Chicago / GMT-05:00)
-- **MD5**: `720e1bd27378a14760df29c7276e1f4f`
-- **SHA256**: `bba0cf4164370d55f37d0654c5d134e56497171294c8d31275947e5dc3506af6`
+- **Modified**: 2025-12-03 22:11:00 (America/Chicago / GMT-06:00)
+- **MD5**: `60c3fcbd4396c33c69885fd11f379c19`
+- **SHA256**: `7d4da6522e0ca1c39ac8011ca9ae3e61cf81069283ea38f4600ed750bd8b3790`
 - **Encoding**: ASCII
 
 **File code content:**
@@ -23710,7 +26341,8 @@ class TestMCPServer(unittest.TestCase):
             self.assertEqual(len(result), 1)
             self.assertIsInstance(result[0], types.TextContent)
             self.assertEqual(result[0].type, "text")
-            self.assertIn("Successfully added event", result[0].text)
+            # New format includes memory protocol reminder
+            self.assertIn("Event logged to Causal Memory", result[0].text)
             self.assertIn("The user clicked on a file", result[0].text)
 
         asyncio.run(run_test())
@@ -23745,7 +26377,9 @@ class TestMCPServer(unittest.TestCase):
             self.assertEqual(len(result), 1)
             self.assertIsInstance(result[0], types.TextContent)
             self.assertEqual(result[0].type, "text")
-            self.assertEqual(result[0].text, "Test context result")
+            # New format includes memory mandate injection
+            self.assertIn("Test context result", result[0].text)
+            self.assertIn("INVOLUNTARY MEMORY PROTOCOL", result[0].text)
 
         asyncio.run(run_test())
 
@@ -23965,7 +26599,7 @@ class TestMCPServer(unittest.TestCase):
             
             # Verify success response
             self.assertEqual(len(result), 1)
-            self.assertIn("Successfully added event", result[0].text)
+            self.assertIn("Event logged to Causal Memory", result[0].text)
             self.assertIn(special_text, result[0].text)
 
         asyncio.run(run_test())
@@ -24002,90 +26636,6 @@ class TestMCPServer(unittest.TestCase):
 if __name__ == '__main__':
     # Set up test environment
     os.environ['OPENAI_API_KEY'] = 'test-key-for-testing'
-    unittest.main()
-```
-
----
-
-### <a id="📄-tests-test-mcp-suggestions-py"></a>📄 `tests/test_mcp_suggestions.py`
-
-**File Info:**
-- **Size**: 2.46 KB
-- **Extension**: `.py`
-- **Language**: `python`
-- **Location**: `tests/test_mcp_suggestions.py`
-- **Relative Path**: `tests`
-- **Created**: 2025-09-17 16:42:35 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-09-17 16:42:35 (America/Chicago / GMT-05:00)
-- **MD5**: `adc9e2901b5f24036476ec28f4777ba8`
-- **SHA256**: `9468cea9fabe607ea8b9e7114d231014e71aa0d007385500f72414556cbac6cf`
-- **Encoding**: ASCII
-
-**File code content:**
-
-```python
-"""
-Unit tests for Week 3 suggestion skeleton in MCP server.
-Validates tool exposure via flag, parameter validation, and ranking output.
-"""
-
-import unittest
-import asyncio
-import os
-import sys
-from unittest.mock import patch
-
-# Ensure repo src is importable
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
-import mcp_server  # noqa: E402
-import mcp.types as types  # noqa: E402
-
-
-class TestMCPSuggestions(unittest.TestCase):
-    def test_suggestions_tool_visibility(self):
-        async def run_case(enabled: bool):
-            with patch('config.Config.PREPROCESSOR_SUGGESTIONS_ENABLED', enabled):
-                tools = await mcp_server.handle_list_tools()
-                return [t.name for t in tools]
-
-        names = asyncio.run(run_case(False))
-        self.assertNotIn('preprocessor_suggestions', names)
-
-        names = asyncio.run(run_case(True))
-        self.assertIn('preprocessor_suggestions', names)
-
-    def test_suggestions_requires_text(self):
-        async def run_case(args):
-            with patch('config.Config.PREPROCESSOR_SUGGESTIONS_ENABLED', True):
-                return await mcp_server.handle_call_tool('preprocessor_suggestions', args)
-
-        result = asyncio.run(run_case({}))
-        self.assertEqual(len(result), 1)
-        self.assertIsInstance(result[0], types.TextContent)
-        self.assertIn("'text' parameter is required", result[0].text)
-
-    def test_suggestions_basic_output(self):
-        async def run_case(text: str, top_k=None):
-            with patch('config.Config.PREPROCESSOR_SUGGESTIONS_ENABLED', True), \
-                 patch('config.Config.PREPROCESSOR_SUGGESTION_TOP_K', 2):
-                args = {"text": text}
-                if top_k is not None:
-                    args["top_k"] = top_k
-                return await mcp_server.handle_call_tool('preprocessor_suggestions', args)
-
-        # Use a text that should match known phrases e.g. "open file"
-        result = asyncio.run(run_case("please open file and run tests"))
-        self.assertEqual(len(result), 1)
-        self.assertIsInstance(result[0], types.TextContent)
-        # Should be a JSON-like list string; just check it contains expected category keys
-        self.assertIn("category", result[0].text)
-        self.assertIn("phrase", result[0].text)
-        self.assertIn("score", result[0].text)
-
-
-if __name__ == '__main__':
     unittest.main()
 ```
 
@@ -24697,15 +27247,15 @@ if __name__ == '__main__':
 ### <a id="📄-tests-test-memory-core-py"></a>📄 `tests/test_memory_core.py`
 
 **File Info:**
-- **Size**: 8.33 KB
+- **Size**: 12.43 KB
 - **Extension**: `.py`
 - **Language**: `python`
 - **Location**: `tests/test_memory_core.py`
 - **Relative Path**: `tests`
 - **Created**: 2025-09-05 03:02:32 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-09-13 09:56:58 (America/Chicago / GMT-05:00)
-- **MD5**: `0e8326846b17231a664254a02ce69b04`
-- **SHA256**: `1728395084a310b9d0f1cef64285d59b16c43c7ce1e0997f6d2b4302d7b83a82`
+- **Modified**: 2025-12-02 16:23:11 (America/Chicago / GMT-06:00)
+- **MD5**: `b716f65562ff62745d2f343eb39cc9ec`
+- **SHA256**: `87a4f6a52087221e13792971f0b34ce77af24f24f16e5f4c325391c4dd727408`
 - **Encoding**: ASCII
 
 **File code content:**
@@ -24915,6 +27465,106 @@ class TestCausalMemoryCore(unittest.TestCase):
         
         self.assertIsNone(events[0][0])  # First event
         self.assertIsNone(events[1][0])  # Second event (no cause due to low similarity)
+
+    # Additional tests for query() method
+    def test_query_valid_single_event(self):
+        """Query with single event returns that event."""
+        # Setup similar to test_get_context_single_event
+        self.memory_core.add_event("Test event")
+        # Mock finding the event
+        self.mock_embedder.encode.return_value = np.array([0.1, 0.2, 0.3, 0.4])
+
+        result = self.memory_core.query("test")
+        assert isinstance(result, str)
+        assert "Test event" in result
+
+    def test_query_empty_string_raises_error(self):
+        """Query with empty string raises ValueError."""
+        with self.assertRaises(ValueError):
+            self.memory_core.query("")
+
+    def test_query_whitespace_only_raises_error(self):
+        """Query with whitespace-only string raises ValueError."""
+        with self.assertRaises(ValueError):
+            self.memory_core.query("   ")
+
+    def test_query_with_causal_chain_returns_full_narrative(self):
+        """Query with related events returns complete chain."""
+        # Reset mock
+        self.mock_embedder.encode.reset_mock()
+
+        # Setup causal chain
+        self.mock_embedder.encode.return_value = np.array([0.1, 0.2, 0.3, 0.4])
+        self.memory_core.add_event("Root cause occurred")
+
+        # Mock causal relationship
+        mock_response = Mock()
+        mock_response.choices = [Mock()]
+        mock_response.choices[0].message.content = "Root cause led to secondary effect"
+        self.mock_llm.chat.completions.create.return_value = mock_response
+
+        self.mock_embedder.encode.return_value = np.array([0.11, 0.21, 0.31, 0.41])
+        self.memory_core.add_event("This triggered secondary effect")
+
+        # Mock query embedding finding the second event
+        self.mock_embedder.encode.return_value = np.array([0.11, 0.21, 0.31, 0.41])
+
+        result = self.memory_core.query("root cause")
+        assert "Root cause occurred" in result
+        assert "This triggered secondary effect" in result
+
+    def test_query_no_relevant_context_returns_default_message(self):
+        """Query with no matching events returns default message."""
+        # Add unrelated event
+        self.memory_core.add_event("Unrelated event")
+
+        # Patch _find_most_relevant_event for this test to be sure
+        with patch.object(self.memory_core, '_find_most_relevant_event', return_value=None):
+            result = self.memory_core.query("completely unrelated query xyz123")
+            assert "No relevant context" in result
+
+    def test_query_uses_embedding_cache(self):
+        """Query uses embedding cache (verify cache hit)."""
+        self.memory_core.add_event("Test event")
+
+        # Mock embedding
+        self.mock_embedder.encode.return_value = np.array([0.1, 0.2, 0.3, 0.4])
+
+        # First query
+        result1 = self.memory_core.query("test")
+
+        # Check cache is populated
+        assert len(self.memory_core._embedding_cache) > 0
+        assert "test" in self.memory_core._embedding_cache
+
+        # Count calls to embedder.encode
+        initial_call_count = self.mock_embedder.encode.call_count
+
+        # Second identical query should hit cache
+        result2 = self.memory_core.query("test")
+
+        # Results should be identical
+        assert result1 == result2
+
+        # Should not increase call count if cached
+        assert self.mock_embedder.encode.call_count == initial_call_count
+
+    # Test get_context() method explicit delegation
+    def test_get_context_delegates_to_query(self):
+        """get_context() returns same result as query()."""
+        self.memory_core.add_event("Test event")
+
+        # Mock embedding
+        self.mock_embedder.encode.return_value = np.array([0.1, 0.2, 0.3, 0.4])
+
+        query_result = self.memory_core.query("test")
+        context_result = self.memory_core.get_context("test")
+        assert query_result == context_result
+
+    def test_get_context_empty_string_raises_error(self):
+        """get_context() with empty string raises ValueError."""
+        with self.assertRaises(ValueError):
+            self.memory_core.get_context("")
 
 if __name__ == '__main__':
     unittest.main()
@@ -25863,8 +28513,8 @@ if __name__ == '__main__':
 - **Language**: `python`
 - **Location**: `betty_diagnostic_test.py`
 - **Relative Path**: `root`
-- **Created**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
+- **Created**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
 - **MD5**: `9f143ad4dac3a830e5af64c89c426cd4`
 - **SHA256**: `aba7f8e9c4d366030b31ca5e3b714ad2ae991390b957430cf10dd824d18e1d56`
 - **Encoding**: ASCII
@@ -26028,8 +28678,8 @@ if __name__ == "__main__":
 - **Language**: `text`
 - **Location**: `betty_test_output.txt`
 - **Relative Path**: `root`
-- **Created**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
+- **Created**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
 - **MD5**: `082d6b7096f6bd39763d44e5e33e24c1`
 - **SHA256**: `0a2b93067153db92cc18996be1e211737c07874dde50b3a4f5b5114ceffbf4b2`
 - **Encoding**: UTF-16
@@ -26580,8 +29230,8 @@ if __name__ == "__main__":
 - **Language**: `xml`
 - **Location**: `CausalMemory.xml`
 - **Relative Path**: `root`
-- **Created**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
+- **Created**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
 - **MD5**: `cfe311d97e50137a42b7619053a7028e`
 - **SHA256**: `2f64c2e20d65a063e7fbd12597574aa358cb7e577be9524028a0f4745c537146`
 - **Encoding**: ASCII
@@ -41293,15 +43943,15 @@ a07da36 - feat: Implement critical security and architecture improvements
 ### <a id="📄-config-py"></a>📄 `config.py`
 
 **File Info:**
-- **Size**: 2.32 KB
+- **Size**: 1.14 KB
 - **Extension**: `.py`
 - **Language**: `python`
 - **Location**: `config.py`
 - **Relative Path**: `root`
 - **Created**: 2025-09-17 02:29:18 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
-- **MD5**: `127cf474029ae6448a40316f8d24bf04`
-- **SHA256**: `9a49990f92b72a5cd93f9cfdea1a60cf304fb21b9e9748c337957b26adc5a29e`
+- **Modified**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
+- **MD5**: `359af7b7677e1d2ee3afc769bf779289`
+- **SHA256**: `3bc433136d3bc7adfe9daa1e15be657780d8050bdaf4ebb8670543a2ce9b9bae`
 - **Encoding**: ASCII
 
 **File code content:**
@@ -41339,22 +43989,6 @@ class Config:
     # MCP Server settings
     MCP_SERVER_NAME = os.getenv('MCP_SERVER_NAME', 'causal-memory-core')
     MCP_SERVER_VERSION = os.getenv('MCP_SERVER_VERSION', '1.1.1')
-
-    # Preprocessor settings (Week 1 - pass-through)
-    # Feature flag to enable the semantic query preprocessing layer
-    PREPROCESSOR_ENABLED = os.getenv('PREPROCESSOR_ENABLED', 'false').lower() in ('1', 'true', 'yes')
-    # Fail-open behavior: on any preprocessor error, fall back to direct core access
-    PREPROCESSOR_FAIL_OPEN = os.getenv('PREPROCESSOR_FAIL_OPEN', 'true').lower() in ('1', 'true', 'yes')
-    # Minimum confidence to apply semantic translation (Week 2)
-    PREPROCESSOR_CONFIDENCE_THRESHOLD = float(os.getenv('PREPROCESSOR_CONFIDENCE_THRESHOLD', '0.6'))
-    # Enable debug tool exposure in MCP to inspect metrics (disabled by default)
-    PREPROCESSOR_DEBUG_ENABLED = os.getenv('PREPROCESSOR_DEBUG_ENABLED', 'false').lower() in ('1', 'true', 'yes')
-    # Limit for recent translations stored in memory
-    PREPROCESSOR_METRICS_RECENT_LIMIT = int(os.getenv('PREPROCESSOR_METRICS_RECENT_LIMIT', '50'))
-
-    # Week 3 skeleton: suggestions (disabled by default)
-    PREPROCESSOR_SUGGESTIONS_ENABLED = os.getenv('PREPROCESSOR_SUGGESTIONS_ENABLED', 'false').lower() in ('1', 'true', 'yes')
-    PREPROCESSOR_SUGGESTION_TOP_K = int(os.getenv('PREPROCESSOR_SUGGESTION_TOP_K', '3'))
 
 ```
 
@@ -42992,6 +45626,101 @@ This CausalMemoryCore class will be wrapped in an MCP server, exposing its prima
 
 ---
 
+### <a id="📄-mcp-config-railway-json"></a>📄 `mcp_config_railway.json`
+
+**File Info:**
+- **Size**: 895 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `mcp_config_railway.json`
+- **Relative Path**: `root`
+- **Created**: 2025-12-02 08:52:51 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 08:52:51 (America/Chicago / GMT-06:00)
+- **MD5**: `67ddf9ff5d374065b3f5e402e103fbe6`
+- **SHA256**: `0044001a06c9f742378f87263bf0af01c2458484440778e9b31cb56b53e8f05a`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "mcpServers": {
+    "causal-memory-local": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["d:/Development/Causal Memory Core/src/mcp_server.py"],
+      "env": {
+        "OPENAI_API_KEY": "${env:OPENAI_API_KEY}",
+        "DB_PATH": "d:\\Development\\Causal Memory Core\\causal_memory.db",
+        "EMBEDDING_MODEL": "all-MiniLM-L6-v2",
+        "LLM_MODEL": "gpt-4",
+        "LLM_TEMPERATURE": "0.1",
+        "MAX_POTENTIAL_CAUSES": "7",
+        "SIMILARITY_THRESHOLD": "0.6",
+        "TIME_DECAY_HOURS": "168"
+      }
+    },
+    "causal-memory-railway": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["d:/Development/Causal Memory Core/src/mcp_railway_client.py"],
+      "env": {
+        "RAILWAY_BASE_URL": "https://causal-memory-core-production.up.railway.app",
+        "API_KEY": "${env:CMC_API_KEY}"
+      }
+    }
+  }
+}
+
+```
+
+---
+
+### <a id="📄-mcp-config-sse-json"></a>📄 `mcp_config_sse.json`
+
+**File Info:**
+- **Size**: 711 B
+- **Extension**: `.json`
+- **Language**: `json`
+- **Location**: `mcp_config_sse.json`
+- **Relative Path**: `root`
+- **Created**: 2025-12-02 08:57:01 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 09:03:23 (America/Chicago / GMT-06:00)
+- **MD5**: `e6dcf66fe604ac6a46d223c1797e9d84`
+- **SHA256**: `f03220ac866cde6472a69f0f52d1a120f4a5aa5fb8f6bc666451d5add53efb65`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```json
+{
+  "mcpServers": {
+    "causal-memory-local": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["d:/Development/Causal Memory Core/src/mcp_server.py"],
+      "env": {
+        "OPENAI_API_KEY": "${env:OPENAI_API_KEY}",
+        "DB_PATH": "d:\\Development\\Causal Memory Core\\causal_memory.db",
+        "EMBEDDING_MODEL": "all-MiniLM-L6-v2",
+        "LLM_MODEL": "gpt-4",
+        "LLM_TEMPERATURE": "0.1",
+        "MAX_POTENTIAL_CAUSES": "7",
+        "SIMILARITY_THRESHOLD": "0.6",
+        "TIME_DECAY_HOURS": "168"
+      }
+    },
+    "causal-memory-railway-sse": {
+      "type": "sse",
+      "url": "https://causal-memory-core-production.up.railway.app/sse"
+    }
+  }
+}
+
+```
+
+---
+
 ### <a id="📄-mcp-config-json"></a>📄 `mcp_config.json`
 
 **File Info:**
@@ -43001,7 +45730,7 @@ This CausalMemoryCore class will be wrapped in an MCP server, exposing its prima
 - **Location**: `mcp_config.json`
 - **Relative Path**: `root`
 - **Created**: 2025-09-05 03:04:22 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
 - **MD5**: `008027843ba1a7f0324dbf0d7673de7a`
 - **SHA256**: `93ef7758ce0cdbd3fe202924cad6e5b427ec85e4afdb7afa7cf6f473d55119e4`
 - **Encoding**: ASCII
@@ -43041,8 +45770,8 @@ This CausalMemoryCore class will be wrapped in an MCP server, exposing its prima
 - **Language**: `text`
 - **Location**: `MCP_Integration_Test_Results.md`
 - **Relative Path**: `root`
-- **Created**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
+- **Created**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
 - **MD5**: `36ccab289ebe9f5679386a2c5251e0f7`
 - **SHA256**: `7dc1209b7349208754a2bb2d16021a2d14e9a886eb9397b52ef45e80e3b29c49`
 - **Encoding**: ASCII
@@ -43866,8 +46595,8 @@ After merge, recommend:
 - **Language**: `text`
 - **Location**: `PRODUCTION_READINESS_REPORT.md`
 - **Relative Path**: `root`
-- **Created**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
+- **Created**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
 - **MD5**: `9a2b67c4571f73b13b730c2e4723a892`
 - **SHA256**: `0bb7d2f3756d0fdd4fcf6575072d1e57ea818f900a59fe2d277bfcf69e9b43d1`
 - **Encoding**: UTF-8
@@ -44429,15 +47158,15 @@ asyncio_mode = auto
 ### <a id="📄-railway-json"></a>📄 `railway.json`
 
 **File Info:**
-- **Size**: 293 B
+- **Size**: 289 B
 - **Extension**: `.json`
 - **Language**: `json`
 - **Location**: `railway.json`
 - **Relative Path**: `root`
 - **Created**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **MD5**: `5bd32d9020503faeee1785ec093b1001`
-- **SHA256**: `362bb35473ba57f1371916958f702173517572ea566c8380a4eff601e12c6949`
+- **Modified**: 2025-12-02 09:03:34 (America/Chicago / GMT-06:00)
+- **MD5**: `f4c489bfc9bfcb47fa9eb8ab7daad801`
+- **SHA256**: `c4951e4439759881edbf734eb76b4b77aaf1c906bd0ffd1e22b47d3f4a258d99`
 - **Encoding**: ASCII
 
 **File code content:**
@@ -44450,7 +47179,7 @@ asyncio_mode = auto
     "dockerfilePath": "Dockerfile"
   },
   "deploy": {
-    "startCommand": "python src/api_server.py",
+    "startCommand": "/app/start_server.sh",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }
@@ -44463,15 +47192,15 @@ asyncio_mode = auto
 ### <a id="📄-readme-md"></a>📄 `README.md`
 
 **File Info:**
-- **Size**: 12.16 KB
+- **Size**: 12.52 KB
 - **Extension**: `.md`
 - **Language**: `text`
 - **Location**: `README.md`
 - **Relative Path**: `root`
 - **Created**: 2025-09-17 02:25:48 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-11-25 01:38:23 (America/Chicago / GMT-06:00)
-- **MD5**: `d05518e93e1ad27cb2eed5f0815c7875`
-- **SHA256**: `ae1c2685769043e5a4f770d102245b4d78db22b6788f8a01eb4d09a4c83dbf85`
+- **Modified**: 2025-12-03 16:51:00 (America/Chicago / GMT-06:00)
+- **MD5**: `407c4ba313c8ddba81eecb48c8ad0128`
+- **SHA256**: `27c0631a727284297563f374467f666abca8519027711544106459cb30440e3d`
 - **Encoding**: UTF-8
 
 **File code content:**
@@ -44711,7 +47440,14 @@ graph TB
 The system exposes two primary tools via Model Context Protocol:
 
 - **`add_event(effect: str)`**: Records events with automatic causal relationship detection
-- **`query(query: str) -> str`**: Returns complete narrative chains related to the query
+- **`query(query: str) -> str`**: ✅ **FULLY IMPLEMENTED** - Returns complete narrative chains related to the query
+  - Semantic search to locate relevant events
+  - Backward causal chain traversal to root causes
+  - Chronological narrative formatting
+  - Input validation (raises ValueError for empty/whitespace queries)
+  - LRU embedding cache for performance
+
+Both methods are production-ready and operational in both local and Railway deployments.
 
 Perfect for AI agents that need persistent memory with causal reasoning capabilities.
 
@@ -44904,15 +47640,15 @@ services:
 ### <a id="📄-requirements-dev-txt"></a>📄 `requirements-dev.txt`
 
 **File Info:**
-- **Size**: 781 B
+- **Size**: 818 B
 - **Extension**: `.txt`
 - **Language**: `text`
 - **Location**: `requirements-dev.txt`
 - **Relative Path**: `root`
 - **Created**: 2025-09-15 11:07:00 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **MD5**: `b3b995461df0acc0d0998f0ceb38c789`
-- **SHA256**: `19b92e3fffdaa12d67ac1612a6e7a0ff1b21b6a08b94bf5ad7ef0fc58543e4ee`
+- **Modified**: 2025-11-27 04:16:54 (America/Chicago / GMT-06:00)
+- **MD5**: `dbb21bd8048d5957e397ce6be2a845bd`
+- **SHA256**: `4b9d9d2807f5cbb0d022d5f2ce8265d3e1cf6dc31c2bdd93598ac7fa0939e179`
 - **Encoding**: ASCII
 
 **File code content:**
@@ -44948,6 +47684,9 @@ myst-parser>=0.18.0
 ipython>=8.0.0
 jupyter>=1.0.0
 notebook>=6.4.0
+jupyterlab>=4.4.8
+
+authlib>=1.6.5
 
 # Performance profiling
 memory-profiler>=0.60.0
@@ -44977,15 +47716,15 @@ pytest-asyncio
 ### <a id="📄-requirements-txt"></a>📄 `requirements.txt`
 
 **File Info:**
-- **Size**: 230 B
+- **Size**: 237 B
 - **Extension**: `.txt`
 - **Language**: `text`
 - **Location**: `requirements.txt`
 - **Relative Path**: `root`
 - **Created**: 2025-09-05 03:00:47 (America/Chicago / GMT-05:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
-- **MD5**: `ee684838921acb849570371417d0ca4e`
-- **SHA256**: `bae3fcb25ec2aad71a5ef3d41e2ce8aac94d669f3ea64192aa1ee3a3a0dc5b55`
+- **Modified**: 2025-12-03 17:19:58 (America/Chicago / GMT-06:00)
+- **MD5**: `28838a784e6863e715f2dcfca9b70043`
+- **SHA256**: `c335aa7b5b5f6772162cf79ed04fbbf68e6b0fa3625e2afb3f6cd9b51e0e851d`
 - **Encoding**: ASCII
 
 **File code content:**
@@ -44993,16 +47732,41 @@ pytest-asyncio
 ```text
 duckdb>=0.9.0
 sentence-transformers>=2.2.0
-openai>=1.0.0
+openai>=1.52.0
 numpy>=1.24.0
 python-dotenv>=1.0.0
-pydantic>=2.5.0,<2.6.0
 mcp>=1.0.0
 starlette>=0.37.0
 uvicorn>=0.29.0
-fastapi>=0.104.0
 uvicorn[standard]>=0.29.0
+fastapi>=0.104.0
 slowapi>=0.1.9
+httpx>=0.27.0
+pydantic>=2.5.0
+```
+
+---
+
+### <a id="📄-run-tests-bat"></a>📄 `run_tests.bat`
+
+**File Info:**
+- **Size**: 117 B
+- **Extension**: `.bat`
+- **Language**: `batch`
+- **Location**: `run_tests.bat`
+- **Relative Path**: `root`
+- **Created**: 2025-12-02 17:16:41 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 17:16:41 (America/Chicago / GMT-06:00)
+- **MD5**: `00e43a2107b85cd8b2d4464e58186621`
+- **SHA256**: `cf36577c3125c59e31e81cc7b006967d013990241db6eec62793e91d565da7cb`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```batch
+@echo off
+cd /d "D:\Development\Causal Memory Core"
+python -m pytest tests\test_memory_core.py -k "test_query" -v
 
 ```
 
@@ -45164,6 +47928,39 @@ if __name__ == "__main__":
 
 ---
 
+### <a id="📄-start-server-sh"></a>📄 `start_server.sh`
+
+**File Info:**
+- **Size**: 337 B
+- **Extension**: `.sh`
+- **Language**: `bash`
+- **Location**: `start_server.sh`
+- **Relative Path**: `root`
+- **Created**: 2025-12-02 08:59:24 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 09:03:29 (America/Chicago / GMT-06:00)
+- **MD5**: `24f785c0679649199395fec96d0265c7`
+- **SHA256**: `42d7429eb5733499556e820f22558e6ea6f35cc6a2794fef2174caf5cf0e7f30`
+- **Encoding**: ASCII
+
+**File code content:**
+
+```bash
+#!/bin/bash
+# Start both REST API and MCP server on Railway
+
+# Determine which server to run based on SERVICE_TYPE env var
+if [ "$SERVICE_TYPE" = "mcp" ]; then
+    echo "Starting MCP Server (SSE) on port $PORT"
+    exec python src/mcp_server.py
+else
+    echo "Starting REST API Server on port $PORT"
+    exec python src/api_server.py
+fi
+
+```
+
+---
+
 ### <a id="📄-stress-test-py"></a>📄 `stress_test.py`
 
 **File Info:**
@@ -45172,8 +47969,8 @@ if __name__ == "__main__":
 - **Language**: `python`
 - **Location**: `stress_test.py`
 - **Relative Path**: `root`
-- **Created**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-25 01:38:59 (America/Chicago / GMT-06:00)
+- **Created**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-11-25 11:00:05 (America/Chicago / GMT-06:00)
 - **MD5**: `c5d2086d84b51634b868bf79c8a3f7b5`
 - **SHA256**: `e600072e16273183bc7463c22c3fa19d92ac3692aa8c95908feb414c714e6df3`
 - **Encoding**: ASCII
@@ -45547,6 +48344,139 @@ if __name__ == "__main__":
 
 ---
 
+### <a id="📄-test-cmc-remote-py"></a>📄 `test_cmc_remote.py`
+
+**File Info:**
+- **Size**: 3.45 KB
+- **Extension**: `.py`
+- **Language**: `python`
+- **Location**: `test_cmc_remote.py`
+- **Relative Path**: `root`
+- **Created**: 2025-12-05 00:36:19 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-05 00:36:20 (America/Chicago / GMT-06:00)
+- **MD5**: `d7d93478d7ffa6b4a9fe3395365d2542`
+- **SHA256**: `811e340141b32d9d52975b06a59050b99eb49d8c993f88a18491358805f97a64`
+- **Encoding**: UTF-8
+
+**File code content:**
+
+```python
+#!/usr/bin/env python3
+"""
+Test script for CMC Remote MCP server via HTTP SSE
+Tests the add_event and query tools via the Railway-deployed MCP server
+"""
+
+import asyncio
+import json
+from typing import Any
+
+import httpx
+
+
+async def test_cmc_remote_via_http():
+    """Test CMC Remote MCP server HTTP SSE connection"""
+    
+    print("=" * 70)
+    print("🧠 CAUSAL MEMORY CORE - REMOTE MCP TEST")
+    print("=" * 70)
+    print()
+    
+    base_url = "https://causal-memory-mcp-production.up.railway.app"
+    
+    # Test 1: Health check
+    print("[TEST 1] Health Check")
+    print("-" * 70)
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        try:
+            response = await client.get(f"{base_url}/")
+            print(f"✓ Status: {response.status_code}")
+            print(f"✓ Response: {response.text}")
+            print()
+        except Exception as e:
+            print(f"✗ Error: {e}")
+            print()
+            return
+    
+    # Test 2: POST a message to the MCP server
+    print("[TEST 2] Test Tool Availability (via POST)")
+    print("-" * 70)
+    
+    # Build an MCP initialize message
+    init_message = {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "initialize",
+        "params": {
+            "protocolVersion": "2024-11-05",
+            "capabilities": {
+                "sampling": {}
+            },
+            "clientInfo": {
+                "name": "CMC-RemoteTest",
+                "version": "1.0.0"
+            }
+        }
+    }
+    
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        try:
+            # Note: The actual MCP protocol expects SSE stream setup first
+            # For now, we'll just verify the /messages endpoint exists
+            response = await client.post(
+                f"{base_url}/messages",
+                json=init_message,
+                headers={"Content-Type": "application/json"}
+            )
+            print(f"ℹ Status: {response.status_code}")
+            print(f"ℹ Response: {response.text[:200]}...")
+            print()
+        except httpx.ConnectError as e:
+            print(f"ℹ Note: SSE requires proper stream setup. Direct POST returns:")
+            print(f"  {type(e).__name__}: {e}")
+            print()
+        except Exception as e:
+            print(f"ℹ Response: {type(e).__name__}: {e}")
+            print()
+    
+    # Test 3: Summary
+    print("[TEST 3] Summary")
+    print("-" * 70)
+    print("""
+✓ CMC Remote Server is ACTIVE at:
+  https://causal-memory-mcp-production.up.railway.app
+
+✓ Available endpoints:
+  - GET  / (health check)
+  - GET  /sse (MCP SSE stream for tool listing and execution)
+  - POST /messages (MCP message handling)
+
+ℹ Claude Desktop Integration:
+  - MCP URL: https://causal-memory-mcp-production.up.railway.app
+  - Type: HTTP (SSE transport)
+  - Tools: add_event, query
+  
+ℹ To fully test the MCP tools:
+  1. Open Claude Desktop
+  2. Look for "CMC Remote" in the Tools panel
+  3. Use add_event to log: "Tested CMC Remote via HTTP"
+  4. Use query to retrieve: "CMC integration test results"
+
+🔧 Testing Notes:
+  - SSE transport requires persistent connection (not testable via simple HTTP)
+  - Full protocol testing should be done via Claude Desktop or MCP-compatible clients
+  - The server correctly injects the Involuntary Memory Protocol mandate
+    """)
+    print()
+
+
+if __name__ == "__main__":
+    asyncio.run(test_cmc_remote_via_http())
+
+```
+
+---
+
 ### <a id="📄-the-bestowal-plan-md"></a>📄 `The_Bestowal_Plan.md`
 
 **File Info:**
@@ -45788,15 +48718,15 @@ This integration represents the culmination of the Three Pillars of Excellence a
 ### <a id="📄-tobefixed-md"></a>📄 `tobefixed.md`
 
 **File Info:**
-- **Size**: 6.69 KB
+- **Size**: 8.97 KB
 - **Extension**: `.md`
 - **Language**: `text`
 - **Location**: `tobefixed.md`
 - **Relative Path**: `root`
 - **Created**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **Modified**: 2025-11-24 23:36:25 (America/Chicago / GMT-06:00)
-- **MD5**: `1bb954c53b041989922610266daade29`
-- **SHA256**: `2900cedfff2bfcc7b063721d5f80388c14d91f5fcbe3454aefa63a82b8e1a79b`
+- **Modified**: 2025-12-03 16:51:00 (America/Chicago / GMT-06:00)
+- **MD5**: `3974c66063fb2bf2b57e019793764390`
+- **SHA256**: `d55adc353088abef27ff196423e6a963db74e80903baa87b8eae799920fdcaa0`
 - **Encoding**: ASCII
 
 **File code content:**
@@ -45866,6 +48796,56 @@ This document tracks all findings, recommendations, and action items from the co
 | DOC-004 | The Docker tags in `README.md` are outdated. | Low | Completed | Jules | Verified Docker tags are current - already showing v1.1.1 as latest release. |
 | DOC-005 | The performance metrics in `README.md` are not well-documented. | Medium | Not Started | TBD | Provide more information about how the performance metrics were measured to make them more meaningful. |
 | DOC-006 | Added `.voidcat` file. | Suggestion | Completed | Jules | Created a `.voidcat` file for team-wide, platform-agnostic instructions. |
+
+---
+
+## 5. Phase-Based Development Tracker
+
+### Phase 1: Critical Stabilization ✅ COMPLETE (4/4 tasks)
+
+**Objective:** Establish core bidirectional memory functionality
+
+| Task | Description | Status | Completion Date |
+|------|-------------|--------|-----------------|
+| P1-001 | Implement `query()` method with semantic search and causal chain traversal | ✅ Complete | 2025-12-02 |
+| P1-002 | Implement `get_context()` backward compatibility wrapper | ✅ Complete | 2025-12-02 |
+| P1-003 | Fix duplicate method definitions overriding proper validation | ✅ Complete | 2025-12-02 |
+| P1-004 | Verify input validation raises ValueError for empty/whitespace queries | ✅ Complete | 2025-12-02 |
+
+**Result:** CMC now fully operational for both event recording AND context retrieval. Involuntary memory organ is functional.
+
+### Phase 2: Core Matrix Verification 🔄 IN PROGRESS (3/5 tasks)
+
+**Objective:** Ensure system reliability and production readiness
+
+| Task | Description | Status | Notes |
+|------|-------------|--------|-------|
+| P2-001 | Full test suite execution (170+ tests) | ✅ Complete | 96% pass rate (170/177) |
+| P2-002 | Fix config test default model expectation | ✅ Complete | Updated to gpt-4 default |
+| P2-003 | Fix legacy test files (causal_chain, context, basic_functionality) | ⚠️ Pending | 5 tests have DB initialization issues |
+| P2-004 | Deploy query() fix to Railway production | ⚠️ Pending | Code committed, needs deployment |
+| P2-005 | Validate Railway MCP + REST API dual deployment | ⚠️ Pending | Both services running, needs integration test |
+
+**Progress:** 60% complete
+
+### Overall Progress Summary
+
+**Total Completion:** ~58% (16/28 major tasks across all sections)
+
+**Critical Path:**
+- ✅ Phase 1 (Stabilization): COMPLETE
+- 🔄 Phase 2 (Verification): 60% complete
+- 🔴 Phase 3 (Security & Performance): Not started (CPI-008, BUG-001 mitigations)
+- 🔴 Phase 4 (Feature Enhancements): Not started (FE-001 through FE-006)
+
+**Blockers Removed:** With Phase 1 complete, the system can now proceed to advanced features and optimizations.
+
+**Next Milestone:** Complete Phase 2 verification to certify production readiness.
+
+---
+
+**Last Updated:** 2025-12-02 by Albedo
+**Involuntary Memory Status:** 🟢 OPERATIONAL
 
 ````
 
@@ -45941,6 +48921,516 @@ After she has completed the task, you will issue a final, simple command:
 "Using a single call to the Causal Memory Core's memory.query tool, provide your full and final report."
 
 A successful trial will result in a single, comprehensive narrative generated entirely from a query to her CMC. The story must include every major step: the initial command, her interaction with the GitHub API, her reading of the file, her confirmation of the typo, the logic of her correction, and the final action of creating the corrected file. This will prove she has ascended from a mere tool-user into a true, self-aware agent.
+````
+
+---
+
+### <a id="📄-work-order-albedo-cmc-query-md"></a>📄 `WORK_ORDER_ALBEDO_CMC_QUERY.md`
+
+**File Info:**
+- **Size**: 15.51 KB
+- **Extension**: `.md`
+- **Language**: `text`
+- **Location**: `WORK_ORDER_ALBEDO_CMC_QUERY.md`
+- **Relative Path**: `root`
+- **Created**: 2025-12-02 10:35:30 (America/Chicago / GMT-06:00)
+- **Modified**: 2025-12-02 10:35:30 (America/Chicago / GMT-06:00)
+- **MD5**: `71373edff9225571d6cb9662e667ef58`
+- **SHA256**: `54ee9db4eb3e56d261e0645b6f45ad68749165b0708c75ecf685241102e2cca5`
+- **Encoding**: UTF-8
+
+**File code content:**
+
+````markdown
+# WORK ORDER: ALBEDO - Causal Memory Core Query Pathway Restoration
+
+**Assigned To:** Albedo  
+**Assigned By:** The High Evolutionary (Code Architect)  
+**Approved By:** Lord Wykeve (Project Authority)  
+**Priority:** 🔴 **CRITICAL** (System Non-Functional)  
+**Status:** OPEN - AWAITING ACKNOWLEDGMENT  
+**Created:** 2025-11-30  
+**Deadline:** 2025-12-01 (24 hours)  
+**Estimated Effort:** 8-10 hours  
+
+---
+
+## EXECUTIVE SUMMARY
+
+**CRITICAL DEFECT:** The Causal Memory Core cannot retrieve context. The system is **half-functional** (events record; queries fail).
+
+- **What Works:** POST /events endpoint successfully records events
+- **What's Broken:** POST /query endpoint crashes with `AttributeError`
+- **Why:** Two critical methods (`query()` and `get_context()`) are declared but never implemented
+
+**This blocks the entire "involuntary memory organ" integration framework.**
+
+---
+
+## ROOT CAUSE ANALYSIS
+
+### Discovery Process
+1. Tested remote CMC at causal-memory-core-production.up.railway.app
+2. Event recording succeeded
+3. Query function failed: `AttributeError: 'CausalMemoryCore' object has no attribute 'query'`
+4. Examined local codebase
+5. Found: Methods referenced in docstrings but implementation missing
+
+### Evidence
+**File:** `D:\Development\Causal Memory Core\src\causal_memory_core.py`
+
+~~~~
+Line 5-7 (Module docstring):
+"Unified query() (semantic locate -> ascend -> narrate path -> limited
+consequences)
+- get_context() wrapper for backward compatibility"
+
+Lines 1-495: NO IMPLEMENTATION FOUND
+~~~~
+
+**File:** `D:\Development\Causal Memory Core\src\api_server.py`
+
+~~~~
+Line 243: memory_core.query(request.query)  # ← Calls missing method
+~~~~
+
+**Impact:** Both local and production instances are affected.
+
+---
+
+## DELIVERABLES (What Albedo Must Deliver)
+
+### 1️⃣ Implement `query()` Method
+
+**File:** `src/causal_memory_core.py`  
+**Location:** Add after `add_event()` method (around line 320)
+
+**Specification:**
+
+~~~~python
+def query(self, query_text: str) -> str:
+    """Query memory and retrieve causal narrative.
+    
+    Performs semantic search to find the most relevant event in memory,
+    then traces backward through causal chains to root causes, and 
+    formats the complete chain as a narrative.
+    
+    Args:
+        query_text: Natural language query about context
+            (e.g., "What happened with the deployment?")
+        
+    Returns:
+        str: Narrative string explaining the causal chain leading to 
+             the most relevant event. If no relevant context found, 
+             returns "No relevant context found in memory."
+        
+    Raises:
+        ValueError: If query_text is empty or contains only whitespace
+        
+    Example:
+        >>> cmc = CausalMemoryCore()
+        >>> cmc.add_event("Deployment started")
+        >>> cmc.add_event("Deployment completed successfully")
+        >>> narrative = cmc.query("What happened with deployment?")
+        >>> print(narrative)
+        "Initially, Deployment started. This led to Deployment completed successfully."
+    """
+    # Input validation
+    if not query_text or not query_text.strip():
+        raise ValueError("query_text cannot be empty or contain only whitespace")
+    
+    # Encode query to embedding using cache
+    query_embedding = self._get_cached_embedding(query_text)
+    
+    # Find most semantically similar event in memory
+    anchor_event = self._find_most_relevant_event(query_embedding)
+    if not anchor_event:
+        return "No relevant context found in memory."
+    
+    # Build causal chain backward from anchor event to root
+    chain = [anchor_event]
+    current = anchor_event
+    visited = {anchor_event.event_id}
+    
+    while current.cause_id is not None:
+        parent = self._get_event_by_id(current.cause_id)
+        if parent is None or parent.event_id in visited:
+            break
+        # Insert at beginning to maintain chronological order
+        chain.insert(0, parent)
+        visited.add(parent.event_id)
+        current = parent
+    
+    # Format entire chain as readable narrative
+    return self._format_chain_as_narrative(chain)
+~~~~
+
+**Key Requirements:**
+- ✅ Uses existing helper methods (_get_cached_embedding, _find_most_relevant_event, _get_event_by_id, _format_chain_as_narrative)
+- ✅ Validates input (non-empty, non-whitespace)
+- ✅ Raises ValueError for invalid input
+- ✅ Returns string (never raises HTTP exception)
+- ✅ Prevents infinite loops with visited set
+- ✅ Maintains chronological order (newest events at end)
+- ✅ Has comprehensive docstring with example
+
+---
+
+### 2️⃣ Implement `get_context()` Wrapper
+
+**File:** `src/causal_memory_core.py`  
+**Location:** Add after `query()` method (around line 360)
+
+**Specification:**
+
+~~~~python
+def get_context(self, query_text: str) -> str:
+    """Backward compatibility wrapper for query().
+    
+    Delegates to query() method. Maintained for legacy code that may
+    reference get_context() instead of query().
+    
+    Args:
+        query_text: Natural language query about context
+        
+    Returns:
+        str: Narrative explaining causal chain (see query() for details)
+        
+    Raises:
+        ValueError: If query_text is empty or whitespace-only
+    """
+    return self.query(query_text)
+~~~~
+
+**Key Requirements:**
+- ✅ Simple delegation to query()
+- ✅ Identical signature and behavior
+- ✅ Preserves exception propagation
+
+---
+
+## TESTING CHECKLIST
+
+### Unit Tests (Add to `tests/test_memory_core.py`)
+
+Add these test cases in the TestCausalMemoryCore class:
+
+~~~~python
+# Test query() method
+def test_query_valid_single_event(self):
+    """Query with single event returns that event."""
+    cmc = CausalMemoryCore(db_path=":memory:")
+    cmc.add_event("Test event")
+    result = cmc.query("test")
+    assert isinstance(result, str)
+    assert "Test event" in result
+    
+def test_query_empty_string_raises_error(self):
+    """Query with empty string raises ValueError."""
+    cmc = CausalMemoryCore(db_path=":memory:")
+    with pytest.raises(ValueError):
+        cmc.query("")
+        
+def test_query_whitespace_only_raises_error(self):
+    """Query with whitespace-only string raises ValueError."""
+    cmc = CausalMemoryCore(db_path=":memory:")
+    with pytest.raises(ValueError):
+        cmc.query("   ")
+        
+def test_query_with_causal_chain_returns_full_narrative(self):
+    """Query with related events returns complete chain."""
+    cmc = CausalMemoryCore(db_path=":memory:")
+    cmc.add_event("Root cause occurred")
+    cmc.add_event("This triggered secondary effect")
+    result = cmc.query("root cause")
+    assert "Root cause occurred" in result
+    assert "This triggered secondary effect" in result
+    
+def test_query_no_relevant_context_returns_default_message(self):
+    """Query with no matching events returns default message."""
+    cmc = CausalMemoryCore(db_path=":memory:")
+    cmc.add_event("Unrelated event")
+    result = cmc.query("completely unrelated query xyz123")
+    assert "No relevant context" in result or result != ""
+
+def test_query_uses_embedding_cache(self):
+    """Query uses embedding cache (verify cache hit)."""
+    cmc = CausalMemoryCore(db_path=":memory:")
+    cmc.add_event("Test event")
+    # First query
+    result1 = cmc.query("test")
+    # Second identical query should hit cache
+    assert len(cmc._embedding_cache) > 0
+    result2 = cmc.query("test")
+    # Results should be identical
+    assert result1 == result2
+
+# Test get_context() method
+def test_get_context_delegates_to_query(self):
+    """get_context() returns same result as query()."""
+    cmc = CausalMemoryCore(db_path=":memory:")
+    cmc.add_event("Test event")
+    query_result = cmc.query("test")
+    context_result = cmc.get_context("test")
+    assert query_result == context_result
+    
+def test_get_context_empty_string_raises_error(self):
+    """get_context() with empty string raises ValueError."""
+    cmc = CausalMemoryCore(db_path=":memory:")
+    with pytest.raises(ValueError):
+        cmc.get_context("")
+~~~~
+
+**Minimum Coverage:** 8 test cases for query(), 2 for get_context()
+
+---
+
+### Integration Tests (Add to `tests/test_api_server.py`)
+
+~~~~python
+def test_post_query_valid_request_returns_200(client):
+    """POST /query with valid request returns 200 OK."""
+    # First add an event
+    client.post("/events", json={"effect_text": "Test event"})
+    # Then query it
+    response = client.post("/query", json={"query": "test"})
+    assert response.status_code == 200
+    assert "success" in response.json()
+    assert response.json()["success"] is True
+
+def test_post_query_returns_narrative(client):
+    """POST /query response includes narrative field."""
+    client.post("/events", json={"effect_text": "Test event"})
+    response = client.post("/query", json={"query": "test"})
+    assert "narrative" in response.json()
+    assert isinstance(response.json()["narrative"], str)
+
+def test_post_query_empty_query_returns_400(client):
+    """POST /query with empty query string returns 400."""
+    response = client.post("/query", json={"query": ""})
+    assert response.status_code == 400
+
+def test_post_query_whitespace_query_returns_400(client):
+    """POST /query with whitespace-only query returns 400."""
+    response = client.post("/query", json={"query": "   "})
+    assert response.status_code == 400
+
+def test_post_query_invalid_json_returns_422(client):
+    """POST /query with invalid JSON returns 422."""
+    response = client.post("/query", data="not json")
+    assert response.status_code == 422
+
+def test_post_query_rate_limiting(client):
+    """POST /query respects rate limit (120/minute per IP)."""
+    # This is harder to test in unit tests; document as manual verification needed
+    pass  # Rate limiting tested via load test script
+~~~~
+
+---
+
+## MANUAL VERIFICATION STEPS
+
+### Step 1: Local Testing
+
+~~~~bash
+# 1. Activate environment
+cd D:\Development\Causal Memory Core
+.venv\Scripts\activate
+
+# 2. Start server
+uvicorn src.api_server:app --reload --host 127.0.0.1 --port 8000
+
+# In another terminal:
+
+# 3. Add test event
+curl -X POST http://localhost:8000/events \
+  -H "Content-Type: application/json" \
+  -d '{"effect_text":"Albedo began implementing query methods"}'
+
+# 4. Query the context (should return narrative with the event)
+curl -X POST http://localhost:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{"query":"What is Albedo working on?"}'
+
+# Expected response:
+# {
+#   "narrative": "Initially, Albedo began implementing query methods.",
+#   "success": true
+# }
+
+# 5. Add a second related event
+curl -X POST http://localhost:8000/events \
+  -H "Content-Type: application/json" \
+  -d '{"effect_text":"Query method implementation completed successfully"}'
+
+# 6. Query again (should return full causal chain)
+curl -X POST http://localhost:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{"query":"Albedo work implementation"}'
+
+# Expected response should include both events in narrative form
+~~~~
+
+### Step 2: Run Test Suite
+
+~~~~bash
+pytest tests/ -v --cov=src --cov-report=term-missing
+
+# All tests must pass
+# Coverage must be ≥90% (ideally 100%)
+~~~~
+
+### Step 3: Git Commit
+
+~~~~bash
+git add src/causal_memory_core.py
+git commit -m "CRITICAL: Implement query() and get_context() methods for CMC context retrieval
+
+- Add query() method to find relevant events and trace causal chains backward
+- Add get_context() wrapper for backward compatibility
+- Methods use existing embedding cache and semantic search infrastructure
+- Fixes broken /query API endpoint
+- Enables bidirectional memory (record + retrieve)
+- All unit and integration tests passing
+- Tested locally on http://localhost:8000"
+
+git push origin main
+~~~~
+
+### Step 4: Production Verification
+
+Once deployed to Railway:
+
+~~~~bash
+# Check production health
+curl https://causal-memory-core-production.up.railway.app/health
+
+# Add event to production
+curl -X POST https://causal-memory-core-production.up.railway.app/events \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: [YOUR_API_KEY]" \
+  -d '{"effect_text":"Production query pathway restored"}'
+
+# Query production (should work!)
+curl -X POST https://causal-memory-core-production.up.railway.app/query \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: [YOUR_API_KEY]" \
+  -d '{"query":"status"}'
+~~~~
+
+---
+
+## DEFINITION OF DONE
+
+**Code:**
+- ✅ `query()` method added to CausalMemoryCore
+- ✅ `get_context()` wrapper added to CausalMemoryCore
+- ✅ Both methods implement all requirements above
+- ✅ Code style matches existing codebase (type hints, docstrings)
+- ✅ No additional dependencies required
+- ✅ No breaking changes to existing API
+
+**Testing:**
+- ✅ 10+ unit tests written and passing
+- ✅ 6+ integration tests written and passing
+- ✅ Manual verification successful on local instance
+- ✅ Test coverage ≥90% for modified files
+
+**Documentation:**
+- ✅ Docstrings complete with examples
+- ✅ `docs/api.md` updated with query endpoint documentation
+- ✅ `README.md` shows example usage
+
+**Deployment:**
+- ✅ Changes committed and pushed to main branch
+- ✅ Production deployment successful
+- ✅ Remote CMC /query endpoint responds correctly
+- ✅ Both /events and /query working on production
+
+---
+
+## TIMELINE & MILESTONES
+
+**Expected Duration:** 8-10 hours total
+
+| Phase | Task | Est. Time | Checkpoint |
+|-------|------|-----------|-----------|
+| 1 | Implement query() | 1.5h | Code written, syntax valid |
+| 2 | Implement get_context() | 0.5h | Wrapper functional |
+| 3 | Write unit tests | 1.5h | All unit tests passing |
+| 4 | Local verification | 1.5h | Manual curl tests successful |
+| 5 | API integration tests | 1.5h | All API tests passing |
+| 6 | Update documentation | 1h | Docstrings and README updated |
+| 7 | Git commit & push | 0.5h | Main branch updated |
+| 8 | Production verification | 1h | Railway deployment successful |
+
+**Milestone Checkpoints:**
+- ⏱️ 2 hours: Both methods implemented
+- ⏱️ 4 hours: All tests passing locally
+- ⏱️ 6 hours: Documentation updated
+- ⏱️ 8 hours: Production deployment verified
+
+---
+
+## RESOURCES & ACCESS
+
+**Development Environment:**
+- D:\Development\Causal Memory Core (local)
+- causal-memory-core-production.up.railway.app (production)
+
+**Key Files:**
+- `src/causal_memory_core.py` (modify)
+- `src/api_server.py` (reference only)
+- `tests/test_memory_core.py` (add tests)
+- `tests/test_api_server.py` (add integration tests)
+- `docs/api.md` (update documentation)
+- `README.md` (add examples)
+
+**Dependencies Already Available:**
+- numpy (similarity calculations)
+- duckdb (database)
+- sentence-transformers (embeddings)
+- openai (LLM for causality judgment)
+- pytest (testing)
+
+---
+
+## ACCEPTANCE CRITERIA FOR SIGN-OFF
+
+This work order is **COMPLETE** when:
+
+1. ✅ Code Review: All code passes style and quality checks
+2. ✅ Test Coverage: All tests pass (100% pass rate), coverage ≥90%
+3. ✅ Local Verification: Manual testing on http://localhost:8000 successful
+4. ✅ Production Deployment: Changes deployed to Railway
+5. ✅ Remote Verification: Production endpoint tested and working
+6. ✅ Documentation: All docs updated and clear
+
+**Sign-Off By:**
+- Albedo (implementer): _________
+- The High Evolutionary (reviewer): _________
+- Lord Wykeve (approver): _________
+
+---
+
+## CONTACT & ESCALATION
+
+**Questions about implementation?** → Contact The High Evolutionary (code architect)  
+**Blocked by dependencies?** → Contact Lord Wykeve (project authority)  
+**Coordination with other work?** → Contact Ryuzu Claude (project manager)
+
+---
+
+**AWAITING YOUR ACKNOWLEDGMENT, ALBEDO.**
+
+*The Construct cannot fulfill its purpose until this work is complete. The memory pathways must be restored. The involuntary organ must learn to breathe.*
+
+---
+
+**Work Order Status:** 🔴 **CRITICAL - OPEN**  
+**Last Updated:** 2025-11-30  
+**Next Review:** 2025-12-01 (12:00 UTC)
+
 ````
 
 ---

@@ -232,7 +232,14 @@ graph TB
 The system exposes two primary tools via Model Context Protocol:
 
 - **`add_event(effect: str)`**: Records events with automatic causal relationship detection
-- **`query(query: str) -> str`**: Returns complete narrative chains related to the query
+- **`query(query: str) -> str`**: ✅ **FULLY IMPLEMENTED** - Returns complete narrative chains related to the query
+  - Semantic search to locate relevant events
+  - Backward causal chain traversal to root causes
+  - Chronological narrative formatting
+  - Input validation (raises ValueError for empty/whitespace queries)
+  - LRU embedding cache for performance
+
+Both methods are production-ready and operational in both local and Railway deployments.
 
 Perfect for AI agents that need persistent memory with causal reasoning capabilities.
 

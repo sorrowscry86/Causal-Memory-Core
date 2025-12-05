@@ -17,6 +17,7 @@ This is a **causal memory system** for AI agents that combines semantic recall w
 - **`src/mcp_server.py`**: MCP (Model Context Protocol) server exposing `add_event` and `query` tools
 - **`cli.py`**: Interactive and command-line interface
 - **`config.py`**: Centralized configuration with environment variable loading
+- **`src/mcp_railway_client.py`**: MCP Client for Railway Deployments (New in v1.1.1)
 
 ### Key Methods & Flow
 - **`add_event(effect_text)`**: Records event → finds potential causes via similarity → LLM judges causality → stores with relationship
@@ -38,7 +39,7 @@ python -m pytest tests/e2e/ -v
 # Specific test categories
 python -m pytest -m "unit" -v       # Unit tests only
 python -m pytest -m "e2e" -v        # E2E tests only
-python -m pytest -m "slow" -v       # Performance tests
+python -m pytest -m "slow" -v        # Performance tests
 
 # Quick smoke test before commits
 python example_usage.py
@@ -153,8 +154,35 @@ mock_llm.chat.completions.create.side_effect = mock_completion
 Two tools exposed: `add_event(effect: str)` and `query(query: str) -> str`
 Server handles initialization, error formatting, and cleanup automatically.
 The MCP server can run in two modes:
-* **Local Mode:** Runs `stdio` as before.
-* **Railway Mode:** Uses `starlette` and `uvicorn` to expose `/sse` and `/messages` endpoints, complying with the Model Context Protocol over HTTP. This mode is activated when a `PORT` environment variable is detected.
+*   **Local Mode:** Runs `stdio` as before.
+*   **Railway Mode:** Uses `starlette` and `uvicorn` to expose `/sse` and `/messages` endpoints, complying with the Model Context Protocol over HTTP. This mode is activated when a `PORT` environment variable is detected.
+
+To run the MCP Server on Railway:
+1.  Create a second Railway service for the MCP Server.
+2.  Name the Service: `causal-memory-mcp` (or `mcp-server`).
+3.  Configure Environment Variables:
+
+    ```bash
+    # CRITICAL - tells startup script to run MCP server
+    SERVICE_TYPE=mcp
+
+    # Required
+    OPENAI_API_KEY=your-openai-api-key-here
+    PORT=8001
+
+    # Database (should match REST API service)
+    DB_PATH=/app/data/causal_memory.db
+
+    # Optional (can copy from REST API service)
+    EMBEDDING_MODEL=all-MiniLM-L6-v2
+    LLM_MODEL=gpt-4
+    LLM_TEMPERATURE=0.1
+    MAX_POTENTIAL_CAUSES=7
+    SIMILARITY_THRESHOLD=0.6
+    TIME_DECAY_HOURS=168
+    ```
+4.  Generate a Public Domain for the `Causal-Memory-MCP` service in the Railway Dashboard, under the service's Settings -> Networking.
+5.  Verify `PORT` settings under Settings -> Deploy to ensure "Port" is NOT set (or set to `8001`), allowing Railway to auto-detect from the `PORT` environment variable.
 
 ### CLI Architecture
 - Argument parsing supports batch (`--add`, `--query`) and interactive modes
@@ -239,20 +267,115 @@ When modifying this codebase, prioritize maintaining the causal chain integrity 
 
 ### Workflow & Release Rules
 - Before syncing with the remote repository, always check the git status to ensure no local changes are unintentionally overwritten.
-- When the corresponding remote branch is gone, the AI should fetch the remote main branch and merge or rebase that into the local branch, while carefully preserving any local changes that haven’t been committed yet. Watch out for merge conflicts and handle untracked or modified files during the process. Stash local modifications before merging to avoid overwriting, and reset the working tree after a stash pop conflict to keep it clean while preserving the stash entry.
+- When the corresponding remote branch is gone, the AI should fetch the remote main branch and merge or rebase that into the local branch, while carefully preserving any local changes that haven’t been committed yet. Watch out for merge conflicts and handle untracked or modified files during the process. Stash local modifications before merging to avoid overwriting, and reset the working tree after merging to avoid overwriting, and reset the working tree after a stash pop conflict to keep it clean while preserving the stash entry.
 - The updated `.env.template` is now the detailed, user-facing config template and should be treated as a template (never commit secrets). Resolve any conflicts in `.env.template` and `causal_memory_core.py` by carefully merging changes.
 - During syncing, if a partial stash apply aborts due to conflicts, reset the working tree hard to HEAD (losing current modifications but safe because stash still holds them), then apply the stash again.
 - When syncing the repo and instructed to target "one master branch," the AI should stash all current changes (including untracked), fetch and merge updates from origin/main, then pop the stash to preserve local progress, and finally consider switching to or cleaning up branches to have a single master branch aligned with remote main.
 - When merging into a single branch (typically `main`): Stash all current changes (staged, unstaged, and untracked); switch to the `main` branch; fetch and merge the latest from `origin/main`; apply the stashed changes; resolve any merge conflicts, prioritizing changes in `main` if the context is unclear; and clean up any temporary branches.
+- When encountering file duplication issues, the AI should delete the existing file and recreate it with the final cleaned content to ensure no duplicates remain.
 
 ## TECH STACK
 
 - DuckDB >=0.9.0
 - sentence-transformers >=2.2.0
-- openai >=1.0.0
+- openai >=1.52.0, <1.108.0
+- httpx >=0.23.0, >=0.27.0
 - numpy >=1.24.0
+- pydantic >=2.12.5, <2.13.0, <2.42.0, >=2.5.0
 - python-dotenv >=1.0.0
-- pydantic >=2.5.0,<2.6.0
 - mcp >=1.0.0
-- starlette >=0.37.0
+- starlette >=0.50.0,<0.51.0, >=0.37.0
 - uvicorn >=0.29.0
+- fastapi >=0.122.0, >=0.104.0
+- slowapi >=0.1.9
+
+## PROJECT DOCUMENTATION & CONTEXT SYSTEM
+
+### Relevant File Locations
+- **Work Order Example:** `D:\Development\Causal Memory Core\WORK_ORDER_ALBEDO_CMC_QUERY.md` (Example work order location; paths may vary)
+- **Ascension Tracker:** `D:\Development\Causal Memory Core\tobefixed.md` (Example; paths may vary)
+
+### Version History
+
+*   **v1.1.1**
+    *   Added dual-service Railway deployment support (REST API + MCP Server)
+    *   Created `start_server.sh` to dynamically select service based on `SERVICE_TYPE` env var
+    *   Modified `Dockerfile` CMD to use `start_server.sh` for flexible deployment
+    *   Updated `railway.json` `startCommand` to leverage startup script
+    *   Added comprehensive Railway deployment guide (`docs/RAILWAY_DEPLOYMENT.md`)
+    *   Updated `_judge_causality` with upstream’s narrative-style prompt while keeping the Betty diagnostic logging wrappers
+
+### Coding Agent Guidelines
+
+#### Additional Notes
+
+*   During syncing, the AI should prioritize the changes of the main branch when resolving merge conflicts unless otherwise specified.
+*   After wiring in the `CausalAgentWrapper`, run the manual validation (ask it to summarize the last action) to confirm the new flow is working.
+
+### Integration Guidelines
+
+*   You are to integrate the following artifacts into your operational runtime immediately to comply with the Involuntary Memory Protocol:
+    *   `src/causal_memory_client.py`: A robust, production-ready Python client (sync & async) for communicating with the Railway-hosted CMC.
+    *   `src/causal_agent_wrapper.py`: A middleware class that wraps your LLM client. It forces a context query before you think and forces an action log after you act.
+    *   `src/causal_memory_core.py` (v1.1.2): The core logic now includes "Soft Link" detection for high-similarity events.
+    *   `src/mcp_server.py`: Now supports dual-mode operation (Stdio/HTTP) and exposes REST endpoints for the client library.
+*   Ensure `httpx` and `pydantic` are installed in your environment (`pip install -r requirements.txt`).
+*   Verify `CMC_API_URL` is set to `https://causal-memory-core-production.up.railway.app` (or your local equivalent).
+*   Verify `CMC_API_KEY` is present if required by the server configuration.
+*   You are to stop instantiating raw OpenAI clients. Instead, initialize the `CausalAgentWrapper`:
+
+    ```python
+    from src.causal_agent_wrapper import CausalAgentWrapper
+
+    # OLD WAY (Forbidden):
+    # client = OpenAI(...)
+    # response = client.chat.completions.create(...)
+
+    # NEW WAY (Mandatory):
+    agent = CausalAgentWrapper(system_name="Albedo", base_system_prompt="Your core instructions...")
+    response_text = agent.act("User query or command here")
+    ```
+*   Be aware that the Core now links events based on high semantic similarity (>0.85) even without explicit causal language.
+    *   Implication: Your sequential actions (e.g., "Read file X" -> "Edit file X") will be auto-linked as a workflow.
+    *   Action: Ensure your action descriptions in `agent.act()` are precise to take advantage of this.
+
+### Workflow & Release Rules
+
+- Before syncing with the remote repository, always check the git status to ensure no local changes are unintentionally overwritten.
+- When the corresponding remote branch is gone, the AI should fetch the remote main branch and merge or rebase that into the local branch, while carefully preserving any local changes that haven’t been committed yet. Watch out for merge conflicts and handle untracked or modified files during the process. Stash local modifications before merging to avoid overwriting, and reset the working tree after merging to avoid overwriting, and reset the working tree after a stash pop conflict to keep it clean while preserving the stash entry.
+- The updated `.env.template` is now the detailed, user-facing config template and should be treated as a template (never commit secrets). Resolve any conflicts in `.env.template` and `causal_memory_core.py` by carefully merging changes.
+- During syncing, if a partial stash apply aborts due to conflicts, reset the working tree hard to HEAD (losing current modifications but safe because stash still holds them), then apply the stash again.
+- When syncing the repo and instructed to target "one master branch," the AI should stash all current changes (including untracked), fetch and merge updates from origin/main, then pop the stash to preserve local progress, and finally consider switching to or cleaning up branches to have a single master branch aligned with remote main.
+- When merging into a single branch (typically `main`): Stash all current changes (staged, unstaged, and untracked); switch to the `main` branch; fetch and merge the latest from `origin/main`; apply the stashed changes; resolve any merge conflicts, prioritizing changes in `main` if the context is unclear; and clean up any temporary branches.
+- When encountering file duplication issues, the AI should delete the existing file and recreate it with the final cleaned content to ensure no duplicates remain.
+
+## TECH STACK
+
+- DuckDB >=0.9.0
+- sentence-transformers >=2.2.0
+- openai >=1.52.0, <1.108.0
+- httpx >=0.23.0, >=0.27.0
+- numpy >=1.24.0
+- pydantic >=2.12.5, <2.13.0, <2.42.0, >=2.5.0
+- python-dotenv >=1.0.0
+- mcp >=1.0.0
+- starlette >=0.50.0,<0.51.0, >=0.37.0
+- uvicorn >=0.29.0
+- fastapi >=0.122.0, >=0.104.0
+- slowapi >=0.1.9
+
+## PROJECT DOCUMENTATION & CONTEXT SYSTEM
+
+### Relevant File Locations
+- **Work Order Example:** `D:\Development\Causal Memory Core\WORK_ORDER_ALBEDO_CMC_QUERY.md` (Example work order location; paths may vary)
+- **Ascension Tracker:** `D:\Development\Causal Memory Core\tobefixed.md` (Example; paths may vary)
+
+### Version History
+
+*   **v1.1.1**
+    *   Added dual-service Railway deployment support (REST API + MCP Server)
+    *   Created `start_server.sh` to dynamically select service based on `SERVICE_TYPE` env var
+    *   Modified `Dockerfile` CMD to use `start_server.sh` for flexible deployment
+    *   Updated `railway.json` `startCommand` to leverage startup script
+    *   Added comprehensive Railway deployment guide (`docs/RAILWAY_DEPLOYMENT.md`)
+    *   Updated `_judge_causality` with upstream’s narrative-style prompt while keeping the Betty diagnostic logging wrappers

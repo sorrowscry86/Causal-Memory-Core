@@ -34,7 +34,7 @@ class TestConfig(unittest.TestCase):
                 
                 # Test default LLM settings
                 self.assertIsNone(Config.OPENAI_API_KEY)
-                self.assertEqual(Config.LLM_MODEL, 'gpt-3.5-turbo')
+                self.assertEqual(Config.LLM_MODEL, 'gpt-4')
                 self.assertEqual(Config.LLM_TEMPERATURE, 0.1)
                 
                 # Test default search settings
