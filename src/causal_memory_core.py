@@ -382,13 +382,10 @@ class CausalMemoryCore:
 
         for event_id, vitality, last_accessed, timestamp in rows:
             reference = last_accessed or timestamp
-            if hasattr(reference, 'tzinfo') and reference.tzinfo is None:
-                # DuckDB strips timezone info and stores in local wall time.
-                # Compare using a naive local-time "now" so the delta is correct.
-                now_cmp = datetime.now()
-            else:
-                now_cmp = now
-            hours_elapsed = (now_cmp - reference).total_seconds() / 3600
+            if reference.tzinfo is None:
+                # DuckDB returns TIMESTAMP as naive local time; convert to UTC-aware before delta
+                reference = reference.astimezone(timezone.utc)
+            hours_elapsed = (now - reference).total_seconds() / 3600
             current_vitality = vitality if vitality is not None else 1.0
             new_vitality = current_vitality * math.exp(-self.config.DECAY_RATE * hours_elapsed)
             new_expires_at = now + timedelta(hours=new_vitality * self.config.MAX_TTL_HOURS)
@@ -407,7 +404,10 @@ class CausalMemoryCore:
         for event_id in to_archive:
             self.conn.execute(
                 "INSERT INTO events_archive "
-                "SELECT *, ? AS archived_at, 'vitality_expired' AS archive_reason "
+                "(event_id, timestamp, effect_text, embedding, cause_id, relationship_text, "
+                "vitality, access_count, last_accessed, expires_at, archived_at, archive_reason) "
+                "SELECT event_id, timestamp, effect_text, embedding, cause_id, relationship_text, "
+                "vitality, access_count, last_accessed, expires_at, ?, 'vitality_expired' "
                 "FROM events WHERE event_id = ?",
                 [now, event_id],
             )
@@ -417,14 +417,15 @@ class CausalMemoryCore:
             "SELECT MIN(vitality), MAX(vitality), AVG(vitality), COUNT(*) FROM events"
         ).fetchone()
 
+        live_count = stats[3]
         return {
             "scanned": len(rows),
             "updated": len(updates),
             "archived": len(to_archive),
-            "live_count": stats[3],
-            "vitality_min": round(stats[0] or 0.0, 4),
-            "vitality_max": round(stats[1] or 0.0, 4),
-            "vitality_mean": round(stats[2] or 0.0, 4),
+            "live_count": live_count,
+            "vitality_min": round(stats[0], 4) if live_count > 0 else None,
+            "vitality_max": round(stats[1], 4) if live_count > 0 else None,
+            "vitality_mean": round(stats[2], 4) if live_count > 0 else None,
         }
 
     def _get_event_by_id(self, event_id: int) -> Optional[Event]:
