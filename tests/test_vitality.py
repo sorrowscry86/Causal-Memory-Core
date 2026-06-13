@@ -35,5 +35,48 @@ class TestVitalityConfig(unittest.TestCase):
         self.assertEqual(Config.MAINTENANCE_INTERVAL_HOURS, 6)
 
 
+class TestSchema(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
+        self.tmp_path = self.tmp.name
+        self.tmp.close()
+        os.unlink(self.tmp_path)
+        mock_llm = Mock()
+        mock_embedder = Mock()
+        mock_embedder.encode.return_value = np.array([0.1, 0.2, 0.3, 0.4])
+        self.core = CausalMemoryCore(
+            db_path=self.tmp_path,
+            llm_client=mock_llm,
+            embedding_model=mock_embedder,
+        )
+
+    def tearDown(self):
+        self.core.close()
+        if os.path.exists(self.tmp_path):
+            os.unlink(self.tmp_path)
+
+    def test_events_table_has_vitality_column(self):
+        cols = [r[0] for r in self.core.conn.execute(
+            "SELECT column_name FROM duckdb_columns() WHERE table_name='events'"
+        ).fetchall()]
+        self.assertIn('vitality', cols)
+        self.assertIn('access_count', cols)
+        self.assertIn('last_accessed', cols)
+        self.assertIn('expires_at', cols)
+
+    def test_events_archive_table_exists(self):
+        result = self.core.conn.execute(
+            "SELECT table_name FROM duckdb_tables() WHERE table_name='events_archive'"
+        ).fetchone()
+        self.assertIsNotNone(result)
+
+    def test_events_archive_has_archive_columns(self):
+        cols = [r[0] for r in self.core.conn.execute(
+            "SELECT column_name FROM duckdb_columns() WHERE table_name='events_archive'"
+        ).fetchall()]
+        self.assertIn('archived_at', cols)
+        self.assertIn('archive_reason', cols)
+
+
 if __name__ == '__main__':
     unittest.main()

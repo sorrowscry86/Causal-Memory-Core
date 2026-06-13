@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 """Causal Memory Core v1.1.2 with soft-link fallback and narrative recall."""
 
@@ -14,6 +14,7 @@ from typing import Any, List, Optional
 import duckdb
 import numpy as np
 from sentence_transformers import SentenceTransformer
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -112,6 +113,50 @@ class CausalMemoryCore:
             self.conn.execute("LOAD vss")
         except Exception:
             pass
+
+        # Vitality columns — idempotent via IF NOT EXISTS
+        # DuckDB does not support ADD COLUMN with NOT NULL/DEFAULT constraints,
+        # so we add nullable columns and back-fill defaults separately.
+        for col, col_type in [
+            ("vitality", "DOUBLE"),
+            ("access_count", "INTEGER"),
+            ("last_accessed", "TIMESTAMP"),
+            ("expires_at", "TIMESTAMP"),
+        ]:
+            try:
+                self.conn.execute(f"ALTER TABLE events ADD COLUMN IF NOT EXISTS {col} {col_type}")
+            except Exception:
+                pass
+        # Apply defaults for any rows that have NULLs in the new columns
+        self.conn.execute("UPDATE events SET vitality = 1.0 WHERE vitality IS NULL")
+        self.conn.execute("UPDATE events SET access_count = 0 WHERE access_count IS NULL")
+
+        # Back-fill rows inserted before this migration
+        max_ttl = self.config.MAX_TTL_HOURS
+        self.conn.execute(f"""
+            UPDATE events SET
+                last_accessed = timestamp,
+                expires_at = timestamp + INTERVAL '{max_ttl} hours'
+            WHERE last_accessed IS NULL
+        """)
+
+        # Archive table — events go here when vitality expires
+        self.conn.execute("""
+            CREATE TABLE IF NOT EXISTS events_archive (
+                event_id INTEGER PRIMARY KEY,
+                timestamp TIMESTAMP NOT NULL,
+                effect_text VARCHAR NOT NULL,
+                embedding DOUBLE[] NOT NULL,
+                cause_id INTEGER,
+                relationship_text VARCHAR,
+                vitality DOUBLE NOT NULL DEFAULT 1.0,
+                access_count INTEGER NOT NULL DEFAULT 0,
+                last_accessed TIMESTAMP,
+                expires_at TIMESTAMP,
+                archived_at TIMESTAMP NOT NULL,
+                archive_reason VARCHAR NOT NULL
+            )
+        """)
 
     def _initialize_llm(self):
         api_key = os.getenv("OPENAI_API_KEY")
