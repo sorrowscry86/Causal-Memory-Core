@@ -8,7 +8,8 @@ import os
 import sys
 from collections import OrderedDict
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+import math
 from typing import Any, List, Optional
 
 import duckdb
@@ -254,7 +255,7 @@ class CausalMemoryCore:
         embedding: List[float],
         effect_text: str,
     ) -> List[tuple[Event, float]]:
-        threshold_time = datetime.now() - timedelta(hours=self.time_decay_hours)
+        threshold_time = datetime.now(timezone.utc) - timedelta(hours=self.time_decay_hours)
         rows = self.conn.execute(
             "SELECT event_id, timestamp, effect_text, embedding, cause_id, relationship_text "
             "FROM events WHERE timestamp > ? ORDER BY timestamp DESC LIMIT 50",
@@ -308,7 +309,7 @@ class CausalMemoryCore:
             next_id = row[0]
             self.conn.execute("UPDATE _events_seq SET val = val + 1")
             return next_id
-        next_id = int(datetime.now().timestamp() * 1000)
+        next_id = int(datetime.now(timezone.utc).timestamp() * 1000)
         self.conn.execute("INSERT INTO _events_seq VALUES (?)", [next_id + 1])
         return next_id
 
