@@ -263,5 +263,78 @@ class TestAccessBoost(unittest.TestCase):
         self.core._apply_access_boost([])
 
 
+class TestMaintenanceSweep(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
+        self.tmp_path = self.tmp.name
+        self.tmp.close()
+        os.unlink(self.tmp_path)
+        mock_llm = Mock()
+        mock_llm.chat.completions.create.return_value = Mock(
+            choices=[Mock(message=Mock(content="No."))]
+        )
+        mock_embedder = Mock()
+        mock_embedder.encode.return_value = np.array([0.1, 0.2, 0.3, 0.4])
+        self.core = CausalMemoryCore(
+            db_path=self.tmp_path,
+            llm_client=mock_llm,
+            embedding_model=mock_embedder,
+        )
+
+    def tearDown(self):
+        self.core.close()
+        if os.path.exists(self.tmp_path):
+            os.unlink(self.tmp_path)
+
+    def _age_event(self, hours: int) -> None:
+        old = datetime.now(timezone.utc) - timedelta(hours=hours)
+        self.core.conn.execute("UPDATE events SET last_accessed = ?", [old])
+
+    def test_sweep_returns_expected_keys(self):
+        self.core.add_event("some event")
+        result = self.core.run_maintenance_sweep()
+        for key in ('scanned', 'updated', 'archived', 'live_count',
+                    'vitality_min', 'vitality_max', 'vitality_mean'):
+            self.assertIn(key, result)
+
+    def test_sweep_decays_old_event(self):
+        self.core.add_event("aging event")
+        self._age_event(1000)
+        self.core.run_maintenance_sweep()
+        row = self.core.conn.execute("SELECT vitality FROM events").fetchone()
+        if row:
+            expected = 1.0 * math.exp(-self.core.config.DECAY_RATE * 1000)
+            self.assertAlmostEqual(row[0], expected, places=4)
+
+    def test_sweep_archives_below_threshold(self):
+        self.core.add_event("dying event")
+        self.core.conn.execute("UPDATE events SET vitality = 0.04")
+        self._age_event(50000)
+        result = self.core.run_maintenance_sweep()
+        live = self.core.conn.execute("SELECT COUNT(*) FROM events").fetchone()[0]
+        archived = self.core.conn.execute("SELECT COUNT(*) FROM events_archive").fetchone()[0]
+        self.assertEqual(live, 0)
+        self.assertEqual(archived, 1)
+        self.assertEqual(result['archived'], 1)
+
+    def test_sweep_retains_healthy_event(self):
+        self.core.add_event("healthy event")
+        result = self.core.run_maintenance_sweep()
+        live = self.core.conn.execute("SELECT COUNT(*) FROM events").fetchone()[0]
+        self.assertEqual(live, 1)
+        self.assertEqual(result['archived'], 0)
+
+    def test_archive_contains_archive_columns(self):
+        self.core.add_event("dying event")
+        self.core.conn.execute("UPDATE events SET vitality = 0.04")
+        self._age_event(50000)
+        self.core.run_maintenance_sweep()
+        row = self.core.conn.execute(
+            "SELECT archived_at, archive_reason FROM events_archive"
+        ).fetchone()
+        self.assertIsNotNone(row[0])
+        self.assertEqual(row[1], 'vitality_expired')
+
+
 if __name__ == '__main__':
     unittest.main()

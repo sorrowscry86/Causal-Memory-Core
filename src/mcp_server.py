@@ -89,7 +89,16 @@ async def handle_list_tools() -> list[types.Tool]:
                 },
                 "required": ["query"]
             }
-        )
+        ),
+        types.Tool(
+            name="run_memory_maintenance",
+            description="Trigger a memory maintenance sweep. Applies vitality decay to all live events, archives events below the vitality threshold, and returns memory health statistics.",
+            inputSchema={
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        ),
     ]
 
 @server.call_tool()
@@ -147,6 +156,22 @@ async def handle_call_tool(name: str, arguments: Optional[dict]) -> list[types.T
                 text=response_with_mandate
             )]
             
+        elif name == "run_memory_maintenance":
+            result = memory_core.run_maintenance_sweep()
+            return [types.TextContent(
+                type="text",
+                text=(
+                    f"Memory maintenance complete.\n"
+                    f"Scanned: {result['scanned']} events\n"
+                    f"Updated: {result['updated']} events\n"
+                    f"Archived: {result['archived']} events\n"
+                    f"Live count: {result['live_count']}\n"
+                    f"Vitality — min: {result['vitality_min']}, "
+                    f"max: {result['vitality_max']}, "
+                    f"mean: {result['vitality_mean']}"
+                )
+            )]
+
         else:
             return [types.TextContent(
                 type="text",
@@ -204,6 +229,7 @@ async def _run_sse_server(port: str) -> None:
     app.add_route("/sse", handle_sse, methods=["GET"])
     app.add_route("/messages", handle_messages, methods=["POST"])
     app.add_route("/", handle_health, methods=["GET"])
+    app.add_route("/health", handle_health, methods=["GET"])
 
     config = uvicorn.Config(app, host="0.0.0.0", port=int(port), log_level="info")
     server_instance = uvicorn.Server(config)

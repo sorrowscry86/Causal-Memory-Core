@@ -371,6 +371,62 @@ class CausalMemoryCore:
                 [new_vitality, now, expires_at, event_id],
             )
 
+    def run_maintenance_sweep(self) -> dict:
+        now = datetime.now(timezone.utc)
+        rows = self.conn.execute(
+            "SELECT event_id, vitality, last_accessed, timestamp FROM events"
+        ).fetchall()
+
+        updates: List[tuple] = []
+        to_archive: List[int] = []
+
+        for event_id, vitality, last_accessed, timestamp in rows:
+            reference = last_accessed or timestamp
+            if hasattr(reference, 'tzinfo') and reference.tzinfo is None:
+                # DuckDB strips timezone info and stores in local wall time.
+                # Compare using a naive local-time "now" so the delta is correct.
+                now_cmp = datetime.now()
+            else:
+                now_cmp = now
+            hours_elapsed = (now_cmp - reference).total_seconds() / 3600
+            current_vitality = vitality if vitality is not None else 1.0
+            new_vitality = current_vitality * math.exp(-self.config.DECAY_RATE * hours_elapsed)
+            new_expires_at = now + timedelta(hours=new_vitality * self.config.MAX_TTL_HOURS)
+
+            if new_vitality < self.config.ARCHIVE_THRESHOLD:
+                to_archive.append(event_id)
+            else:
+                updates.append((new_vitality, new_expires_at, event_id))
+
+        for new_vitality, new_expires_at, event_id in updates:
+            self.conn.execute(
+                "UPDATE events SET vitality = ?, expires_at = ? WHERE event_id = ?",
+                [new_vitality, new_expires_at, event_id],
+            )
+
+        for event_id in to_archive:
+            self.conn.execute(
+                "INSERT INTO events_archive "
+                "SELECT *, ? AS archived_at, 'vitality_expired' AS archive_reason "
+                "FROM events WHERE event_id = ?",
+                [now, event_id],
+            )
+            self.conn.execute("DELETE FROM events WHERE event_id = ?", [event_id])
+
+        stats = self.conn.execute(
+            "SELECT MIN(vitality), MAX(vitality), AVG(vitality), COUNT(*) FROM events"
+        ).fetchone()
+
+        return {
+            "scanned": len(rows),
+            "updated": len(updates),
+            "archived": len(to_archive),
+            "live_count": stats[3],
+            "vitality_min": round(stats[0] or 0.0, 4),
+            "vitality_max": round(stats[1] or 0.0, 4),
+            "vitality_mean": round(stats[2] or 0.0, 4),
+        }
+
     def _get_event_by_id(self, event_id: int) -> Optional[Event]:
         row = self.conn.execute(
             "SELECT event_id, timestamp, effect_text, embedding, cause_id, relationship_text "
