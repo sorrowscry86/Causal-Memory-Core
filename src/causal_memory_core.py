@@ -247,7 +247,9 @@ class CausalMemoryCore:
             consequences.append(child)
             frontier = child
 
-        return self._format_chain_as_narrative(chain + consequences)
+        full_chain = chain + consequences
+        self._apply_access_boost([ev.event_id for ev in full_chain])
+        return self._format_chain_as_narrative(full_chain)
 
     def get_context(self, query_text: str) -> str:
         return self.query(query_text)
@@ -348,6 +350,24 @@ class CausalMemoryCore:
             "UPDATE events SET vitality = ?, expires_at = ? WHERE event_id = ?",
             [new_vitality, expires_at, event_id],
         )
+
+    def _apply_access_boost(self, event_ids: List[int]) -> None:
+        if not event_ids:
+            return
+        now = datetime.now(timezone.utc)
+        for event_id in event_ids:
+            row = self.conn.execute(
+                "SELECT vitality FROM events WHERE event_id = ?", [event_id]
+            ).fetchone()
+            if not row:
+                continue
+            new_vitality = min(1.0, row[0] + self.config.ACCESS_BOOST)
+            expires_at = now + timedelta(hours=new_vitality * self.config.MAX_TTL_HOURS)
+            self.conn.execute(
+                "UPDATE events SET vitality = ?, access_count = access_count + 1, "
+                "last_accessed = ?, expires_at = ? WHERE event_id = ?",
+                [new_vitality, now, expires_at, event_id],
+            )
 
     def _get_event_by_id(self, event_id: int) -> Optional[Event]:
         row = self.conn.execute(

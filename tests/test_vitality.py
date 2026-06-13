@@ -211,5 +211,57 @@ class TestAnchorScoring(unittest.TestCase):
         self.assertEqual(anchor.event_id, ids[1])
 
 
+class TestAccessBoost(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
+        self.tmp_path = self.tmp.name
+        self.tmp.close()
+        os.unlink(self.tmp_path)
+        mock_llm = Mock()
+        mock_llm.chat.completions.create.return_value = Mock(
+            choices=[Mock(message=Mock(content="No."))]
+        )
+        mock_embedder = Mock()
+        mock_embedder.encode.return_value = np.array([0.5, 0.5, 0.0, 0.0])
+        self.core = CausalMemoryCore(
+            db_path=self.tmp_path,
+            llm_client=mock_llm,
+            embedding_model=mock_embedder,
+        )
+
+    def tearDown(self):
+        self.core.close()
+        if os.path.exists(self.tmp_path):
+            os.unlink(self.tmp_path)
+
+    def test_query_increases_vitality(self):
+        self.core.add_event("retrievable memory event")
+        self.core.conn.execute("UPDATE events SET vitality = 0.5")
+        self.core.query("retrievable memory event")
+        row = self.core.conn.execute("SELECT vitality FROM events").fetchone()
+        self.assertAlmostEqual(row[0], 0.7, places=5)
+
+    def test_query_increments_access_count(self):
+        self.core.add_event("retrievable memory event")
+        self.core.query("retrievable memory event")
+        row = self.core.conn.execute("SELECT access_count FROM events").fetchone()
+        self.assertEqual(row[0], 1)
+
+    def test_query_updates_last_accessed(self):
+        self.core.add_event("retrievable memory event")
+        self.core.query("retrievable memory event")
+        updated = self.core.conn.execute("SELECT last_accessed FROM events").fetchone()[0]
+        self.assertIsNotNone(updated)
+
+    def test_access_boost_does_not_exceed_one(self):
+        self.core.add_event("retrievable memory event")
+        self.core.query("retrievable memory event")
+        row = self.core.conn.execute("SELECT vitality FROM events").fetchone()
+        self.assertLessEqual(row[0], 1.0)
+
+    def test_apply_access_boost_noop_for_empty_list(self):
+        self.core._apply_access_boost([])
+
+
 if __name__ == '__main__':
     unittest.main()
