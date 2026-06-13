@@ -122,5 +122,56 @@ class TestInsertEvent(unittest.TestCase):
         self.assertIsNotNone(row[0])
 
 
+class TestCausalBoost(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
+        self.tmp_path = self.tmp.name
+        self.tmp.close()
+        os.unlink(self.tmp_path)
+        self.mock_llm = Mock()
+        mock_embedder = Mock()
+        mock_embedder.encode.return_value = np.array([0.9, 0.1, 0.0, 0.0])
+        self.core = CausalMemoryCore(
+            db_path=self.tmp_path,
+            llm_client=self.mock_llm,
+            embedding_model=mock_embedder,
+        )
+
+    def tearDown(self):
+        self.core.close()
+        if os.path.exists(self.tmp_path):
+            os.unlink(self.tmp_path)
+
+    def test_apply_causal_boost_increases_vitality(self):
+        self.mock_llm.chat.completions.create.return_value = Mock(
+            choices=[Mock(message=Mock(content="No."))]
+        )
+        self.core.add_event("parent event")
+        parent_id = self.core.conn.execute("SELECT event_id FROM events").fetchone()[0]
+        self.core.conn.execute("UPDATE events SET vitality = 0.5 WHERE event_id = ?", [parent_id])
+
+        self.core._apply_causal_boost(parent_id)
+
+        new_vitality = self.core.conn.execute(
+            "SELECT vitality FROM events WHERE event_id = ?", [parent_id]
+        ).fetchone()[0]
+        self.assertAlmostEqual(new_vitality, 0.6, places=5)
+
+    def test_causal_boost_capped_at_one(self):
+        self.mock_llm.chat.completions.create.return_value = Mock(
+            choices=[Mock(message=Mock(content="No."))]
+        )
+        self.core.add_event("parent event")
+        parent_id = self.core.conn.execute("SELECT event_id FROM events").fetchone()[0]
+        self.core._apply_causal_boost(parent_id)
+        vitality = self.core.conn.execute(
+            "SELECT vitality FROM events WHERE event_id = ?", [parent_id]
+        ).fetchone()[0]
+        self.assertLessEqual(vitality, 1.0)
+
+    def test_causal_boost_noop_for_missing_event(self):
+        self.core._apply_causal_boost(99999)
+
+
 if __name__ == '__main__':
     unittest.main()

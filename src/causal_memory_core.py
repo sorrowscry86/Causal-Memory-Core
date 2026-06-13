@@ -218,7 +218,9 @@ class CausalMemoryCore:
                 logger.info("Soft link enforced (score %.3f) for event %s", score, cause.event_id)
                 break
 
-        self._insert_event(effect_text, embedding, cause_id, relationship_text)
+        new_event_id = self._insert_event(effect_text, embedding, cause_id, relationship_text)
+        if cause_id is not None:
+            self._apply_causal_boost(cause_id)
 
     def query(self, query_text: str) -> str:
         if not query_text or not query_text.strip():
@@ -332,6 +334,20 @@ class CausalMemoryCore:
              1.0, 0, now, expires_at],
         )
         return event_id
+
+    def _apply_causal_boost(self, event_id: int) -> None:
+        row = self.conn.execute(
+            "SELECT vitality FROM events WHERE event_id = ?", [event_id]
+        ).fetchone()
+        if not row:
+            return
+        new_vitality = min(1.0, row[0] + self.config.CAUSAL_BOOST)
+        now = datetime.now(timezone.utc)
+        expires_at = now + timedelta(hours=new_vitality * self.config.MAX_TTL_HOURS)
+        self.conn.execute(
+            "UPDATE events SET vitality = ?, expires_at = ? WHERE event_id = ?",
+            [new_vitality, expires_at, event_id],
+        )
 
     def _get_event_by_id(self, event_id: int) -> Optional[Event]:
         row = self.conn.execute(
