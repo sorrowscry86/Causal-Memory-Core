@@ -218,7 +218,7 @@ class CausalMemoryCore:
                 logger.info("Soft link enforced (score %.3f) for event %s", score, cause.event_id)
                 break
 
-        new_event_id = self._insert_event(effect_text, embedding, cause_id, relationship_text)
+        self._insert_event(effect_text, embedding, cause_id, relationship_text)
         if cause_id is not None:
             self._apply_causal_boost(cause_id)
 
@@ -343,7 +343,8 @@ class CausalMemoryCore:
         ).fetchone()
         if not row:
             return
-        new_vitality = min(1.0, row[0] + self.config.CAUSAL_BOOST)
+        current_vitality = row[0] if row[0] is not None else 1.0
+        new_vitality = min(1.0, current_vitality + self.config.CAUSAL_BOOST)
         now = datetime.now(timezone.utc)
         expires_at = now + timedelta(hours=new_vitality * self.config.MAX_TTL_HOURS)
         self.conn.execute(
@@ -361,7 +362,8 @@ class CausalMemoryCore:
             ).fetchone()
             if not row:
                 continue
-            new_vitality = min(1.0, row[0] + self.config.ACCESS_BOOST)
+            current_vitality = row[0] if row[0] is not None else 1.0
+            new_vitality = min(1.0, current_vitality + self.config.ACCESS_BOOST)
             expires_at = now + timedelta(hours=new_vitality * self.config.MAX_TTL_HOURS)
             self.conn.execute(
                 "UPDATE events SET vitality = ?, access_count = access_count + 1, "
@@ -393,7 +395,9 @@ class CausalMemoryCore:
             sim = float(np.dot(query_vec, emb) / denom)
             vitality = row[6] if row[6] is not None else 1.0
             final_score = sim * (0.7 + 0.3 * vitality)
-            newer = best_event and row[1] > best_event.timestamp
+            row_ts = row[1].replace(tzinfo=None) if row[1].tzinfo else row[1]
+            best_ts = best_event.timestamp.replace(tzinfo=None) if best_event and best_event.timestamp.tzinfo else (best_event.timestamp if best_event else None)
+            newer = best_event and row_ts > best_ts
             if (final_score > best_score) or (final_score == best_score and newer):
                 best_score = final_score
                 best_event = Event(row[0], row[1], row[2], row[3], row[4], row[5])
