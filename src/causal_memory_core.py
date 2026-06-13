@@ -319,13 +319,19 @@ class CausalMemoryCore:
         embedding: List[float],
         cause_id: Optional[int],
         relationship_text: Optional[str],
-    ) -> None:
+    ) -> int:
         event_id = self._reserve_event_id()
+        now = datetime.now(timezone.utc)
+        expires_at = now + timedelta(hours=self.config.MAX_TTL_HOURS)
         self.conn.execute(
-            "INSERT INTO events (event_id, timestamp, effect_text, embedding, cause_id, relationship_text) "
-            "VALUES (?, ?, ?, ?, ?, ?)",
-            [event_id, datetime.now(), effect_text, embedding, cause_id, relationship_text],
+            "INSERT INTO events "
+            "(event_id, timestamp, effect_text, embedding, cause_id, relationship_text, "
+            "vitality, access_count, last_accessed, expires_at) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            [event_id, now, effect_text, embedding, cause_id, relationship_text,
+             1.0, 0, now, expires_at],
         )
+        return event_id
 
     def _get_event_by_id(self, event_id: int) -> Optional[Event]:
         row = self.conn.execute(

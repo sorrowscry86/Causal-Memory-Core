@@ -78,5 +78,49 @@ class TestSchema(unittest.TestCase):
         self.assertIn('archive_reason', cols)
 
 
+class TestInsertEvent(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
+        self.tmp_path = self.tmp.name
+        self.tmp.close()
+        os.unlink(self.tmp_path)
+        self.mock_llm = Mock()
+        self.mock_llm.chat.completions.create.return_value = Mock(
+            choices=[Mock(message=Mock(content="No."))]
+        )
+        mock_embedder = Mock()
+        mock_embedder.encode.return_value = np.array([0.1, 0.2, 0.3, 0.4])
+        self.core = CausalMemoryCore(
+            db_path=self.tmp_path,
+            llm_client=self.mock_llm,
+            embedding_model=mock_embedder,
+        )
+
+    def tearDown(self):
+        self.core.close()
+        if os.path.exists(self.tmp_path):
+            os.unlink(self.tmp_path)
+
+    def test_new_event_starts_at_full_vitality(self):
+        self.core.add_event("test event")
+        row = self.core.conn.execute("SELECT vitality FROM events").fetchone()
+        self.assertEqual(row[0], 1.0)
+
+    def test_new_event_access_count_is_zero(self):
+        self.core.add_event("test event")
+        row = self.core.conn.execute("SELECT access_count FROM events").fetchone()
+        self.assertEqual(row[0], 0)
+
+    def test_new_event_expires_at_is_set(self):
+        self.core.add_event("test event")
+        row = self.core.conn.execute("SELECT expires_at FROM events").fetchone()
+        self.assertIsNotNone(row[0])
+
+    def test_new_event_last_accessed_is_set(self):
+        self.core.add_event("test event")
+        row = self.core.conn.execute("SELECT last_accessed FROM events").fetchone()
+        self.assertIsNotNone(row[0])
+
+
 if __name__ == '__main__':
     unittest.main()
