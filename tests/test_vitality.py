@@ -173,5 +173,43 @@ class TestCausalBoost(unittest.TestCase):
         self.core._apply_causal_boost(99999)
 
 
+class TestAnchorScoring(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
+        self.tmp_path = self.tmp.name
+        self.tmp.close()
+        os.unlink(self.tmp_path)
+        self.mock_llm = Mock()
+        self.mock_llm.chat.completions.create.return_value = Mock(
+            choices=[Mock(message=Mock(content="No."))]
+        )
+        self.mock_embedder = Mock()
+        self.core = CausalMemoryCore(
+            db_path=self.tmp_path,
+            llm_client=self.mock_llm,
+            embedding_model=self.mock_embedder,
+        )
+
+    def tearDown(self):
+        self.core.close()
+        if os.path.exists(self.tmp_path):
+            os.unlink(self.tmp_path)
+
+    def test_high_vitality_event_preferred_over_low_vitality(self):
+        self.mock_embedder.encode.return_value = np.array([1.0, 0.0, 0.0, 0.0])
+        self.core.add_event("event alpha")
+        self.core.add_event("event beta")
+
+        ids = [r[0] for r in self.core.conn.execute(
+            "SELECT event_id FROM events ORDER BY event_id"
+        ).fetchall()]
+        self.core.conn.execute("UPDATE events SET vitality = 0.1 WHERE event_id = ?", [ids[0]])
+        self.core.conn.execute("UPDATE events SET vitality = 0.9 WHERE event_id = ?", [ids[1]])
+
+        query_embedding = [1.0, 0.0, 0.0, 0.0]
+        anchor = self.core._find_most_relevant_event(query_embedding)
+        self.assertEqual(anchor.event_id, ids[1])
+
+
 if __name__ == '__main__':
     unittest.main()

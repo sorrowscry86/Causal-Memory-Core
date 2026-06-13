@@ -359,9 +359,10 @@ class CausalMemoryCore:
 
     def _find_most_relevant_event(self, embedding: List[float]) -> Optional[Event]:
         rows = self.conn.execute(
-            "SELECT event_id, timestamp, effect_text, embedding, cause_id, relationship_text FROM events"
+            "SELECT event_id, timestamp, effect_text, embedding, cause_id, relationship_text, vitality "
+            "FROM events"
         ).fetchall()
-        best_sim = -1.0
+        best_score = -1.0
         best_event: Optional[Event] = None
         query_vec = np.array(embedding, dtype=float)
         for row in rows:
@@ -370,11 +371,13 @@ class CausalMemoryCore:
             if denom == 0:
                 continue
             sim = float(np.dot(query_vec, emb) / denom)
+            vitality = row[6] if row[6] is not None else 1.0
+            final_score = sim * (0.7 + 0.3 * vitality)
             newer = best_event and row[1] > best_event.timestamp
-            if (sim > best_sim) or (sim == best_sim and newer):
-                best_sim = sim
-                best_event = Event(*row)
-        if best_event and best_sim >= self.similarity_threshold:
+            if (final_score > best_score) or (final_score == best_score and newer):
+                best_score = final_score
+                best_event = Event(row[0], row[1], row[2], row[3], row[4], row[5])
+        if best_event and best_score >= self.similarity_threshold:
             return best_event
         return None
 
