@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""Causal Memory Core v1.1.2 with soft-link fallback and narrative recall."""
+"""Causal Memory Core v1.2.0 — vitality-based forgetting algorithm."""
 
 import atexit
 import logging
