@@ -179,50 +179,56 @@ class TestSemanticSearchValidation(unittest.TestCase):
                 # Reset mocks for each test case
                 self.mock_llm.reset_mock()
                 self.mock_embedder.reset_mock()
-                
+
                 # Mock LLM that always finds causality (to test threshold filtering)
                 self.mock_llm.chat.completions.create.return_value = Mock(
                     choices=[Mock(message=Mock(content="First event caused second event."))]
                 )
-                
-                # Create fresh memory core with specific threshold
-                import config as config_mod
-                with patch.object(config_mod.Config, 'SIMILARITY_THRESHOLD', case['threshold']):
-                    # Also patch the actual config module before creating the memory core
-                    with patch('config.Config.SIMILARITY_THRESHOLD', case['threshold']):
-                        memory_core = CausalMemoryCore(
-                            db_path=self.temp_db_path,
-                            llm_client=self.mock_llm,
-                            embedding_model=self.mock_embedder
-                        )
-                
-                        # Set up embeddings
-                        self.mock_embedder.encode.side_effect = [
-                            np.array(case['embedding1']),
-                            np.array(case['embedding2'])
-                        ]
-                        
-                        # Add events
-                        memory_core.add_event("First event")
-                        memory_core.add_event("Second event")
-                        
-                        # Check causal linking
-                        events = memory_core.conn.execute("""
-                            SELECT cause_id FROM events ORDER BY event_id
-                        """).fetchall()
-                        
-                        if case['should_link']:
-                            self.assertIsNotNone(events[1][0], 
-                                f"Threshold {case['threshold']} should link events with similarity")
-                        else:
-                            self.assertIsNone(events[1][0],
-                                f"Threshold {case['threshold']} should not link events with low similarity")
-                        
-                        memory_core.close()
-                        
-                        # Clean up for next test
-                        if os.path.exists(self.temp_db_path):
-                            os.unlink(self.temp_db_path)
+
+                # Create fresh memory core — pass similarity_threshold directly to
+                # the constructor so env vars cannot interfere with the test.
+                memory_core = CausalMemoryCore(
+                    db_path=self.temp_db_path,
+                    llm_client=self.mock_llm,
+                    embedding_model=self.mock_embedder,
+                    similarity_threshold=case['threshold'],
+                )
+
+                # Set up embeddings
+                self.mock_embedder.encode.side_effect = [
+                    np.array(case['embedding1']),
+                    np.array(case['embedding2'])
+                ]
+
+                # Add events
+                memory_core.add_event("First event")
+                memory_core.add_event("Second event")
+
+                # Check causal linking
+                events = memory_core.conn.execute("""
+                    SELECT cause_id FROM events ORDER BY event_id
+                """).fetchall()
+
+                if case['should_link']:
+                    self.assertIsNotNone(events[1][0],
+                        f"Threshold {case['threshold']} should link events with similarity")
+                else:
+                    self.assertIsNone(events[1][0],
+                        f"Threshold {case['threshold']} should not link events with low similarity")
+
+                # Always close before unlinking to avoid WinError 32
+                # (file locked by DuckDB connection on Windows).
+                try:
+                    memory_core.close()
+                except Exception:
+                    pass
+
+                # Clean up for next test iteration
+                if os.path.exists(self.temp_db_path):
+                    try:
+                        os.unlink(self.temp_db_path)
+                    except Exception:
+                        pass
                     
     def test_context_retrieval_accuracy(self):
         """Test that context retrieval finds the most relevant events"""

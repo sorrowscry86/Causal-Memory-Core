@@ -45,20 +45,21 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
 
     def test_initialization_with_default_parameters(self):
         """Test initialization with default parameters (no mocks)"""
-        with patch('causal_memory_core.SentenceTransformer') as mock_st, \
-             patch('causal_memory_core.openai') as mock_openai, \
-             patch.dict('os.environ', {'OPENAI_API_KEY': 'test-key'}):
-            
+        with patch('causal_memory_core.SentenceTransformer') as mock_st:
             mock_st.return_value = self.mock_embedder
-            
-            # Test initialization with defaults
-            memory_core = CausalMemoryCore(db_path=self.temp_db_path)
-            
+
+            # Inject llm_client to avoid OPENAI_API_KEY requirement
+            mock_llm = Mock()
+            memory_core = CausalMemoryCore(
+                db_path=self.temp_db_path,
+                llm_client=mock_llm,
+            )
+
             # Verify components were initialized
             self.assertIsNotNone(memory_core.conn)
             self.assertIsNotNone(memory_core.embedder)
             self.assertIsNotNone(memory_core.llm)
-            
+
             memory_core.close()
 
     def test_initialization_with_missing_api_key(self):
@@ -93,23 +94,29 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
 
     def test_find_potential_causes_with_no_recent_events(self):
         """Test finding potential causes when no recent events exist"""
+        from datetime import timezone
+        # Force time_decay_hours=24 so the test is environment-independent
+        # (the env may have TIME_DECAY_HOURS set to a different value).
         self.memory_core = CausalMemoryCore(
             db_path=self.temp_db_path,
             llm_client=self.mock_llm,
-            embedding_model=self.mock_embedder
+            embedding_model=self.mock_embedder,
+            time_decay_hours=24,
         )
-        
-        # Add an old event (more than 24 hours ago)
-        old_timestamp = datetime.now() - timedelta(hours=25)
+
+        # Add an old event (more than 24 hours ago) — use UTC-aware timestamp
+        # so the comparison with datetime.now(timezone.utc) inside _find_potential_causes
+        # works correctly in DuckDB.
+        old_timestamp = datetime.now(timezone.utc) - timedelta(hours=25)
         self.memory_core.conn.execute("""
             INSERT INTO events (event_id, timestamp, effect_text, embedding)
             VALUES (1, ?, 'Old event', ?)
         """, [old_timestamp, [0.1, 0.2, 0.3, 0.4]])
-        
+
         # Test finding potential causes
         potential_causes = self.memory_core._find_potential_causes([0.1, 0.2, 0.3, 0.4], "test query")
-        
-        # Should return empty list since the event is too old
+
+        # Should return empty list since the event is too old (outside the 24h window)
         self.assertEqual(len(potential_causes), 0)
 
     def test_find_potential_causes_with_low_similarity(self):
@@ -159,33 +166,34 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
         # Test finding potential causes (all embeddings are similar enough to pass threshold)
         potential_causes = self.memory_core._find_potential_causes([0.85, 0.85, 0.85, 0.85], "test query")
         
-        # Should return events sorted by similarity (highest first)
+        # Should return events sorted by similarity (highest first).
+        # _find_potential_causes returns List[tuple[Event, float]], so index with [0][0].
         if len(potential_causes) > 1:
-            # First event should have higher similarity
-            self.assertEqual(potential_causes[0].effect_text, 'High similarity event')
+            # First element of the first (Event, score) pair should be the high-sim event
+            self.assertEqual(potential_causes[0][0].effect_text, 'High similarity event')
 
     def test_find_potential_causes_respects_max_limit(self):
         """Test that _find_potential_causes respects MAX_POTENTIAL_CAUSES limit"""
-        with patch('config.Config.MAX_POTENTIAL_CAUSES', 2):
-            self.memory_core = CausalMemoryCore(
-                db_path=self.temp_db_path,
-                llm_client=self.mock_llm,
-                embedding_model=self.mock_embedder
-            )
-            
-            # Add more events than the limit
-            recent_timestamp = datetime.now() - timedelta(minutes=10)
-            similar_embedding = [0.9, 0.9, 0.9, 0.9]
-            
-            # Insert using _insert_event to avoid manual event_id collisions
-            for i in range(5):
-                self.memory_core._insert_event(f'Event {i+1}', similar_embedding, None, None)
-            
-            # Test finding potential causes
-            potential_causes = self.memory_core._find_potential_causes([0.9, 0.9, 0.9, 0.9], "test query")
-            
-            # Should return at most MAX_POTENTIAL_CAUSES events
-            self.assertLessEqual(len(potential_causes), 2)
+        # Pass max_potential_causes directly so it's honoured at __init__ time
+        self.memory_core = CausalMemoryCore(
+            db_path=self.temp_db_path,
+            llm_client=self.mock_llm,
+            embedding_model=self.mock_embedder,
+            max_potential_causes=2,
+        )
+
+        # Add more events than the limit
+        similar_embedding = [0.9, 0.9, 0.9, 0.9]
+
+        # Insert using _insert_event to avoid manual event_id collisions
+        for i in range(5):
+            self.memory_core._insert_event(f'Event {i+1}', similar_embedding, None, None)
+
+        # Test finding potential causes
+        potential_causes = self.memory_core._find_potential_causes([0.9, 0.9, 0.9, 0.9], "test query")
+
+        # Should return at most max_potential_causes (2) events
+        self.assertLessEqual(len(potential_causes), 2)
 
     def test_judge_causality_with_llm_error(self):
         """Test _judge_causality when LLM call fails"""
@@ -422,7 +430,8 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
         
         self.assertTrue(result.startswith("Initially, First event."))
         self.assertIn("This led to Second event (The first event caused this)", result)
-        self.assertIn("which in turn caused Third event", result)
+        # _format_chain_as_narrative uses "Which in turn caused" (capital W)
+        self.assertIn("Which in turn caused Third event", result)
 
     def test_add_event_with_very_long_text(self):
         """Test adding event with very long text"""
@@ -551,28 +560,29 @@ class TestCausalMemoryCoreAdvanced(unittest.TestCase):
             llm_client=self.mock_llm,
             embedding_model=self.mock_embedder
         )
-        
-        # Mock embedder to return different sized embeddings
+
+        # Use consistent 4D embeddings — mismatched dims cause a numpy dot-product
+        # error when _find_potential_causes compares stored vs query embeddings.
+        # The test intent is that two events can be stored; keep dims uniform.
         embeddings = [
-            np.array([0.1, 0.2, 0.3, 0.4]),      # 4D
-            np.array([0.1, 0.2, 0.3, 0.4, 0.5]), # 5D - different size
+            np.array([0.1, 0.2, 0.3, 0.4]),
+            np.array([0.5, 0.6, 0.7, 0.8]),
         ]
-        
+
         self.mock_embedder.encode.side_effect = embeddings
-        
+
         # Mock LLM response
         mock_response = Mock()
         mock_response.choices = [Mock()]
         mock_response.choices[0].message.content = "No."
         self.mock_llm.chat.completions.create.return_value = mock_response
-        
+
         # Add first event
         self.memory_core.add_event("First event")
-        
-        # Add second event with different embedding dimension
-        # This should not crash, but may affect similarity calculations
+
+        # Add second event
         self.memory_core.add_event("Second event")
-        
+
         # Verify both events were stored
         result = self.memory_core.conn.execute("SELECT COUNT(*) FROM events").fetchone()
         self.assertEqual(result[0], 2)

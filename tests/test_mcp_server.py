@@ -53,34 +53,40 @@ class TestMCPServer(unittest.TestCase):
         async def run_test():
             tools = await mcp_server.handle_list_tools()
             
-            # Should return exactly 2 tools
-            self.assertEqual(len(tools), 2)
-            
+            # Should return exactly 3 tools (add_event, query, run_memory_maintenance)
+            self.assertEqual(len(tools), 3)
+
             # Check add_event tool
-            add_event_tool = next((tool for tool in tools 
+            add_event_tool = next((tool for tool in tools
                                   if tool.name == "add_event"), None)
             self.assertIsNotNone(add_event_tool)
             self.assertEqual(add_event_tool.name, "add_event")
             self.assertIn("Add a new event", add_event_tool.description)
-            
+
             # Check input schema for add_event
             schema = add_event_tool.inputSchema
             self.assertEqual(schema["type"], "object")
             self.assertIn("effect", schema["properties"])
             self.assertEqual(schema["required"], ["effect"])
-            
+
             # Check query tool
-            query_tool = next((tool for tool in tools 
+            query_tool = next((tool for tool in tools
                               if tool.name == "query"), None)
             self.assertIsNotNone(query_tool)
             self.assertEqual(query_tool.name, "query")
             self.assertIn("Query the causal memory", query_tool.description)
-            
+
             # Check input schema for query
             schema = query_tool.inputSchema
             self.assertEqual(schema["type"], "object")
             self.assertIn("query", schema["properties"])
             self.assertEqual(schema["required"], ["query"])
+
+            # Check run_memory_maintenance tool (added in v1.2.0)
+            maintenance_tool = next((tool for tool in tools
+                                     if tool.name == "run_memory_maintenance"), None)
+            self.assertIsNotNone(maintenance_tool)
+            self.assertEqual(maintenance_tool.name, "run_memory_maintenance")
 
         # Run the async test
         asyncio.run(run_test())
