@@ -2,10 +2,10 @@
   "mcpServers": {
     "causal-memory-core": {
       "command": "python",
-      "args": ["src/mcp_server.py"],
-      "cwd": "d:/Development/Causal Memory Core",
+      "args": ["C:\\Users\\Wykeve\\Projects\\The Great Library\\07_Systems\\Ongoing\\CMC\\Causal-Memory-Core\\src\\mcp_server.py"],
+      "cwd": "C:\\Users\\Wykeve\\Projects\\The Great Library\\07_Systems\\Ongoing\\CMC\\Causal-Memory-Core",
       "env": {
-        "OPENAI_API_KEY": "your_openai_api_key_here",
+        "OPENAI_API_KEY": "see .env",
         "OPENAI_BASE_URL": "",
         "DB_PATH": "causal_memory.db",
         "EMBEDDING_MODEL": "all-MiniLM-L6-v2",
