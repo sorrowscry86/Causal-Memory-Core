@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 
+## [1.2.0] - 2026-06-21 - Vitality Memory System + vcL2l Integration
+
+### Added
+- **Vitality-Based Forgetting Algorithm**: Every event carries a `vitality` score (0–1). Events decay exponentially over time via `run_memory_maintenance()`. Retrieved events get a `+0.2` access boost; causally-cited events get a `+0.1` causal boost. Events below `ARCHIVE_THRESHOLD` (default 0.05) are moved to `events_archive` — archived, not deleted.
+- **`events_archive` table**: Separate DuckDB table for low-vitality events. Preserves history without polluting active retrieval.
+- **`run_memory_maintenance` MCP tool**: Triggers vitality decay sweep. Returns stats: `{scanned, updated, archived, live_count, vitality_min, vitality_max, vitality_mean}`.
+- **Vitality integration in anchor scoring**: Anchor selection for `query()` now uses 70% semantic similarity + 30% vitality score.
+- **vcL2l Integration** (additive — no breaking changes):
+  - `query_as_ref(query_text, ref_id)`: Query memory and receive result as a vcL2l CONTEXT_REF ref dict, ready to cite in agent completion chains.
+  - `add_event_chain(chain_wire)`: Accept a vcL2l wire-format chain, extract learning-flagged REASONING_TRACE steps, store as causal memory events.
+
+### Changed
+- **Vitality columns added to `events` table**: `vitality DOUBLE`, `access_count INTEGER`, `last_accessed TIMESTAMP`, `expires_at TIMESTAMP`. Existing databases will need migration (add columns with defaults: `vitality=1.0`, `access_count=0`).
+- **`_insert_event` now returns `event_id`** (int) for internal use.
+- **Anchor selection scoring updated**: 70/30 semantic/vitality weighting.
+
+### Configuration
+New constants in `config.py`: `DECAY_RATE`, `ACCESS_BOOST`, `CAUSAL_BOOST`, `MAX_TTL_HOURS`, `ARCHIVE_THRESHOLD`, `MAINTENANCE_INTERVAL_HOURS`.
+
+### Tests
+- 175 tests passing (163 pre-existing + 12 new vcL2l integration tests)
+- New: `tests/test_vitality.py`, `tests/test_vcl2l_integration.py`
+
+---
+
 ## [1.1.2] - November 2024 - Narrative Continuity Enhancement
 
 ### Added

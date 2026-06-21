@@ -1,4 +1,4 @@
-# 🧠 Causal Memory Core v1.1.1
+# 🧠 Causal Memory Core v1.2.0
 
 ![Causal Memory Core Logo](https://img.shields.io/badge/🧠-Causal%20Memory%20Core-blue?style=for-the-badge&labelColor=1a1a1a)
 
@@ -32,6 +32,42 @@ Causal Memory Core transforms flat event lists into interconnected causal narrat
 - **🤖 OpenAI Integration**: Leverages GPT models for intelligent event analysis
 - **🐳 Docker Support**: Production-ready containerization with docker-compose
 - **🔒 Optional Authentication**: Secure your API with optional API key authentication
+- **🔄 Vitality-Based Forgetting**: Events decay exponentially over time. Retrieved events get a vitality boost. Causally-cited events get a boost. Events below the archive threshold are automatically archived — not deleted. Memory stays useful instead of growing forever.
+
+## 🔄 Vitality Memory System
+
+CMC v1.2.0 introduces a vitality-based forgetting algorithm. Every event has a `vitality` score (0–1). Events that aren't accessed decay toward zero over time. Events that are queried or cited as causes get vitality boosts. When vitality drops below the archive threshold, events move to a separate archive table — they aren't deleted, just deprioritized.
+
+### How it works
+
+| Mechanism | Effect |
+|---|---|
+| Time decay | `vitality = vitality × exp(-DECAY_RATE × hours_elapsed)` on each maintenance sweep |
+| Query boost | `+0.2` vitality each time an event is returned by `query()` |
+| Causal boost | `+0.1` vitality when an event is linked as a cause of a new event |
+| Archive | Events with `vitality < 0.05` move to `events_archive` table |
+
+### Configuration
+
+```python
+# config.py defaults
+DECAY_RATE = 0.001            # per hour
+ACCESS_BOOST = 0.2            # query retrieval boost
+CAUSAL_BOOST = 0.1            # causal link boost
+MAX_TTL_HOURS = 8760          # 1 year max TTL
+ARCHIVE_THRESHOLD = 0.05      # archive below this vitality
+MAINTENANCE_INTERVAL_HOURS = 6
+```
+
+### Triggering maintenance
+
+```python
+# Via MCP tool
+memory.run_memory_maintenance()
+
+# Returns:
+# {scanned, updated, archived, live_count, vitality_min, vitality_max, vitality_mean}
+```
 
 ## 🚀 Quick Start
 
@@ -238,8 +274,11 @@ The system exposes two primary tools via Model Context Protocol:
   - Chronological narrative formatting
   - Input validation (raises ValueError for empty/whitespace queries)
   - LRU embedding cache for performance
+- **`run_memory_maintenance()`**: Triggers vitality decay sweep and archives low-vitality events. Returns health stats.
+- **`query_as_ref`** — query memory and return result as a vcL2l CONTEXT_REF ref dict (for agent chain integration)
+- **`add_event_chain`** — store a vcL2l chain's learning steps directly as causal memory events
 
-Both methods are production-ready and operational in both local and Railway deployments.
+Both core methods are production-ready and operational in both local and Railway deployments.
 
 Perfect for AI agents that need persistent memory with causal reasoning capabilities.
 
