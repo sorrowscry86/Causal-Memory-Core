@@ -53,8 +53,9 @@ class TestMCPServer(unittest.TestCase):
         async def run_test():
             tools = await mcp_server.handle_list_tools()
             
-            # Should return exactly 3 tools (add_event, query, run_memory_maintenance)
-            self.assertEqual(len(tools), 3)
+            # Should return exactly 5 tools
+            # (add_event, query, run_memory_maintenance, query_as_ref, add_event_chain)
+            self.assertEqual(len(tools), 5)
 
             # Check add_event tool
             add_event_tool = next((tool for tool in tools

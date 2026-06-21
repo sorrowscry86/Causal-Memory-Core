@@ -99,6 +99,39 @@ async def handle_list_tools() -> list[types.Tool]:
                 "required": []
             }
         ),
+        types.Tool(
+            name="query_as_ref",
+            description="Query the causal memory and return the result wrapped as a vcL2L CONTEXT_REF ref dict suitable for embedding in a vcL2L chain. Returns an error dict if no relevant context is found.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "The query to search for in memory."
+                    },
+                    "ref_id": {
+                        "type": "string",
+                        "description": "Identifier for the ref dict (default: CR-001).",
+                        "default": "CR-001"
+                    }
+                },
+                "required": ["query"]
+            }
+        ),
+        types.Tool(
+            name="add_event_chain",
+            description="Accept a vcL2L wire-format chain dict, extract the key learning step from the REASONING_TRACE frame, and store it as a causal memory event.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "chain": {
+                        "type": "object",
+                        "description": "A vcL2L wire-format chain dict with a 'frames' key."
+                    }
+                },
+                "required": ["chain"]
+            }
+        ),
     ]
 
 @server.call_tool()
@@ -170,6 +203,37 @@ async def handle_call_tool(name: str, arguments: Optional[dict]) -> list[types.T
                     f"max: {result['vitality_max']}, "
                     f"mean: {result['vitality_mean']}"
                 )
+            )]
+
+        elif name == "query_as_ref":
+            import json as _json
+            query = arguments.get("query")
+            if not query:
+                return [types.TextContent(
+                    type="text",
+                    text="Error: 'query' parameter is required"
+                )]
+            ref_id = arguments.get("ref_id", "CR-001")
+            result = memory_core.query_as_ref(query, ref_id)
+            logger.info(f"query_as_ref: {result}")
+            return [types.TextContent(
+                type="text",
+                text=_json.dumps(result, default=str)
+            )]
+
+        elif name == "add_event_chain":
+            import json as _json
+            chain_wire = arguments.get("chain")
+            if chain_wire is None:
+                return [types.TextContent(
+                    type="text",
+                    text="Error: 'chain' parameter is required"
+                )]
+            result = memory_core.add_event_chain(chain_wire)
+            logger.info(f"add_event_chain: {result}")
+            return [types.TextContent(
+                type="text",
+                text=_json.dumps(result, default=str)
             )]
 
         else:

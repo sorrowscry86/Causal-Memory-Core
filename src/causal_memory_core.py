@@ -16,6 +16,18 @@ import duckdb
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
+import sys as _sys
+_VCL2L_DIR = r"C:\Users\Wykeve\Projects\The Great Library\vcL2l"
+if _VCL2L_DIR not in _sys.path:
+    _sys.path.insert(0, _VCL2L_DIR)
+try:
+    from vcl2l import make_ref as _make_ref, validate_chain as _validate_chain
+    _VALIDATION_AVAILABLE = True
+except ImportError:
+    _make_ref = None
+    _validate_chain = None
+    _VALIDATION_AVAILABLE = False
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -489,6 +501,62 @@ class CausalMemoryCore:
         if periodic:
             narrative += " " + " ".join(periodic)
         return narrative
+
+    def query_as_ref(self, query_text: str, ref_id: str = "CR-001") -> dict:
+        """Query memory and wrap the result as a vcL2L CONTEXT_REF ref dict.
+
+        Returns an error dict if no context is found or if the vcL2L library is
+        unavailable, otherwise returns the make_ref() dict.
+        """
+        result = self.query(query_text)
+        no_context_phrases = ("No relevant context", "No causal chain")
+        if not result or any(phrase in result for phrase in no_context_phrases):
+            return {"error": "no_context", "message": result}
+        if _make_ref is None:
+            return {"error": "vcl2l_unavailable", "message": "vcL2L library could not be imported"}
+        return _make_ref(ref_id, "tool_output", result[:256], resolved=True, staleness="fresh")
+
+    def add_event_chain(self, chain_wire: dict) -> dict:
+        """Accept a vcL2L wire-format chain, extract the key learning step, and
+        store it as a causal memory event.
+
+        Returns a result dict with keys ``event_id``, ``extracted_text``, and
+        ``chain_id`` on success, or an error dict on failure.
+        """
+        if not isinstance(chain_wire, dict) or "frames" not in chain_wire:
+            return {"error": "invalid_chain", "message": "chain_wire must be a dict with a 'frames' key"}
+
+        if _VALIDATION_AVAILABLE and _validate_chain is not None:
+            ok, errors = _validate_chain(chain_wire)
+            if not ok:
+                return {"error": "invalid_chain", "message": str(errors)}
+
+        frames = chain_wire["frames"]
+        reasoning_frame = next(
+            (f for f in frames if f.get("opcode") == "REASONING_TRACE"), None
+        )
+        if reasoning_frame is None:
+            return {
+                "error": "missing_reasoning_trace",
+                "message": "chain must contain REASONING_TRACE frame",
+            }
+
+        steps = reasoning_frame.get("steps", [])
+        # Prefer a step flagged "learning", fall back to first step
+        learning_step = next(
+            (s for s in steps if "learning" in s.get("flags", [])), None
+        )
+        chosen_step = learning_step if learning_step is not None else (steps[0] if steps else None)
+        if chosen_step is None:
+            return {"error": "missing_reasoning_trace", "message": "REASONING_TRACE frame has no steps"}
+
+        # Schema field is "output"; accept "description" as a fallback for
+        # hand-crafted chains that pre-date the strict schema enforcement.
+        event_text = chosen_step.get("output") or chosen_step.get("description", "")
+        self.add_event(event_text)
+
+        chain_id = chain_wire.get("_chain_id", "unknown")
+        return {"event_id": None, "extracted_text": event_text, "chain_id": chain_id}
 
     def close(self) -> None:
         try:
